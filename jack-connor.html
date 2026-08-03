@@ -1,0 +1,2011 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dr. Jack Connor — O Feiticeiro Supremo do Destino</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070b09;
+    --bg-elevated:#0c130f;
+    --bg-panel:#0a100c;
+    --emerald-deep:#0b3d2e;
+    --emerald:#12664a;
+    --emerald-glow:#3ee0a0;
+    --gold:#cda45e;
+    --gold-bright:#f0d38a;
+    --parchment:#e9e4d6;
+    --ink-muted:#8fa79c;
+    --line:rgba(205,164,94,0.16);
+    --line-strong:rgba(205,164,94,0.35);
+    --scarlet:#8a2140;
+    --scarlet-bright:#c23a5e;
+    --theme-accent:var(--emerald-glow);
+    --theme-accent-soft:rgba(62,224,160,0.16);
+    --theme-accent-strong:rgba(62,224,160,0.25);
+    --theme-accent-alt:var(--gold-bright);
+    --theme-highlight:rgba(194,58,94,0.14);
+    --theme-line:rgba(205,164,94,0.16);
+    --theme-title:var(--gold-bright);
+    --theme-muted:var(--ink-muted);
+    --theme-cursor-a:rgba(240,211,138,0.95);
+    --theme-cursor-b:rgba(62,224,160,0.45);
+    --theme-cursor-text:#07110c;
+  }
+  body.theme-jack{
+    --theme-accent:var(--emerald-glow);
+    --theme-accent-soft:rgba(62,224,160,0.16);
+    --theme-accent-strong:rgba(62,224,160,0.25);
+    --theme-accent-alt:var(--gold-bright);
+    --theme-highlight:rgba(194,58,94,0.14);
+    --theme-line:rgba(205,164,94,0.16);
+    --theme-title:var(--gold-bright);
+    --theme-muted:var(--ink-muted);
+    --theme-cursor-a:rgba(240,211,138,0.95);
+    --theme-cursor-b:rgba(62,224,160,0.45);
+    --theme-cursor-text:#07110c;
+  }
+  body.theme-scarlet{
+    --theme-accent:var(--scarlet-bright);
+    --theme-accent-soft:rgba(194,58,94,0.18);
+    --theme-accent-strong:rgba(255,93,120,0.26);
+    --theme-accent-alt:#ffd1dc;
+    --theme-highlight:rgba(255,209,220,0.16);
+    --theme-line:rgba(194,58,94,0.24);
+    --theme-title:#ffd1dc;
+    --theme-muted:#d9a3b1;
+    --theme-cursor-a:rgba(255,209,220,0.95);
+    --theme-cursor-b:rgba(194,58,94,0.45);
+    --theme-cursor-text:#17070a;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--parchment);
+    font-family:'Spectral', serif;
+    line-height:1.6;
+    position:relative;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:'';
+    position:fixed; inset:-10%;
+    background:
+      radial-gradient(circle at 20% 20%, var(--theme-accent-soft), transparent 28%),
+      radial-gradient(circle at 80% 20%, var(--theme-highlight), transparent 30%),
+      radial-gradient(circle at 50% 80%, rgba(205,164,94,0.12), transparent 34%);
+    filter:blur(70px);
+    animation:auraDrift 18s ease-in-out infinite alternate;
+    pointer-events:none;
+    z-index:0;
+    transition:background 0.7s ease;
+  }
+  body::after{
+    content:'';
+    position:fixed; inset:0;
+    background-image:radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
+    background-size:26px 26px;
+    opacity:0.08;
+    mix-blend-mode:screen;
+    pointer-events:none;
+    z-index:0;
+  }
+  .intro-veil{
+    position:fixed; inset:0; z-index:100;
+    background:radial-gradient(circle at center, rgba(7,11,9,0.9) 0%, rgba(4,6,5,0.98) 45%, rgba(1,2,2,1) 100%);
+    display:grid; place-items:center; pointer-events:none; opacity:0;
+    animation:introReveal 2.6s ease forwards;
+  }
+  .intro-veil::before,
+  .intro-veil::after{
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(circle, rgba(62,224,160,0.22) 0%, transparent 45%, transparent 100%);
+    animation:introPulse 2.2s ease-out forwards;
+    filter:blur(26px);
+  }
+  .intro-veil::after{ animation-delay:0.35s; background:radial-gradient(circle, rgba(240,211,138,0.16) 0%, transparent 55%, transparent 100%); }
+  .intro-title{
+    font-family:'Marcellus', serif; font-size:clamp(1.7rem, 3.2vw, 2.7rem);
+    letter-spacing:0.18em; text-transform:uppercase; color:var(--gold-bright);
+    text-shadow:0 0 24px rgba(240,211,138,0.24);
+    opacity:0; transform:translateY(18px) scale(0.96);
+    animation:introText 1.8s ease 0.25s forwards;
+  }
+  @keyframes introReveal{0%{opacity:1;}70%{opacity:1;}100%{opacity:0; visibility:hidden;}}
+  @keyframes introPulse{0%{transform:scale(0.72); opacity:0.8;}100%{transform:scale(1.28); opacity:0;}}
+  @keyframes introText{0%{opacity:0; transform:translateY(18px) scale(0.96);}100%{opacity:1; transform:translateY(0) scale(1);}}
+  #spell-layer{
+    position:fixed; inset:0; width:100%; height:100%;
+    pointer-events:none; z-index:45; mix-blend-mode:screen; opacity:0.95;
+  }
+  .rune-fall{
+    position:fixed; inset:0; pointer-events:none; z-index:35; overflow:hidden;
+  }
+  .rune-fall .rune{
+    position:absolute; font-size:1rem; color:var(--theme-accent);
+    opacity:0.18; animation:driftRune 10s linear infinite;
+    text-shadow:0 0 8px var(--theme-accent-soft);
+  }
+  @keyframes driftRune{
+    0% { transform:translate3d(0, -20px, 0) rotate(0deg); opacity:0; }
+    10% { opacity:0.18; }
+    100% { transform:translate3d(0, 110vh, 0) rotate(360deg); opacity:0; }
+  }
+  .magic-cursor{
+    position:fixed;
+    width:34px;
+    height:34px;
+    pointer-events:none;
+    transform:translate(-50%, -50%);
+    mix-blend-mode:screen;
+    z-index:60;
+    transition:transform 0.18s ease, opacity 0.18s ease;
+    opacity:0.95;
+  }
+  .magic-cursor::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    border-radius:8px;
+    background:linear-gradient(135deg, var(--theme-cursor-a), var(--theme-cursor-b));
+    box-shadow:0 0 16px rgba(62,224,160,0.3);
+    transform:rotate(-35deg);
+    border:1px solid rgba(255,255,255,0.3);
+  }
+  .magic-cursor::after{
+    content:'✦';
+    position:absolute;
+    top:50%; left:50%;
+    transform:translate(-50%, -50%);
+    font-size:1rem;
+    color:var(--theme-cursor-text);
+    font-weight:700;
+    text-shadow:0 0 6px rgba(255,255,255,0.6);
+  }
+  .magic-cursor.active{
+    transform:translate(-50%, -50%) scale(1.16);
+    opacity:1;
+  }
+  .magic-cursor.active::before{
+    background:linear-gradient(135deg, color-mix(in srgb, var(--theme-cursor-a) 80%, #ffffff 20%), color-mix(in srgb, var(--theme-cursor-b) 80%, #ffffff 20%));
+    box-shadow:0 0 18px rgba(194,58,94,0.35);
+  }
+  .magic-cursor.active::after{ content:'✧'; }
+  .spell-text{
+    position:fixed; z-index:70; pointer-events:none; font-family:'Marcellus', serif; font-size:clamp(0.8rem, 1.2vw, 1rem);
+    letter-spacing:0.2em; text-transform:uppercase; color:var(--gold-bright); text-shadow:0 0 16px var(--theme-accent-soft);
+    transform:translate(-50%, -50%); opacity:0; animation:spellTextRise 1.2s ease forwards;
+  }
+  .arcane-title{
+    background:linear-gradient(90deg, var(--theme-title), var(--theme-accent), var(--gold-bright));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    text-shadow:0 0 18px var(--theme-accent-soft);
+  }
+  .hover-arcane{
+    box-shadow:0 0 26px var(--theme-accent-soft);
+    border-color:var(--theme-accent-strong);
+    transform:translateY(-2px);
+  }
+  .hero::before,
+  .hero::after{
+    transform:translate3d(var(--hero-shift-x, 0px), var(--hero-shift-y, 0px), 0);
+    transition:transform 0.24s ease-out;
+  }
+  @keyframes spellTextRise{0%{opacity:0; transform:translate(-50%, -50%) translateY(6px) scale(0.95);}40%{opacity:1;}100%{opacity:0; transform:translate(-50%, -50%) translateY(-34px) scale(1.04);}}
+  @keyframes auraDrift{0%{transform:translate3d(-1.2%, -1.2%, 0) scale(1);}100%{transform:translate3d(1.2%, 1.2%, 0) scale(1.06);}}
+  ::selection{ background:var(--emerald-deep); color:var(--gold-bright); }
+
+  a{ color:inherit; }
+
+  /* ---------- Nav ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:1.1rem 4vw;
+    background:rgba(7,11,9,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .brand{
+    font-family:'Marcellus', serif;
+    font-size:1rem;
+    color:var(--gold-bright);
+    letter-spacing:0.04em;
+    text-decoration:none;
+  }
+  nav .brand span{ color:var(--emerald-glow); }
+  nav ul{
+    list-style:none;
+    display:flex; gap:1.6rem;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+  }
+  nav ul li a{
+    text-decoration:none;
+    color:var(--ink-muted);
+    transition:color 0.3s ease;
+    white-space:nowrap;
+  }
+  nav ul li a:hover{ color:var(--emerald-glow); }
+  nav .back{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.68rem;
+    color:var(--ink-muted);
+    text-decoration:none;
+    border:1px solid var(--line);
+    padding:0.4rem 0.8rem;
+  }
+  #navlinks{ display:flex; }
+  .navtoggle{ display:none; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    min-height:92vh;
+    display:flex; align-items:center;
+    overflow:hidden;
+    padding:6vh 6vw;
+    isolation:isolate;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:0;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(62,224,160,0.16), transparent 24%),
+      radial-gradient(circle at 80% 30%, rgba(194,58,94,0.14), transparent 26%),
+      linear-gradient(120deg, rgba(240,211,138,0.06), transparent 50%, rgba(255,255,255,0.04));
+    animation:spellBloom 6s ease-in-out infinite alternate;
+    z-index:0;
+    pointer-events:none;
+  }
+  @keyframes spellBloom{0%{transform:scale(0.97) translate3d(-2%, -1%, 0); opacity:0.8;}100%{transform:scale(1.04) translate3d(2%, 1%, 0); opacity:1;}}
+  canvas#fateweb{
+    position:absolute; inset:0; width:100%; height:100%;
+    z-index:0; opacity:0.6;
+  }
+  .hero::after{
+    content:'';
+    position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse at 70% 50%, rgba(18,102,74,0.24), transparent 60%),
+      linear-gradient(135deg, rgba(62,224,160,0.08), transparent 40%, rgba(194,58,94,0.1) 100%);
+    z-index:0;
+  }
+  .hero-inner{
+    position:relative; z-index:2;
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    align-items:center;
+    gap:4vw;
+    max-width:1300px;
+    margin:0 auto;
+    width:100%;
+  }
+  .hero-text .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    font-size:0.7rem;
+    color:var(--theme-accent);
+    margin-bottom:1.6rem;
+    display:block;
+  }
+  .hero-text h1{
+    font-family:'Marcellus', serif;
+    font-weight:400;
+    font-size:clamp(2.4rem, 5vw, 4.2rem);
+    color:var(--theme-title);
+    line-height:1.08;
+    text-shadow:0 0 50px rgba(62,224,160,0.2);
+    animation:entranceGlow 1.4s ease both;
+    position:relative;
+  }
+  .hero-text h1::after{
+    content:''; position:absolute; inset:-8px -12px; border-radius:999px;
+    border:1px solid transparent; opacity:0.35;
+    background:radial-gradient(circle, var(--theme-accent-soft) 0%, transparent 68%);
+    filter:blur(6px);
+    pointer-events:none;
+    animation:glowPulse 2.8s ease-in-out infinite;
+  }
+  .hero-text .eyebrow, .hero-text .title, .hero-text p.lede, .hero-quote{ animation:fadeUp 1.2s ease both; }
+  .hero-text .eyebrow{ animation-delay:0.1s; }
+  .hero-text .title{ animation-delay:0.2s; }
+  .hero-text p.lede{ animation-delay:0.3s; }
+  .hero-quote{ animation-delay:0.4s; }
+  @keyframes entranceGlow{0%{opacity:0; transform:translateY(22px) scale(0.98); text-shadow:none;}100%{opacity:1; transform:translateY(0) scale(1); text-shadow:0 0 50px rgba(62,224,160,0.2);}}
+  @keyframes fadeUp{0%{opacity:0; transform:translateY(16px);}100%{opacity:1; transform:translateY(0);}}
+  @keyframes glowPulse{0%,100%{opacity:0.28; transform:scale(0.96);}50%{opacity:0.65; transform:scale(1.03);}}
+  .hero-text .title{
+    margin-top:1.1rem;
+    font-size:1.15rem;
+    font-style:italic;
+    color:var(--parchment);
+    opacity:0.85;
+  }
+  .hero-text p.lede{
+    margin-top:1.6rem;
+    max-width:52ch;
+    color:var(--ink-muted);
+    font-size:1.02rem;
+  }
+  .hero-quote{
+    margin-top:2.2rem;
+    padding-left:1.2rem;
+    border-left:2px solid var(--theme-accent);
+    font-family:'Marcellus', serif;
+    font-size:1.05rem;
+    color:var(--theme-title);
+    font-style:italic;
+    text-shadow:0 0 10px var(--theme-accent-soft);
+  }
+  .hero .hero-inner::before{
+    content:'';
+    position:absolute; inset:-8%; border:1px solid rgba(62,224,160,0.22); border-radius:50%;
+    transform:rotate(12deg); animation:spin 20s linear infinite; opacity:0.3; z-index:-1;
+  }
+  @keyframes spin{to{transform:rotate(372deg);}}
+  .portrait-frame{
+    position:relative;
+    justify-self:center;
+  }
+  .portrait-frame img{
+    width:100%;
+    max-width:420px;
+    display:block;
+    filter:saturate(1.05) contrast(1.05);
+    border:1px solid var(--line-strong);
+    transition:filter 0.6s ease, transform 0.6s ease;
+    animation:pulseFrame 4s ease-in-out infinite alternate;
+    box-shadow:0 0 0 1px rgba(255,255,255,0.02), 0 0 36px rgba(62,224,160,0.16);
+  }
+  .portrait-frame::before{
+    content:'';
+    position:absolute; inset:-14px;
+    border:1px solid var(--line);
+    pointer-events:none;
+  }
+  @keyframes pulseFrame{from{transform:translateY(0px) scale(1);}to{transform:translateY(-6px) scale(1.01);}}
+  .portrait-frame:hover img{
+    filter:saturate(1.3) contrast(1.1) drop-shadow(0 0 30px rgba(62,224,160,0.45));
+  }
+  .magic-gallery-grid{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1.2rem; margin-top:1rem;
+  }
+  .magic-card{
+    border:1px solid var(--line); background:linear-gradient(180deg, rgba(12,19,15,0.95), rgba(8,12,10,0.95));
+    overflow:hidden; position:relative; padding:0.7rem;
+    opacity:0; transform:translateY(24px) scale(0.96);
+    transition:opacity 0.55s ease, transform 0.55s ease, border-color 0.3s ease, box-shadow 0.35s ease;
+    box-shadow:0 0 0 rgba(62,224,160,0);
+  }
+  .magic-card:hover{
+    border-color:var(--theme-accent-strong);
+    box-shadow:0 0 28px var(--theme-accent-soft);
+  }
+  .magic-card.visible{ opacity:1; transform:translateY(0) scale(1); }
+  .magic-card::before{
+    content:''; position:absolute; inset:0; background:linear-gradient(135deg, transparent 0%, var(--theme-accent-soft) 50%, transparent 100%); pointer-events:none;
+  }
+  .magic-card img{ width:100%; display:block; aspect-ratio:4 / 5; object-fit:contain; background:rgba(255,255,255,0.03); }
+  .magic-card .gallery-caption{ padding:0.9rem 0.2rem 0.2rem; font-family:'JetBrains Mono', monospace; font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold-bright); }
+  .artifact-trigger{
+    display:inline-flex; align-items:center; justify-content:center; gap:0.7rem;
+    margin-top:1.2rem; padding:0.9rem 1.1rem; border:1px solid var(--theme-accent-strong);
+    background:linear-gradient(135deg, rgba(12,19,15,0.95), rgba(7,11,9,0.95));
+    color:var(--theme-title); font-family:'JetBrains Mono', monospace;
+    font-size:0.74rem; letter-spacing:0.16em; text-transform:uppercase;
+    cursor:pointer; transition:transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .artifact-trigger:hover{ transform:translateY(-2px); box-shadow:0 0 16px var(--theme-accent-soft); border-color:var(--theme-accent); }
+  .artifact-trigger .sigil{ font-size:1rem; color:var(--theme-accent); }
+  .portrait-cap{
+    margin-top:0.9rem;
+    text-align:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.1em;
+    color:var(--ink-muted);
+    text-transform:uppercase;
+  }
+
+  /* ---------- Sections ---------- */
+  section{
+    max-width:1100px;
+    margin:0 auto;
+    padding:7vh 6vw 6vh;
+    position:relative;
+    z-index:1;
+    overflow:hidden;
+  }
+  .reveal-section{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal-section.is-visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+  .reveal-section::before{
+    content:'';
+    position:absolute; inset:-2px;
+    border:1px solid transparent;
+    border-radius:18px;
+    background:linear-gradient(135deg, transparent, var(--theme-accent-soft), transparent);
+    opacity:0;
+    transform:scale(0.96);
+    transition:opacity 0.7s ease, transform 0.7s ease;
+    pointer-events:none;
+  }
+  .reveal-section.is-visible::before{
+    opacity:0.85;
+    transform:scale(1);
+  }
+  section + section{ border-top:1px solid var(--line); }
+  .section-head{ margin-bottom:2.2rem; }
+  .section-head .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    font-size:0.68rem;
+    color:var(--theme-accent);
+    display:block;
+    margin-bottom:1rem;
+  }
+  .section-head h2{
+    font-family:'Marcellus', serif;
+    font-weight:400;
+    font-size:clamp(1.8rem, 3.4vw, 2.6rem);
+    color:var(--theme-title);
+    text-shadow:0 0 18px var(--theme-accent-soft);
+    position:relative;
+    display:inline-block;
+  }
+  .section-head h2::after{
+    content:''; position:absolute; inset:auto auto -6px 0; width:100%; height:1px;
+    background:linear-gradient(90deg, var(--theme-accent), transparent);
+    opacity:0.7;
+    filter:blur(1px);
+  }
+  .section-head p{
+    margin-top:1rem;
+    color:var(--theme-muted);
+    max-width:65ch;
+    text-shadow:0 0 8px var(--theme-accent-soft);
+  }
+
+  /* Origem */
+  .origem-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:3rem;
+  }
+  .origem-grid p{ margin-bottom:1.2rem; color:var(--parchment); opacity:0.92; }
+  .stat-pair{
+    display:flex; flex-direction:column; gap:1rem;
+  }
+  .stat-box{
+    border:1px solid var(--line);
+    padding:1.3rem 1.5rem;
+    background:var(--bg-panel);
+  }
+  .stat-box .label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.65rem;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:var(--emerald-glow);
+    margin-bottom:0.5rem;
+    display:block;
+  }
+  .stat-box .value{ font-family:'Marcellus', serif; font-size:1.05rem; color:var(--gold-bright); }
+
+  /* Eyes of Fate */
+  .eyes-panel{
+    background:linear-gradient(160deg, var(--bg-elevated), #060a08);
+    border:1px solid var(--line-strong);
+    padding:2.2rem;
+  }
+  .eyes-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:1.4rem;
+    margin-top:1rem;
+  }
+  .eye-power{
+    border-left:2px solid var(--gold);
+    padding-left:1.2rem;
+  }
+  .eye-power h3{
+    font-family:'Marcellus', serif;
+    font-size:1.05rem;
+    color:var(--parchment);
+    font-weight:400;
+    margin-bottom:0.5rem;
+  }
+  .eye-power p{ color:var(--ink-muted); font-size:0.92rem; }
+  .eye-power .mech{
+    display:block;
+    margin-top:0.6rem;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.75rem;
+    color:var(--emerald-glow);
+  }
+  .fate-motto{
+    margin-top:2.4rem;
+    text-align:center;
+    font-family:'Marcellus', serif;
+    font-size:1.3rem;
+    font-style:italic;
+    color:var(--gold-bright);
+    padding-top:1.6rem;
+    border-top:1px solid var(--line);
+  }
+
+  /* Grimoire / spells */
+  .grau-group{ margin-bottom:2.6rem; }
+  .grau-title{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--gold);
+    padding-bottom:0.6rem;
+    margin-bottom:1.2rem;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+  }
+  details.spell{
+    border:1px solid var(--line);
+    background:var(--bg-panel);
+    margin-bottom:0.8rem;
+  }
+  details.spell + details.spell{ margin-top:0.8rem; }
+  details.spell summary{
+    list-style:none;
+    cursor:pointer;
+    padding:1.1rem 1.4rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:1rem;
+    font-family:'Marcellus', serif;
+    font-size:1.05rem;
+    color:var(--parchment);
+  }
+  details.spell summary::-webkit-details-marker{ display:none; }
+  details.spell summary::after{
+    content:'+';
+    font-family:'JetBrains Mono', monospace;
+    color:var(--emerald-glow);
+    font-size:1.1rem;
+    transition:transform 0.3s ease;
+    flex-shrink:0;
+  }
+  details.spell[open] summary::after{ transform:rotate(45deg); }
+  details.spell .spell-body{
+    padding:0 1.4rem 1.4rem;
+    color:var(--ink-muted);
+    font-size:0.95rem;
+  }
+  .spell-body p{ margin-bottom:0.6rem; }
+
+  /* Special large spell (Ruptura dos Mil Destinos) */
+  .grand-spell{
+    border:1px solid var(--gold);
+    background:linear-gradient(160deg, var(--bg-elevated), #080d0a);
+    padding:2.4rem;
+    margin-top:1rem;
+  }
+  .grand-spell .g-eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--emerald-glow);
+    margin-bottom:0.6rem;
+    display:block;
+  }
+  .grand-spell h3{
+    font-family:'Marcellus', serif;
+    font-size:1.7rem;
+    color:var(--gold-bright);
+    font-weight:400;
+    margin-bottom:1.2rem;
+  }
+  .statline{
+    display:flex; flex-wrap:wrap; gap:0.7rem;
+    margin-bottom:1.6rem;
+  }
+  .statline span{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.04em;
+    border:1px solid var(--line-strong);
+    padding:0.35rem 0.7rem;
+    color:var(--parchment);
+  }
+  .grand-spell h4{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin:1.4rem 0 0.6rem;
+  }
+  .grand-spell p, .grand-spell li{ color:var(--ink-muted); font-size:0.95rem; }
+  .grand-spell ul{ padding-left:1.2rem; margin-bottom:0.6rem; }
+  .toggle-fav{
+    margin-top:1.8rem;
+    border-top:1px solid var(--line);
+    padding-top:1.6rem;
+  }
+  .fav-badge{
+    display:inline-block;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.65rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--scarlet-bright);
+    border:1px solid var(--scarlet-bright);
+    padding:0.3rem 0.6rem;
+    margin-bottom:0.9rem;
+  }
+
+  /* Level abilities timeline */
+  .level-track{ position:relative; padding-left:2.6rem; display:grid; gap:1.2rem; }
+  .level-track::before{
+    content:'';
+    position:absolute; left:0.58rem; top:0.4rem; bottom:0.4rem;
+    width:1px; background:linear-gradient(180deg, var(--theme-accent), transparent);
+    opacity:0.7;
+  }
+  .level-node{
+    position:relative;
+    padding:1.2rem 1.3rem 1.1rem;
+    border:1px solid rgba(205,164,94,0.18);
+    background:linear-gradient(135deg, rgba(12,19,15,0.95), rgba(7,11,9,0.95));
+    box-shadow:0 0 0 rgba(62,224,160,0); transition:transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .level-node:hover{
+    transform:translateX(4px);
+    border-color:var(--theme-accent-strong);
+    box-shadow:0 0 22px var(--theme-accent-soft);
+  }
+  .level-node:last-child{ margin-bottom:0; }
+  .level-node::before{
+    content:'';
+    position:absolute; left:-2.05rem; top:1.15rem;
+    width:10px; height:10px; border-radius:50%;
+    background:var(--emerald-glow);
+    box-shadow:0 0 12px rgba(62,224,160,0.85);
+  }
+  .level-node .lvl-tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.7rem;
+    letter-spacing:0.15em;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin-bottom:0.85rem;
+    display:block;
+  }
+  .ability{
+    margin-bottom:0.9rem;
+    padding:0.8rem 0.9rem;
+    border-left:2px solid var(--theme-accent);
+    background:rgba(255,255,255,0.025);
+    border-radius:0 8px 8px 0;
+  }
+  .ability:last-child{ margin-bottom:0; }
+  .ability h4{
+    font-family:'Marcellus', serif;
+    font-weight:400;
+    font-size:1.02rem;
+    color:var(--parchment);
+    margin-bottom:0.3rem;
+  }
+  .ability p{ color:var(--ink-muted); font-size:0.92rem; }
+  .prereq{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.68rem;
+    color:var(--emerald-glow);
+    display:block;
+    margin-top:0.3rem;
+  }
+
+  /* Weapon */
+  .weapon-hero{
+    text-align:center;
+    margin-bottom:3rem;
+  }
+  .weapon-hero .wname{
+    font-family:'Marcellus', serif;
+    font-size:clamp(1.6rem,3vw,2.2rem);
+    color:var(--gold-bright);
+  }
+  .weapon-hero .wstat{
+    margin-top:0.8rem;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.8rem;
+    color:var(--ink-muted);
+  }
+  .weapon-list{ display:flex; flex-direction:column; gap:1rem; }
+  .tip-box{
+    margin-top:2.6rem;
+    border-top:1px solid var(--line);
+    padding-top:2rem;
+  }
+  .tip-box h4{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:1.2rem;
+  }
+  .tip{ margin-bottom:0.9rem; font-size:0.92rem; color:var(--ink-muted); }
+  .tip b{ color:var(--parchment); font-weight:500; }
+
+  /* Combos / Path of power */
+  .path-track{
+    display:grid;
+    gap:1.4rem;
+  }
+  .path-tier{
+    border:1px solid var(--line);
+    background:var(--bg-panel);
+    padding:1.8rem 2rem;
+  }
+  .path-tier .tier-range{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.15em;
+    color:var(--emerald-glow);
+    text-transform:uppercase;
+    display:block;
+    margin-bottom:0.5rem;
+  }
+  .path-tier h3{
+    font-family:'Marcellus', serif;
+    font-weight:400;
+    font-size:1.3rem;
+    color:var(--gold-bright);
+    margin-bottom:0.9rem;
+  }
+  .path-tier.scarlet-tier{
+    position:relative;
+    overflow:hidden;
+    border-color:rgba(194,58,94,0.28);
+    background:linear-gradient(135deg, rgba(20,10,12,0.95), rgba(9,8,9,0.95));
+  }
+  .path-tier.scarlet-tier::before{
+    content:''; position:absolute; inset:-1px;
+    background:linear-gradient(120deg, transparent 0%, rgba(255,93,120,0.16) 45%, transparent 100%);
+    transform:translateX(-100%);
+    transition:transform 0.8s ease;
+    pointer-events:none;
+  }
+  .path-tier.scarlet-tier.is-active::before{ transform:translateX(100%); }
+  .path-tier.scarlet-tier.is-active,
+  .combo-card.scarlet-card.is-active,
+  .role-card.scarlet-role.is-active{
+    box-shadow:0 0 24px rgba(194,58,94,0.16);
+    transform:translateY(-2px);
+  }
+  .path-tier dl{ display:grid; grid-template-columns:auto 1fr; gap:0.4rem 1rem; font-size:0.9rem; }
+  .path-tier dt{ font-family:'JetBrains Mono', monospace; font-size:0.68rem; color:var(--gold); text-transform:uppercase; letter-spacing:0.06em; padding-top:0.15rem;}
+  .path-tier dd{ color:var(--ink-muted); }
+
+  .combo-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+    gap:1.2rem;
+    margin-top:3rem;
+  }
+  .combo-card{
+    border:1px solid var(--line);
+    padding:1.3rem 1.5rem;
+    background:var(--bg-panel);
+  }
+  .combo-card .arrow{ color:var(--emerald-glow); }
+  .combo-card p{ font-size:0.9rem; color:var(--ink-muted); margin-top:0.4rem; }
+  .combo-card.scarlet-card{
+    border-color:rgba(194,58,94,0.26);
+    background:linear-gradient(135deg, rgba(20,10,12,0.95), rgba(9,8,9,0.95));
+  }
+  .combo-card.scarlet-card .arrow{ color:var(--scarlet-bright); }
+  .role-row{
+    margin-top:2.4rem;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1.2rem;
+  }
+  .role-card{
+    border-left:2px solid var(--gold);
+    padding-left:1rem;
+  }
+  .role-card h4{ font-family:'Marcellus', serif; font-weight:400; color:var(--parchment); margin-bottom:0.3rem; }
+  .role-card p{ font-size:0.88rem; color:var(--ink-muted); }
+  .role-card.scarlet-role{ border-left-color:var(--scarlet-bright); }
+
+  /* Protocol */
+  .protocol{
+    background:linear-gradient(160deg, #0a0705, #070b09 60%);
+    border:1px solid var(--scarlet);
+    padding:2.6rem;
+    position:relative;
+  }
+  .protocol::before{
+    content:'CLASSIFICADO';
+    position:absolute; top:1rem; right:1.4rem;
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.6rem;
+    letter-spacing:0.2em;
+    color:var(--scarlet-bright);
+    opacity:0.7;
+  }
+  .protocol h3{
+    font-family:'Marcellus', serif;
+    font-weight:400;
+    font-size:1.4rem;
+    color:var(--scarlet-bright);
+    margin-bottom:0.4rem;
+  }
+  .protocol .sub{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.7rem;
+    color:var(--ink-muted);
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    margin-bottom:1.8rem;
+    display:block;
+  }
+  .protocol-step{ margin-bottom:1.6rem; }
+  .protocol-step .num{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--scarlet-bright);
+    font-size:0.85rem;
+    margin-right:0.5rem;
+  }
+  .protocol-step h4{
+    font-family:'Marcellus', serif;
+    font-weight:400;
+    color:var(--parchment);
+    display:inline;
+    font-size:1.05rem;
+  }
+  .protocol-step p{ margin-top:0.5rem; color:var(--ink-muted); font-size:0.92rem; }
+  .combo-list{ margin-top:0.6rem; padding-left:1.2rem; }
+  .combo-list li{ color:var(--ink-muted); font-size:0.9rem; margin-bottom:0.4rem; }
+  .combo-list b{ color:var(--parchment); }
+
+  /* Scarlet Witch companion */
+  .companion{
+    display:grid;
+    grid-template-columns:0.85fr 1.15fr;
+    gap:4vw;
+    align-items:center;
+  }
+  .companion-portrait{ position:relative; overflow:hidden; border:1px solid rgba(138,33,64,0.5); }
+  .companion-portrait img{
+    width:100%;
+    display:block;
+    border:1px solid rgba(138,33,64,0.5);
+    filter:saturate(1.05) contrast(1.06);
+    position:relative; z-index:1;
+    box-shadow:0 0 38px rgba(194,58,94,0.15);
+  }
+  .companion-portrait::before{
+    content:'';
+    position:absolute; inset:-14px;
+    border:1px solid rgba(138,33,64,0.3);
+  }
+  .companion-portrait.alice-stage .magic-canvas,
+  .portrait-frame.connor-stage .magic-canvas{
+    position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none;
+  }
+  .portrait-frame.connor-stage,
+  .companion-portrait.alice-stage{
+    isolation:isolate;
+  }
+  .portrait-frame.connor-stage img,
+  .companion-portrait.alice-stage img{
+    position:relative; z-index:1;
+  }
+  .companion-portrait::after{
+    content:'';
+    position:absolute; inset:0;
+    background:linear-gradient(120deg, rgba(255,93,120,0.08), transparent 45%, rgba(255,209,220,0.12));
+    z-index:2; pointer-events:none;
+  }
+  .companion-text .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    font-size:0.68rem;
+    color:var(--scarlet-bright);
+    display:block;
+    margin-bottom:1rem;
+  }
+  .companion-text h2{
+    font-family:'Marcellus', serif;
+    font-weight:400;
+    font-size:clamp(1.8rem,3.2vw,2.4rem);
+    color:var(--parchment);
+    margin-bottom:1.4rem;
+  }
+  .companion-text p{ color:var(--ink-muted); margin-bottom:1.1rem; }
+  .companion-note{
+    margin-top:1.6rem;
+    padding:1rem 1.3rem;
+    border-left:2px solid var(--scarlet-bright);
+    background:rgba(138,33,64,0.06);
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.75rem;
+    color:var(--ink-muted);
+    line-height:1.7;
+  }
+  .scarlet-showcase{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:1rem;
+    margin-top:2rem;
+  }
+  .scarlet-showcase .showcase-card{
+    border:1px solid rgba(194,58,94,0.24);
+    background:linear-gradient(180deg, rgba(20,10,12,0.95), rgba(8,7,8,0.95));
+    padding:0.8rem;
+    position:relative;
+    overflow:hidden;
+  }
+  .scarlet-showcase .showcase-card img{
+    width:100%; display:block; aspect-ratio:4 / 5; object-fit:cover; object-position:center;
+    border:1px solid rgba(255,255,255,0.06);
+  }
+  .scarlet-showcase .showcase-card .label{
+    margin-top:0.7rem; font-family:'JetBrains Mono', monospace; font-size:0.68rem; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--scarlet-bright);
+  }
+  .scarlet-showcase .showcase-card .desc{
+    margin-top:0.35rem; font-size:0.88rem; color:var(--ink-muted);
+  }
+  .scarlet-gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+    gap:1rem;
+    margin-top:2rem;
+  }
+  .scarlet-gallery .magic-card{
+    padding:0.55rem;
+    opacity:0;
+    transform:translateY(22px) scale(0.96);
+  }
+  .scarlet-gallery .magic-card.visible{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+  .scarlet-gallery img{
+    aspect-ratio:4 / 5;
+    object-fit:contain;
+    object-position:center;
+    background:rgba(255,255,255,0.03);
+  }
+  .cauldron-trigger{
+    display:inline-flex; align-items:center; justify-content:center; gap:0.7rem;
+    margin-top:1.2rem; padding:0.9rem 1.1rem; border:1px solid var(--theme-accent-strong);
+    background:linear-gradient(135deg, rgba(20,10,12,0.96), rgba(8,7,8,0.96));
+    color:var(--theme-title); font-family:'JetBrains Mono', monospace;
+    font-size:0.74rem; letter-spacing:0.16em; text-transform:uppercase;
+    cursor:pointer; transition:transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    animation:floatPulse 2.6s ease-in-out infinite;
+  }
+  .cauldron-trigger:hover{ transform:translateY(-2px); box-shadow:0 0 18px var(--theme-accent-soft); border-color:var(--theme-accent); }
+  @keyframes floatPulse{0%,100%{transform:translateY(0); box-shadow:0 0 0 rgba(194,58,94,0);}50%{transform:translateY(-3px); box-shadow:0 0 20px rgba(194,58,94,0.16);}}
+  .cauldron-trigger .sigil{ font-size:1rem; color:var(--scarlet-bright); }
+
+  footer{
+    text-align:center;
+    padding:5vh 6vw 7vh;
+    color:var(--ink-muted);
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.7rem;
+    letter-spacing:0.1em;
+    border-top:1px solid var(--line);
+  }
+  footer a{ color:var(--gold); text-decoration:none; }
+
+  @media (max-width: 860px){
+    nav ul{ display:none; }
+    .hero-inner{ grid-template-columns:1fr; text-align:center; }
+    .hero-text p.lede, .hero-quote{ margin-left:auto; margin-right:auto; }
+    .portrait-frame{ order:-1; max-width:280px; margin:0 auto; }
+    .origem-grid{ grid-template-columns:1fr; }
+    .eyes-grid{ grid-template-columns:1fr; }
+    .companion{ grid-template-columns:1fr; }
+    .companion-portrait{ max-width:320px; margin:0 auto; }
+    .role-row{ grid-template-columns:1fr; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    canvas#fateweb{ display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="intro-veil" aria-hidden="true"><div class="intro-title">O Feiticeiro do Destino</div></div>
+<div class="rune-fall" aria-hidden="true"></div>
+<canvas id="spell-layer" aria-hidden="true"></canvas>
+<div class="magic-cursor" aria-hidden="true"></div>
+<div class="magic-overlay" style="position:fixed; inset:0; pointer-events:none; z-index:0; background:linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.04) 45%, transparent 100%); animation:sweep 9s linear infinite; opacity:.75;"></div>
+
+<nav>
+  <a class="brand" href="index.html">Arquivo dos Destinos<span> · Jack Connor</span></a>
+  <ul id="navlinks">
+    <li><a href="#origem">Origem</a></li>
+    <li><a href="#olhos">Olhos do Destino</a></li>
+    <li><a href="#grimorio">Grimório</a></li>
+    <li><a href="#habilidades">Habilidades</a></li>
+    <li><a href="#arma">Arma</a></li>
+    <li><a href="#caminho">Caminho do Poder</a></li>
+    <li><a href="#protocolo">Protocolo Connor</a></li>
+    <li><a href="#escarlate">Feiticeira Escarlate</a></li>
+  </ul>
+  <a class="back" href="index.html">← Arquivo</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding-top:0; padding-bottom:0; border-top:none;">
+  <canvas id="fateweb"></canvas>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <span class="eyebrow">Tomo 01 · Dossiê Ativo</span>
+      <h1>Dr. Jack<br>Connor</h1>
+      <p class="title">Neurocirurgião &amp; Feiticeiro Supremo do Destino</p>
+      <p class="lede">Ele carrega o melhor de dois mundos: a precisão cirúrgica e a curiosidade científica do Doutor Estranho, e o domínio absoluto sobre a realidade do Senhor Destino. Nos seus olhos verde-escuro, o próprio tempo se dobra.</p>
+      <p class="hero-quote">"Todos os caminhos se curvam diante do meu olhar."</p>
+    </div>
+    <div class="portrait-frame connor-stage">
+      <img src="img/connor-supremo.png" alt="Dr. Jack Connor, Feiticeiro Supremo do Destino">
+      <div class="portrait-cap">Registro Visual · Olhos do Destino Ativos</div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="galeria">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">I · Galeria Arcana</span>
+      <h2>Faces do Feiticeiro</h2>
+      <p>Várias aparições de Jack em seus caminhos mais místicos: da medicina ao trono, do mago ao destino.</p>
+    </div>
+    <button class="artifact-trigger" type="button" aria-label="Revelar as faces do feiticeiro">
+      <span class="sigil">✧</span>
+      Ativar artefato mágico
+      <span class="sigil">✧</span>
+    </button>
+    <div class="magic-gallery-grid">
+      <div class="magic-card">
+        <img src="img/connor-supremo.png" alt="Jack Connor em forma suprema">
+        <div class="gallery-caption">Supremacia Arcana</div>
+      </div>
+      <div class="magic-card">
+        <img src="img/mago-supremo.png" alt="Jack Connor como mago supremo">
+        <div class="gallery-caption">Mago Supremo</div>
+      </div>
+      <div class="magic-card">
+        <img src="img/feiticeiro.png" alt="Jack Connor como feiticeiro">
+        <div class="gallery-caption">Feiticeiro do Destino</div>
+      </div>
+      <div class="magic-card">
+        <img src="img/dr-connor.png" alt="Jack Connor em versão clínica">
+        <div class="gallery-caption">Origem Médica</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORIGEM -->
+<section id="origem">
+  <div class="section-head">
+    <span class="eyebrow">I · Dossiê</span>
+    <h2>Origem</h2>
+    <p>Um homem dividido entre duas vocações — e completo em nenhuma delas até unir as duas.</p>
+  </div>
+  <div class="origem-grid">
+    <div>
+      <p>Antes de qualquer feitiço, Jack Connor foi um cirurgião. Suas mãos aprenderam a precisão salvando vidas em uma mesa de cirurgia — o mesmo tipo de precisão que, anos depois, aprenderia a canalizar em runas, barreiras e cortes que rasgam a própria técnica de um inimigo.</p>
+      <p>Ele não escolheu apenas um caminho místico: herdou o melhor de dois. Do Doutor Supremo, a versatilidade arcana, a projeção astral, o domínio sobre portais e a manipulação da realidade. Do Senhor Destino, a soberba controlada, a armadura de convicção e a certeza fria de que o destino pode — e deve — ser reescrito por quem tem força o suficiente para reescrevê-lo.</p>
+      <p>O resultado é um feiticeiro supremo que não apenas reage à magia ao seu redor: ele a lê, a desmonta, e devolve nos seus próprios termos. Ao seu lado, a Feiticeira Escarlate — não como aliada ocasional, mas como companheira que compartilha o peso da realidade que ele insiste em moldar.</p>
+    </div>
+    <div class="stat-pair">
+      <div class="stat-box">
+        <span class="label">Classe / Papel</span>
+        <span class="value">Feiticeiro Supremo · Controlador de Campo</span>
+      </div>
+      <div class="stat-box">
+        <span class="label">Domínio</span>
+        <span class="value">Trono dos Destinos</span>
+      </div>
+      <div class="stat-box">
+        <span class="label">Feitiço Favorito</span>
+        <span class="value">Manipulação da Realidade</span>
+      </div>
+      <div class="stat-box">
+        <span class="label">Arma</span>
+        <span class="value">Lâmina Invertida dos Céus</span>
+      </div>
+      <div class="stat-box">
+        <span class="label">Companheira</span>
+        <span class="value">Feiticeira Escarlate</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OLHOS DO DESTINO -->
+<section id="olhos">
+  <div class="section-head">
+    <span class="eyebrow">II · Poder Ocular</span>
+    <h2>Os Olhos do Destino</h2>
+    <p>Quando ativados, o verde-escuro dos olhos de Jack se fragmenta em camadas giratórias de runas douradas — engrenagens etéreas onde se veem reflexos de futuros possíveis, como se o próprio tempo se movesse dentro de sua íris.</p>
+  </div>
+  <div class="eyes-panel">
+    <div class="eyes-grid">
+      <div class="eye-power">
+        <h3>1. Percepção Causal Absoluta</h3>
+        <p>Jack enxerga o fio do destino de todas as criaturas ao seu redor, prevendo ações, reações e probabilidades com precisão quase perfeita — um poder análogo à premonição.</p>
+        <span class="mech">Mecânica: +3 em testes de percepção e esquiva · 1 re-roll forçado por combate</span>
+      </div>
+      <div class="eye-power">
+        <h3>2. Controle Temporal Parcial</h3>
+        <p>Em sinergia com o Olho de Agamotto, Jack pode pausar, reverter ou acelerar pequenas frações do tempo local: congelar um projétil no ar, reverter um golpe já recebido, ou agir uma vez extra no turno.</p>
+        <span class="mech">Custo: 8 PE por uso</span>
+      </div>
+      <div class="eye-power">
+        <h3>3. Leitura de Realidade / Decodificação</h3>
+        <p>Jack vê a estrutura de feitiços e técnicas inimigas, compreendendo imediatamente seus mecanismos — podendo anular, replicar ou adaptar um feitiço após observá-lo uma única vez.</p>
+        <span class="mech">+2 CD contra controle · +2 na Anulação de Técnica</span>
+      </div>
+      <div class="eye-power">
+        <h3>4. Consciência Multidimensional</h3>
+        <p>Jack enxerga múltiplas realidades simultaneamente, "vendo" versões alternativas de um combate antes que ocorram — o que amplifica sua Manipulação da Realidade com base em probabilidades calculadas em tempo real.</p>
+        <span class="mech">Amplifica: Manipulação da Realidade</span>
+      </div>
+    </div>
+    <p style="margin-top:2rem; color:var(--ink-muted); font-size:0.92rem;">Dentro do Trono dos Destinos, os Olhos do Destino atingem seu auge: Jack vê todas as ações possíveis de seus oponentes e escolhe qual linha temporal se torna real. Enquanto ativo, ele não luta reagindo — luta decidindo. Tudo o que o inimigo fizer, ele já viu acontecer, e já planejou a resposta.</p>
+    <p class="fate-motto">"Todos os caminhos se curvam diante do meu olhar."</p>
+  </div>
+</section>
+
+<!-- GRIMÓRIO -->
+<section id="grimorio">
+  <div class="section-head">
+    <span class="eyebrow">III · Grimório</span>
+    <h2>Feitiços</h2>
+    <p>O repertório místico de Jack, organizado por grau — do conhecimento fundamental até a manipulação absoluta da realidade.</p>
+  </div>
+
+  <div class="grau-group">
+    <div class="grau-title"><span>Grau 0 — Fundamentos</span></div>
+    <details class="spell" open>
+      <summary>Conhecimento Arcano <span></span></summary>
+      <div class="spell-body"><p>Mestre em feitiçaria e estudo de livros e grimórios mágicos.</p></div>
+    </details>
+    <details class="spell">
+      <summary>Feitiços de Ilusão</summary>
+      <div class="spell-body"><p>Criar ilusões para confundir inimigos.</p></div>
+    </details>
+  </div>
+
+  <div class="grau-group">
+    <div class="grau-title"><span>Grau 1</span></div>
+    <details class="spell">
+      <summary>Abertura de Portais</summary>
+      <div class="spell-body"><p>Pode abrir um portal para qualquer lugar que o usuário queira.</p></div>
+    </details>
+    <details class="spell">
+      <summary>Magia Mística</summary>
+      <div class="spell-body"><p>Capaz de conjurar feitiços para atacar, defender, teleportar ou manipular energia.</p></div>
+    </details>
+    <details class="spell">
+      <summary>Clones</summary>
+      <div class="spell-body"><p>Usa a energia amaldiçoada para que as pontas dos dedos armazenem a essência, e com a palma, recria um clone.</p></div>
+    </details>
+  </div>
+
+  <div class="grau-group">
+    <div class="grau-title"><span>Grau 2</span></div>
+    <details class="spell">
+      <summary>Barreiras e Escudos Mágicos</summary>
+      <div class="spell-body"><p>Defesa poderosa contra ataques físicos e mágicos.</p></div>
+    </details>
+    <details class="spell">
+      <summary>Magia Mística (Aprimorada)</summary>
+      <div class="spell-body"><p>Amplamente versátil, podendo criar feitiços para ataque, defesa e manipulação do ambiente.</p></div>
+    </details>
+  </div>
+
+  <div class="grau-group">
+    <div class="grau-title"><span>Grau 3</span></div>
+    <details class="spell">
+      <summary>Curar e Ressuscitar</summary>
+      <div class="spell-body"><p>Capaz de curar ferimentos ou reviver pessoas em certas circunstâncias.</p></div>
+    </details>
+    <details class="spell">
+      <summary>Exorcismo e Controle de Entidades</summary>
+      <div class="spell-body"><p>Pode banir espíritos e controlar forças sobrenaturais.</p></div>
+    </details>
+  </div>
+
+  <div class="grau-group">
+    <div class="grau-title"><span>Grau 4</span></div>
+    <details class="spell">
+      <summary>Teletransporte</summary>
+      <div class="spell-body"><p>Pode se mover instantaneamente entre lugares ou dimensões.</p></div>
+    </details>
+    <details class="spell">
+      <summary>Absorção de Criaturas Místicas</summary>
+      <div class="spell-body"><p>Absorveu demônios, dragões e seres cósmicos, adquirindo seus poderes.</p></div>
+    </details>
+    <details class="spell">
+      <summary>Projeção Astral Superior</summary>
+      <div class="spell-body"><p>Mais forte e duradoura que a projeção astral de um feiticeiro comum.</p></div>
+    </details>
+    <details class="spell">
+      <summary>Escudos e Barreiras Impenetráveis</summary>
+      <div class="spell-body"><p>Mais resistentes do que qualquer defesa convencional.</p></div>
+    </details>
+  </div>
+
+  <div class="grau-group">
+    <div class="grau-title"><span>Grau 5 — Manipulação da Existência</span></div>
+    <details class="spell">
+      <summary>Manipulação de Realidade</summary>
+      <div class="spell-body"><p>Pode alterar a realidade em certa escala usando magia. <em>(Feitiço Favorito de Jack.)</em></p></div>
+    </details>
+    <details class="spell">
+      <summary>Alteração da Realidade</summary>
+      <div class="spell-body"><p>Capaz de distorcer espaço, matéria e energia em grande escala.</p></div>
+    </details>
+    <details class="spell">
+      <summary>Manipulação Temporal</summary>
+      <div class="spell-body"><p>Reverte ou acelera eventos no tempo, mesmo sem o Olho de Agamotto.</p></div>
+    </details>
+    <details class="spell">
+      <summary>Feitiço de Reversão</summary>
+      <div class="spell-body"><p>Desfaz o efeito de uma ação recente, restaurando o estado anterior de um alvo ou situação.</p></div>
+    </details>
+  </div>
+
+  <div class="grau-group">
+    <div class="grau-title"><span>Nível Supremo — Feitiço Único</span></div>
+    <div class="grand-spell">
+      <span class="g-eyebrow">Feitiço Exclusivo</span>
+      <h3>Ruptura dos Mil Destinos</h3>
+      <p style="margin-bottom:1.2rem;">Uma habilidade de "Contrafeitiço de Destino": ao invés de romper com força, Jack redireciona a linha do feitiço para outro alvo — uma anulação adaptada.</p>
+      <div class="statline">
+        <span>Nível: Supremo (5)</span>
+        <span>Alcance: 30m (ponto central)</span>
+        <span>Área: esfera de 18m</span>
+        <span>Duração: Instantânea</span>
+        <span>Componentes: Somático + Verbal + Foco</span>
+        <span>Custo: 9 PE</span>
+      </div>
+      <p>Jack concentra sua energia amaldiçoada em um único ponto, onde o tecido da realidade se parte em mil linhas de destino divergentes. As linhas colapsam sobre si mesmas, causando uma implosão seguida de uma onda de choque destrutiva.</p>
+      <h4>Efeito</h4>
+      <ul>
+        <li>Dano base: 12d12 (força do destino) — tratado como dano absoluto, ignora resistências comuns.</li>
+        <li>Área: todos os alvos na esfera sofrem o dano (resistência para metade).</li>
+        <li>CD de Resistência: 8 + modificador de habilidade mágica + bônus de proficiência.</li>
+      </ul>
+      <h4>Efeitos Secundários</h4>
+      <ul>
+        <li>Colapso Temporal: quem falhar no teste fica Atordoado até o início do próximo turno.</li>
+        <li>Ruptura Espiritual: se o alvo é derrotado, sua alma se fragmenta — impossibilitando ressurreição comum.</li>
+      </ul>
+      <h4>Repercussão</h4>
+      <p>Após lançar, teste de Constituição (CD 15). Se falhar: 1 nível de exaustão + 3d8 de dano interno.</p>
+
+      <div class="toggle-fav">
+        <span class="fav-badge">Versão Favorita (Aprimorada)</span>
+        <p>Quando designada como Feitiço Favorito, a Ruptura é ampliada pela habilidade Inata de Jack. As linhas de destino se entrelaçam, criando um nó cósmico de destruição que rasga matéria, tempo e energia.</p>
+        <ul style="margin-top:0.8rem;">
+          <li>Dano base: 15d12 + 20 (dano fixo adicional).</li>
+          <li>Crítico de Realidade: falha por 5+ no teste = desintegração total (nenhum corpo resta).</li>
+          <li>Área: terreno fica arrasado e instável — 2d6 de dano adicional por turno a quem atravessar.</li>
+          <li>CD de Resistência: 8 + Mod. Habilidade Mágica + Bônus de Proficiência + 2 (bônus de favorito).</li>
+        </ul>
+        <p style="margin-top:0.8rem;">Colapso Temporal Potencializado: alvos que falham ficam Atordoados e Vulneráveis a todo dano até seu próximo turno. Ruptura Espiritual Absoluta: nem magia divina suprema restaura os derrotados — apenas poderes cósmicos.</p>
+        <p style="margin-top:0.8rem;">Custo: 12 PE · Repercussão: Constituição CD 18, falha = 2 níveis de exaustão + 5d8 de dano interno.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HABILIDADES -->
+<section id="habilidades">
+  <div class="section-head">
+    <span class="eyebrow">IV · Progressão</span>
+    <h2>Habilidades por Nível</h2>
+    <p>Conforme Jack avança em domínio, sua maestria arcana se expande em camadas — da precisão dos feitiços até a fusão entre esgrima e feitiçaria.</p>
+  </div>
+
+  <div class="level-track">
+    <div class="level-node">
+      <span class="lvl-tag">Nível 2</span>
+      <div class="ability">
+        <h4>Abastecido pelo Sangue</h4>
+        <p>Fundamento inicial da progressão de Jack como Especialista em Técnicas.</p>
+      </div>
+    </div>
+
+    <div class="level-node">
+      <span class="lvl-tag">Nível 4</span>
+      <div class="ability">
+        <h4>Feitiço Favorito</h4>
+        <p>Um dos feitiços de Jack é levado a um nível superior de maneira natural. Ao escolher, o feitiço recebe uma Melhoria de Ritual permanente e imutável, contabilizada como efeito já aplicado ao realizar um ritual.</p>
+      </div>
+      <div class="ability">
+        <h4>Feitiços Refinados</h4>
+        <p>Seus feitiços são refinados pelo controle de energia de Jack, tornando-se mais difíceis de resistir. Ele soma metade do bônus de treinamento no cálculo de CD de Feitiços e Aptidões Amaldiçoadas.</p>
+      </div>
+      <div class="ability">
+        <h4>Energia Inacabável</h4>
+        <p>O máximo de energia amaldiçoada de Jack aumenta em um valor igual a metade do seu nível de Especialista em Técnicas.</p>
+      </div>
+    </div>
+
+    <div class="level-node">
+      <span class="lvl-tag">Nível 6</span>
+      <div class="ability">
+        <h4>Incapaz de Falhar</h4>
+        <p>Ao realizar uma rolagem de aptidão amaldiçoada (exceto Aptidões de Domínio), Jack pode gastar 2 pontos de energia amaldiçoada para somar seu modificador de Inteligência ou Sabedoria ao resultado — uma vez por aptidão usada na rodada.</p>
+      </div>
+      <div class="ability">
+        <h4>Nível Perfeito</h4>
+        <p>Jack escolhe um nível de feitiço para aprimorar: todos os feitiços daquele nível têm CD de resistência aumentada em 2. Nos níveis 12 e 18, pode escolher outro nível de feitiço para o mesmo bônus.</p>
+      </div>
+    </div>
+
+    <div class="level-node">
+      <span class="lvl-tag">Nível 8</span>
+      <div class="ability">
+        <h4>Expansão dos Fundamentos</h4>
+        <p>Jack aprende uma Mudança de Fundamento adicional. No nível 12, aprende mais uma.</p>
+      </div>
+      <div class="ability">
+        <h4>Mira Aperfeiçoada</h4>
+        <p>Pode utilizar Mirar em jogadas de ataque amaldiçoado e recebe a Mudança de Fundamento Técnica Precisa (ou, se já possuir, seu bônus aumenta em +1).</p>
+        <span class="prereq">Pré-requisito: Olhar Preciso</span>
+      </div>
+      <div class="ability">
+        <h4>Liberações Expandidas</h4>
+        <p>Jack recebe uma Liberação Máxima adicional. Nos níveis 12 e 16, recebe mais uma.</p>
+      </div>
+      <div class="ability">
+        <h4>Feitiço Preciso</h4>
+        <p>Ao usar um feitiço com teste de ataque, Jack pode gastar 1 PE para +2 de acerto, ou 2 PE para +4 de acerto.</p>
+      </div>
+    </div>
+
+    <div class="level-node">
+      <span class="lvl-tag">Nível 12</span>
+      <div class="ability">
+        <h4>Destruição Focada</h4>
+        <p>Ao invés de espalhar a destruição, Jack a foca em um único ponto ou criatura. Feitiços de dano de alvo único ignoram RD igual ao modificador de Inteligência ou Sabedoria, e têm o dano aumentado em dados iguais a metade do bônus de treinamento.</p>
+      </div>
+      <div class="ability">
+        <h4>Esgrimista Jujutsu</h4>
+        <p>Mesclando combate e feitiçaria ao máximo, Jack se torna digno de ser visto como um esgrimista jujutsu. Ao utilizar Combate Amaldiçoado, também pode usar um Feitiço Auxiliar tendo a si mesmo como alvo, desde que o custo padrão seja uma Ação Bônus.</p>
+        <span class="prereq">Pré-requisito: Combate Amaldiçoado</span>
+      </div>
+    </div>
+
+    <div class="level-node">
+      <span class="lvl-tag">Talento</span>
+      <div class="ability">
+        <h4>Afinidade com Técnica</h4>
+        <p>Com uma afinidade superior à sua técnica amaldiçoada, Jack desenvolve mais extensões dela. Recebe um Feitiço adicional — e mais um nos níveis 5, 10, 15 e 20.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARMA -->
+<section id="arma">
+  <div class="section-head">
+    <span class="eyebrow">V · Armamento</span>
+    <h2>Lâmina Invertida dos Céus</h2>
+    <p>Uma katana que não apenas corta carne — corta técnica, maldição e destino. Cada golpe carrega um feitiço próprio, exclusivo da lâmina.</p>
+  </div>
+
+  <div class="weapon-list">
+    <details class="spell">
+      <summary>1. Golpe do Nada <span></span></summary>
+      <div class="spell-body">
+        <div class="statline" style="margin-bottom:1rem;">
+          <span>Grau 2</span><span>Custo: 6 PE</span><span>CD: 18</span>
+        </div>
+        <p>Um corte simples com a katana que anula qualquer efeito ativo (buff, barreira, maldição ou técnica) no alvo atingido. Causa 2d8 de dano cortante + 2d6 de dano puro (ignora resistências mágicas).</p>
+        <p><em>"Você desfere um corte que rasga a técnica junto ao corpo do inimigo."</em></p>
+      </div>
+    </details>
+    <details class="spell">
+      <summary>2. Corte do Destino</summary>
+      <div class="spell-body">
+        <div class="statline" style="margin-bottom:1rem;">
+          <span>Grau 3</span><span>Custo: 9 PE</span><span>CD: 20</span>
+        </div>
+        <p>Ao acertar, Jack pode selar temporariamente a técnica amaldiçoada principal do alvo — que não pode usá-la por 1d3 rodadas. Causa 3d8 de dano cortante.</p>
+        <p><em>"O corte sela o destino amaldiçoado do inimigo, bloqueando sua arma secreta."</em></p>
+      </div>
+    </details>
+    <details class="spell">
+      <summary>3. Ruptura das Maldições</summary>
+      <div class="spell-body">
+        <div class="statline" style="margin-bottom:1rem;">
+          <span>Grau 4</span><span>Custo: 12 PE</span><span>CD: 21</span>
+        </div>
+        <p>Libera a energia da Lâmina em uma onda de 6m em cone. Todos os alvos na área sofrem 3d10 de dano cósmico e perdem qualquer buff ou técnica ativa imediatamente.</p>
+        <p><em>"Um único corte cria uma onda que destrói maldições como vidro se partindo."</em></p>
+      </div>
+    </details>
+    <details class="spell">
+      <summary>4. Corte Além da Realidade</summary>
+      <div class="spell-body">
+        <div class="statline" style="margin-bottom:1rem;">
+          <span>Grau 5</span><span>Custo: 16 PE</span><span>CD: 22</span>
+        </div>
+        <p>Um corte que se projeta pelo espaço e atravessa barreiras, atingindo até 3 inimigos em linha de 12m. Cada um sofre 4d10 de dano cortante + anulação automática da técnica ativa mais forte que possui.</p>
+        <p><em>"Um golpe que ignora as leis do espaço, acertando múltiplos inimigos ao mesmo tempo."</em></p>
+      </div>
+    </details>
+    <details class="spell">
+      <summary>5. Julgamento do Vazio — Feitiço Único da Katana</summary>
+      <div class="spell-body">
+        <div class="statline" style="margin-bottom:1rem;">
+          <span>Grau 6</span><span>Custo: 20 PE</span><span>CD: 24</span>
+        </div>
+        <p>Jack concentra toda a energia da Lâmina Invertida e de sua magia em um único corte: área esférica de 9m (igual a uma expansão completa). Todos os inimigos na área sofrem 6d10 de dano puro (ignora defesa e resistência), e todas as técnicas, buffs e barreiras dentro são imediatamente anuladas. Alvos que falharem no teste ficam incapazes de usar técnicas amaldiçoadas por 1 rodada.</p>
+        <p><em>"O corte absoluto — o vazio consome a energia amaldiçoada, deixando apenas silêncio e dor."</em></p>
+      </div>
+    </details>
+  </div>
+
+  <div class="tip-box">
+    <h4>Dicas de Uso Estratégico</h4>
+    <div class="tip"><b>Golpe do Nada</b> — o anti-feitiço básico: sempre útil contra maldições menores ou buffs incômodos.</div>
+    <div class="tip"><b>Corte do Destino</b> — perfeito contra chefes que dependem de uma única técnica: selar a "técnica principal" por 1–3 rodadas é decisivo.</div>
+    <div class="tip"><b>Ruptura das Maldições</b> — limpa grupos de inimigos buffados ou quebra expansões sem gastar a própria expansão de Jack.</div>
+    <div class="tip"><b>Corte Além da Realidade</b> — combinação perfeita com os portais de Jack: abrir um portal para cortar inimigos alinhados atrás de barreiras.</div>
+    <div class="tip"><b>Julgamento do Vazio</b> — o encerramento absoluto de um combate de alto nível.</div>
+  </div>
+</section>
+
+<!-- CAMINHO DO PODER -->
+<section id="caminho">
+  <div class="section-head">
+    <span class="eyebrow">VI · Progressão de Poder</span>
+    <h2>Caminho do Poder</h2>
+    <p>A jornada de Jack, do mago versátil ao Feiticeiro Supremo do Destino, praticamente invencível dentro do seu próprio domínio.</p>
+  </div>
+
+  <div class="path-track">
+    <div class="path-tier">
+      <span class="tier-range">Níveis 1–4</span>
+      <h3>A Base do Mago Supremo</h3>
+      <dl>
+        <dt>Feitiços</dt><dd>Ilusão, Portais, Magia Mística, Clones, Barreira/Escudo.</dd>
+        <dt>Talento</dt><dd>Afinidade com Técnica — mais feitiços no leque.</dd>
+        <dt>Aptidões</dt><dd>Aura Elemental + Absorção Elemental — já começa a armazenar elementos e devolvê-los.</dd>
+        <dt>Estratégia</dt><dd>Defesa + confusão: abre portais, usa ilusões, controla o campo com barreiras.</dd>
+        <dt>Especial</dt><dd>Escolhe um Feitiço Favorito — recomendado Abertura de Portais ou Magia Mística.</dd>
+      </dl>
+    </div>
+
+    <div class="path-tier">
+      <span class="tier-range">Níveis 5–8</span>
+      <h3>O Arquiteto das Barreiras</h3>
+      <dl>
+        <dt>Feitiços</dt><dd>Cura e Ressurreição, Exorcismo e Controle, Escudos/Barreiras impenetráveis.</dd>
+        <dt>Habilidades</dt><dd>Energia Inacabável, Incapaz de Falhar, Nível Perfeito (+2 CD em Exorcismo e Cura).</dd>
+        <dt>Aptidões</dt><dd>Técnicas de Barreira + Paredes Resistentes.</dd>
+        <dt>Domínio</dt><dd>Expansão de Domínio Incompleta — primeira manifestação do Trono dos Destinos.</dd>
+        <dt>Estratégia</dt><dd>Torna-se o protetor do grupo: prende inimigos em paredes, anula técnicas e salva aliados com cura.</dd>
+      </dl>
+    </div>
+
+    <div class="path-tier">
+      <span class="tier-range">Níveis 9–12</span>
+      <h3>O Guardião do Destino</h3>
+      <dl>
+        <dt>Feitiços</dt><dd>Teletransporte, Absorção de Criaturas Místicas, Projeção Astral Superior.</dd>
+        <dt>Habilidades</dt><dd>Expansão dos Fundamentos, Mira Aperfeiçoada, Liberações Expandidas.</dd>
+        <dt>Aptidões</dt><dd>Expansão de Domínio Completa — o Trono dos Destinos prende os inimigos; Anular Técnica.</dd>
+        <dt>Estratégia</dt><dd>Usa teleporte + barreiras para controlar o mapa; dentro do domínio, manipula realidade e tempo — início de efeitos "deus ex machina".</dd>
+      </dl>
+    </div>
+
+    <div class="path-tier">
+      <span class="tier-range">Níveis 13–16</span>
+      <h3>O Supremo Feiticeiro</h3>
+      <dl>
+        <dt>Feitiços</dt><dd>Manipulação de Realidade, Alteração da Realidade, Manipulação Temporal.</dd>
+        <dt>Habilidades</dt><dd>Nível Perfeito II (+2 CD em feitiços de nível 4); duas armas definitivas — recomendado Manipulação Temporal e Realidade.</dd>
+        <dt>Aptidões</dt><dd>Barreiras quase impenetráveis; combina aura elemental com paredes — flamejantes, elétricas, de gelo.</dd>
+        <dt>Estratégia</dt><dd>A Expansão de Jack se torna praticamente impossível de vencer: distorce o tempo para dar mais turnos ao grupo ou reverter erros.</dd>
+      </dl>
+    </div>
+
+    <div class="path-tier">
+      <span class="tier-range">Níveis 17–20</span>
+      <h3>O Senhor dos Destinos</h3>
+      <dl>
+        <dt>Feitiços definitivos</dt><dd>Manipulação Temporal (grau 5) — controla turnos, acelera envelhecimento, paralisa inimigos. Alteração da Realidade (grau 5) — molda o cenário, muda leis físicas.</dd>
+        <dt>Habilidades</dt><dd>Nível Perfeito III (+2 CD em feitiços de nível 5); Afinidade com Técnica extra.</dd>
+        <dt>Domínio</dt><dd>O Trono dos Destinos se torna absoluto: qualquer feitiço de Jack tem efeito garantido, a menos que o inimigo tenha poder equivalente. Reset temporal 1x por combate, sem custo de PE.</dd>
+        <dt>Estratégia final</dt><dd>Jack é o anti-boss definitivo. Seus aliados lutam dentro da sua proteção; inimigos não escapam da prisão dimensional. Ele decide quando e como a luta termina.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="section-head" style="margin-top:5rem; margin-bottom:2rem;">
+    <span class="eyebrow">Combos Fortes</span>
+    <h2 style="font-size:1.8rem;">Sinergias de Combate</h2>
+  </div>
+  <div class="combo-grid">
+    <div class="combo-card"><span class="arrow">Barreira + Ilusão</span><p>Ergue paredes para limitar a visão e, dentro delas, cria ilusões para confundir — parece haver mais saídas ou clones.</p></div>
+    <div class="combo-card"><span class="arrow">Aura Elemental + Absorção Elemental</span><p>Absorve dano elemental e o devolve com Magia Mística ou Portais.</p></div>
+    <div class="combo-card"><span class="arrow">Teleporte + Clones</span><p>Mobilidade absurda, ideal para combate em equipe.</p></div>
+    <div class="combo-card"><span class="arrow">Manipulação Temporal na Expansão</span><p>Praticamente "regrava" a luta.</p></div>
+    <div class="combo-card"><span class="arrow">Exorcismo + Anular Técnica</span><p>Inimigos que dependem de técnicas amaldiçoadas sofrem muito contra Jack.</p></div>
+  </div>
+
+  <div class="role-row">
+    <div class="role-card">
+      <h4>Suporte de Controle</h4>
+      <p>Protege aliados com barreiras e escudos.</p>
+    </div>
+    <div class="role-card">
+      <h4>Burst de Realidade</h4>
+      <p>Para finalizar, ativa Manipulação de Realidade ou Expansão.</p>
+    </div>
+    <div class="role-card">
+      <h4>Anti-Domínio</h4>
+      <p>Perfeito para "counterar" expansões inimigas com Anular Técnica.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROTOCOLO CONNOR -->
+<section id="protocolo">
+  <div class="section-head">
+    <span class="eyebrow">VII · Dossiê Estratégico</span>
+    <h2>Protocolo Connor</h2>
+    <p>Um plano de combate desenvolvido especificamente contra adversários que operam pelo arquétipo do Orgulho.</p>
+  </div>
+
+  <div class="protocol">
+    <h3>Estratégia contra o Orgulho</h3>
+    <span class="sub">Protocolo Connor · Anti-Pride</span>
+
+    <div class="protocol-step">
+      <span class="num">01</span><h4>Quebrar a autoconfiança dele</h4>
+      <p>Orgulho depende de ser "supremo". Jack usa a Manipulação da Realidade para reverter o espelho da soberba: cada feitiço ou habilidade do inimigo se volta contra si mesmo — enfraquecendo sua sensação de invencibilidade.</p>
+    </div>
+
+    <div class="protocol-step">
+      <span class="num">02</span><h4>Expansão de Domínio — Trono dos Destinos</h4>
+      <p>Dentro do domínio, Jack tem Controle Absoluto. Ele pode reverter ações para negar cada golpe de Orgulho, como se nunca tivesse acontecido — combinando isso com a Prisão Dimensional para restringir os movimentos e forçá-lo a lutar sob as regras de Jack.</p>
+    </div>
+
+    <div class="protocol-step">
+      <span class="num">03</span><h4>Combos específicos contra Orgulho</h4>
+      <ul class="combo-list">
+        <li><b>Barreira Arcana Suprema</b> + runas de absorção → qualquer feitiço de Orgulho se dissolve dentro da barreira.</li>
+        <li><b>Manipulação da Realidade</b> (favorito) → distorce as leis, definindo que "Orgulho não pode estar acima de Connor neste espaço".</li>
+        <li><b>Lâmina Invertida dos Céus</b> → golpe que ignora a expansão de domínio e corta até a alma das técnicas.</li>
+        <li><b>Finalizador — Cadeia de Espelhos</b> → obriga Orgulho a se enfrentar infinitamente dentro do reflexo das próprias habilidades.</li>
+      </ul>
+    </div>
+
+    <div class="protocol-step">
+      <span class="num">⚔</span><h4>Combo Ofensivo — Corte da Eternidade</h4>
+      <p>Aura de Raio + Fogo + Sombra: Jack comprime toda a energia em um único corte inevitável (potencializado pelo talento Ataque Infalível). A Manipulação da Realidade força a jogada a ser um acerto crítico — atingindo Orgulho independente de defesa ou resistência.</p>
+    </div>
+
+    <div class="protocol-step">
+      <span class="num">🛡</span><h4>Combo Defensivo — Eclipse Arcano</h4>
+      <p>Aura de Luz + Sombra simultaneamente: Jack cria um eclipse dentro da barreira. Toda habilidade de Orgulho dentro dessa área causa metade do dano e gasta o dobro de energia.</p>
+    </div>
+
+    <div class="protocol-step">
+      <span class="num">04</span><h4>Fraqueza do Orgulho</h4>
+      <p>Quanto mais poder ele concentra, mais vulnerável fica a redirecionamento. Se Jack usar Clones Ilusórios + Manipulação da Realidade, pode fazer Orgulho atacar a si mesmo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEITICEIRA ESCARLATE -->
+<section id="escarlate">
+  <div class="section-head">
+    <span class="eyebrow">VIII · Companheira</span>
+    <h2>A Feiticeira Escarlate</h2>
+    <p>Onde o Trono dos Destinos termina, o Caos começa — e é ela quem completa Jack.</p>
+  </div>
+  <div class="companion">
+    <div class="companion-portrait alice-stage">
+      <img src="img/scarlet-witch.png" alt="A Feiticeira Escarlate, companheira de Jack Connor">
+    </div>
+    <div class="companion-text">
+      <span class="eyebrow">Registro Visual · Arquivo do Caos</span>
+      <h2>Vermelho contra Verde-esmeralda</h2>
+      <p>Alice Maximoff foi uma das poucas pessoas que atravessou o caminho de Jack antes de ele se tornar o Feiticeiro Supremo do Destino. Eles estudaram juntos na Escola das Artes Místicas, onde ambos foram despertados para poderes além do comum — e onde Jack encontrou, em Alice, a única alma capaz de desafiar sua lógica com uma força que parecia nascer do próprio caos.</p>
+      <p>Ela não era apenas uma estudante brilhante, nem uma simples companheira de treino. Alice carregava um dom raro: a capacidade de manipular o tecido da realidade através da magia do caos, transformando vontade, emoção e energia em força bruta e beleza destrutiva. Seus feitiços não obedeciam à mesma estrutura dos de Jack; eles surgiam como tempestades, como uma linguagem antiga que respondia ao impulso e à intenção.</p>
+      <p>O vínculo entre os dois começou como afinidade, tornou-se amizade e, por um tempo, quase se transformou em algo mais profundo. Mas a vida exigiu um preço: sua mestra, a figura que guiava sua formação, precisou se mudar de cidade, e Alice foi obrigada a acompanhá-la. Essa separação marcou a primeira grande ruptura em sua trajetória, e também o início de uma jornada solitária, onde ela aprendeu a confiar cada vez mais em sua própria magia.</p>
+      <p>Na prática, Alice era a contraparte viva de Jack: enquanto ele dominava o cálculo, a precisão e o controle, ela representava a explosão, a vontade irrestrita e a capacidade de reescrever o impossível. Entre os dois, o conflito e a complementaridade se tornaram inseparáveis — e foi justamente essa dualidade que fez deles dois dos maiores feiticeiros do mundo, capazes de superar qualquer adversário que se aproximasse do auge do poder.</p>
+      <div class="companion-note">
+        REGISTRO ARCANO: Alice Maximoff foi treinada ao lado de Jack, desenvolveu sua própria linhagem de magia do caos e tornou-se uma das figuras mais poderosas da história mística. Sua essência é o equilíbrio entre destruição e criação — um ser capaz de transformar o caos em realidade.
+      </div>
+      <button class="cauldron-trigger" type="button" aria-label="Revelar as imagens da Feiticeira Escarlate">
+        <span class="sigil">⚗</span>
+        Acender o caldeirão
+        <span class="sigil">⚗</span>
+      </button>
+      <div class="scarlet-gallery">
+        <div class="magic-card">
+          <img src="img/scarlet-witch.png" alt="Feiticeira Escarlate em visão clássica">
+          <div class="gallery-caption">Visão Clássica</div>
+        </div>
+        <div class="magic-card">
+          <img src="img/wanda.jpg" alt="Feiticeira Escarlate em nova ilustração">
+          <div class="gallery-caption">Presença Arcana</div>
+        </div>
+        <div class="magic-card">
+          <img src="img/scarlat.jpg" alt="Feiticeira Escarlate em pose mística">
+          <div class="gallery-caption">Caos Escarlate</div>
+        </div>
+        <div class="magic-card">
+          <img src="img/max.jpg" alt="Feiticeira Escarlate em versão alternativa">
+          <div class="gallery-caption">Variação Éterea</div>
+        </div>
+      </div>
+      <div class="scarlet-showcase">
+        <div class="showcase-card">
+          <img src="img/alice.png" alt="Alice Maximoff em pose de magia">
+          <div class="label">Aquela que rompeu o véu</div>
+          <div class="desc">A primeira manifestação do poder do caos em sua forma mais viva.</div>
+        </div>
+        <div class="showcase-card">
+          <img src="img/maximogg.jpg" alt="Feiticeira Escarlate em forma de energia">
+          <div class="label">Vórtice Arcano</div>
+          <div class="desc">O poder do caos se torna uma tempestade viva ao seu redor.</div>
+        </div>
+        <div class="showcase-card">
+          <img src="img/escarlate.jpg" alt="Feiticeira Escarlate em postura de combate">
+          <div class="label">Luz e Ruína</div>
+          <div class="desc">A dualidade entre criação e destruição que define sua magia.</div>
+        </div>
+        <div class="showcase-card">
+          <img src="img/wandamaximoff.jpg" alt="Varinha da Feiticeira Escarlate">
+          <div class="label">Símbolo da Força</div>
+          <div class="desc">Seu foco ritualístico, capaz de intensificar o caos em feitiços devastadores.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="alice-dossier">
+  <div class="section-head">
+    <span class="eyebrow">IX · Dossiê Arcano</span>
+    <h2>Habilidades da Feiticeira Escarlate</h2>
+    <p>Alice Maximoff não é apenas uma conjuradora poderosa. Ela é uma força viva de caos, capaz de reescrever o campo de batalha com magia imprevisível e devastadora.</p>
+  </div>
+
+  <div class="path-track">
+    <div class="path-tier">
+      <span class="tier-range">Nível Inicial</span>
+      <h3>O Despertar do Caos</h3>
+      <dl>
+        <dt>Feitiços</dt><dd>Manipulação de energia, projeção de escudo, explosões de mana, teleporte curto.</dd>
+        <dt>Talento</dt><dd>Instinto Arcano — reação rápida e improviso mágico.</dd>
+        <dt>Aptidões</dt><dd>Forma de proteção, manipulação de campos de força, resistência ao impacto místico.</dd>
+        <dt>Estratégia</dt><dd>Ataca com instabilidade controlada e cria brechas para o grupo.</dd>
+      </dl>
+    </div>
+
+    <div class="path-tier scarlet-tier">
+      <span class="tier-range">Nível Intermediário</span>
+      <h3>O Vórtice da Realidade</h3>
+      <dl>
+        <dt>Feitiços</dt><dd>Criação de redemoinhos de caos, barreiras de energia, feitiços de desordem e reconfiguração do campo.</dd>
+        <dt>Habilidades</dt><dd>Reversão de energia, amplificação do dano, manipulação da gravidade de curto alcance.</dd>
+        <dt>Aptidões</dt><dd>Conjuração explosiva, explosões de choque, alteração de trajetórias físicas.</dd>
+        <dt>Estratégia</dt><dd>Desorienta o inimigo e transforma o espaço em um ambiente hostil.</dd>
+      </dl>
+    </div>
+
+    <div class="path-tier scarlet-tier">
+      <span class="tier-range">Nível Superior</span>
+      <h3>A Magia do Caos Absoluto</h3>
+      <dl>
+        <dt>Feitiços</dt><dd>Manipulação da realidade por vontade, criação de ilusões ofensivas, distorção do espaço, rajadas de caos.</dd>
+        <dt>Habilidades</dt><dd>Ruptura de barreiras, anulação temporária de feitiços, explosões de energia de curto alcance.</dd>
+        <dt>Aptidões</dt><dd>Domínio sobre o caos, energia reativa, defesa de emergência e reconfiguração instantânea.</dd>
+        <dt>Estratégia</dt><dd>Ela não luta como quem segue regras; ela luta como quem reescreve o próprio combate.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="combo-grid">
+    <div class="combo-card scarlet-card"><span class="arrow">Caos + Escudo</span><p>Cria um campo de proteção que reage ao ataque, devolvendo impacto em forma de explosão arcana.</p></div>
+    <div class="combo-card scarlet-card"><span class="arrow">Redemoinho + Ilusão</span><p>Gera confusão visual e desloca a percepção do inimigo, abrindo espaço para um golpe devastador.</p></div>
+    <div class="combo-card scarlet-card"><span class="arrow">Energia + Teleporte</span><p>Permite que ela se desloque rapidamente enquanto arremessa feitiços em sequência.</p></div>
+    <div class="combo-card scarlet-card"><span class="arrow">Magia do Caos + Ruptura</span><p>Rompe defesas e desestabiliza o cenário, tornando a luta imprevisível.</p></div>
+  </div>
+
+  <div class="role-row">
+    <div class="role-card scarlet-role">
+      <h4>Destrução Rápida</h4>
+      <p>Ataca com explosões de energia e pressão mística.</p>
+    </div>
+    <div class="role-card scarlet-role">
+      <h4>Controle de Campo</h4>
+      <p>Manipula a área de combate com caos e instabilidade.</p>
+    </div>
+    <div class="role-card scarlet-role">
+      <h4>Contraponto de Jack</h4>
+      <p>Enquanto Jack controla, ela redefine — e essa diferença faz dela uma peça única.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Arquivo dos Destinos · Personagem original de RPG · <a href="index.html">← Voltar à galeria</a>
+</footer>
+
+<script src="effects-jack.js"></script>
+<script>
+const cursor = document.querySelector('.magic-cursor');
+document.body.classList.add('theme-jack');
+
+const scarletCards = document.querySelectorAll('.scarlet-tier, .scarlet-card, .scarlet-role');
+const scarletObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) entry.target.classList.add('is-active');
+  });
+}, { threshold: 0.25 });
+scarletCards.forEach((card) => scarletObserver.observe(card));
+
+function applySectionTheme(section) {
+  const theme = section?.dataset?.theme === 'scarlet' ? 'scarlet' : 'jack';
+  document.body.classList.toggle('theme-scarlet', theme === 'scarlet');
+  document.body.classList.toggle('theme-jack', theme === 'jack');
+}
+
+function spawnInitMagic() {
+  const hero = document.querySelector('.hero');
+  if (!hero) return;
+  const spellCount = 18;
+  for (let i = 0; i < spellCount; i += 1) {
+    const spark = document.createElement('span');
+    spark.className = 'spell-spark';
+    spark.style.left = `${Math.random() * 100}%`;
+    spark.style.top = `${Math.random() * 100}%`;
+    spark.style.setProperty('--delay', `${Math.random() * 0.9}s`);
+    spark.style.setProperty('--drift', `${Math.random() * 140 + 90}px`);
+    spark.style.setProperty('--color', i % 2 === 0 ? 'rgba(62,224,160,0.9)' : 'rgba(240,211,138,0.9)');
+    hero.appendChild(spark);
+  }
+}
+
+const style = document.createElement('style');
+style.textContent = `
+  .spell-spark{
+    position:absolute; width:8px; height:8px; border-radius:50%;
+    background:var(--color); box-shadow:0 0 14px var(--color); opacity:0;
+    animation:spellAppear 1.4s ease forwards;
+    animation-delay:var(--delay);
+    pointer-events:none; z-index:1;
+  }
+  .spell-spark::before, .spell-spark::after{
+    content:''; position:absolute; inset:-3px; border:1px solid rgba(255,255,255,0.28); border-radius:50%;
+    animation:spellOrbit 2.2s ease-in-out infinite;
+  }
+  .spell-spark::after{ inset:-9px; border-color:rgba(255,255,255,0.15); animation-duration:2.8s; }
+  @keyframes spellAppear{
+    0%{opacity:0; transform:translateY(8px) scale(0.7);} 40%{opacity:1; transform:translateY(0) scale(1);} 100%{opacity:0; transform:translateY(calc(-1 * var(--drift))) scale(0.96);}
+  }
+  @keyframes spellOrbit{0%{transform:scale(0.8); opacity:0.4;}100%{transform:scale(1.2); opacity:0;}}
+`;
+document.head.appendChild(style);
+window.addEventListener('load', spawnInitMagic);
+
+function createRunes() {
+  const runeContainer = document.querySelector('.rune-fall');
+  if (!runeContainer) return;
+  const runes = ['✦','✧','☼','☽','⚚','⬡','⟐'];
+  for (let i = 0; i < 24; i += 1) {
+    const rune = document.createElement('span');
+    rune.className = 'rune';
+    rune.textContent = runes[i % runes.length];
+    rune.style.left = `${Math.random() * 100}%`;
+    rune.style.top = `${-8 - Math.random() * 20}%`;
+    rune.style.animationDuration = `${10 + Math.random() * 8}s`;
+    rune.style.animationDelay = `${Math.random() * 3}s`;
+    runeContainer.appendChild(rune);
+  }
+}
+createRunes();
+
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add('is-visible');
+    applySectionTheme(entry.target);
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('section').forEach((section) => {
+  section.classList.add('reveal-section');
+  section.dataset.theme = section.id === 'escarlate' ? 'scarlet' : 'jack';
+  sectionObserver.observe(section);
+});
+
+applySectionTheme(document.querySelector('section.hero'));
+
+const escarlateSection = document.getElementById('escarlate');
+if (escarlateSection) {
+  const transitionOverlay = document.createElement('div');
+  transitionOverlay.className = 'magic-transition';
+  transitionOverlay.innerHTML = '<span>Caos Desperta</span>';
+  document.body.appendChild(transitionOverlay);
+
+  const style = document.createElement('style');
+  style.textContent = `
+    .magic-transition{
+      position:fixed; inset:0; pointer-events:none; z-index:90; display:grid; place-items:center;
+      background:radial-gradient(circle at center, rgba(255,93,120,0.25) 0%, rgba(138,33,64,0.55) 28%, rgba(7,11,9,0.95) 70%);
+      opacity:0; transform:scale(1.05); transition:opacity 0.8s ease, transform 0.8s ease;
+    }
+    .magic-transition.active{ opacity:1; transform:scale(1); }
+    .magic-transition span{
+      font-family:'Marcellus', serif; font-size:clamp(1.4rem, 2.4vw, 2.1rem); letter-spacing:0.24em; text-transform:uppercase;
+      color:#ffd1dc; text-shadow:0 0 24px rgba(255,209,220,0.35);
+      animation:pulseText 1.2s ease-in-out infinite;
+    }
+    @keyframes pulseText{0%,100%{transform:scale(0.98); opacity:0.8;}50%{transform:scale(1.03); opacity:1;}}
+  `;
+  document.head.appendChild(style);
+
+  const revealTransition = () => {
+    transitionOverlay.classList.add('active');
+    setTimeout(() => transitionOverlay.classList.remove('active'), 900);
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        revealTransition();
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.35 });
+  observer.observe(escarlateSection);
+}
+
+window.addEventListener('mousemove', (event) => {
+  cursor.style.left = `${event.clientX}px`;
+  cursor.style.top = `${event.clientY}px`;
+});
+
+document.documentElement.style.cursor = 'none';
+
+window.addEventListener('mousedown', () => cursor.classList.add('active'));
+window.addEventListener('mouseup', () => cursor.classList.remove('active'));
+
+document.querySelectorAll('a, button, .magic-card, .spell summary, .portrait-frame, .companion-portrait').forEach((el) => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+});
+
+const artifactButton = document.querySelector('.artifact-trigger');
+const cauldronButton = document.querySelector('.cauldron-trigger');
+const galleryCards = document.querySelectorAll('.magic-card');
+if (artifactButton) {
+  artifactButton.addEventListener('click', () => {
+    artifactButton.style.opacity = '0.85';
+    galleryCards.forEach((card, index) => {
+      setTimeout(() => card.classList.add('visible'), index * 180);
+    });
+  });
+}
+if (cauldronButton) {
+  cauldronButton.addEventListener('click', () => {
+    cauldronButton.style.opacity = '0.9';
+    const scarletCards = document.querySelectorAll('.scarlet-gallery .magic-card');
+    scarletCards.forEach((card, index) => {
+      setTimeout(() => card.classList.add('visible'), index * 180);
+    });
+  });
+}
+
+// Fios do Destino — same node network as the hub, reused in the hero
+const canvas = document.getElementById('fateweb');
+const ctx = canvas.getContext('2d');
+let w, h, nodes = [];
+const NODE_COUNT = 42;
+const LINK_DIST = 150;
+let mouse = { x: -9999, y: -9999 };
+
+function resize(){
+  const rect = canvas.parentElement.getBoundingClientRect();
+  w = canvas.width = rect.width;
+  h = canvas.height = rect.height;
+}
+window.addEventListener('resize', resize);
+resize();
+
+function initNodes(){
+  nodes = [];
+  for(let i=0;i<NODE_COUNT;i++){
+    nodes.push({
+      x: Math.random()*w,
+      y: Math.random()*h,
+      vx: (Math.random()-0.5)*0.18,
+      vy: (Math.random()-0.5)*0.18,
+      r: Math.random()*1.4+0.6
+    });
+  }
+}
+initNodes();
+
+canvas.parentElement.addEventListener('mousemove', e=>{
+  const rect = canvas.getBoundingClientRect();
+  mouse.x = e.clientX - rect.left;
+  mouse.y = e.clientY - rect.top;
+});
+canvas.parentElement.addEventListener('mouseleave', ()=>{ mouse.x=-9999; mouse.y=-9999; });
+
+function tick(){
+  ctx.clearRect(0,0,w,h);
+  for(const n of nodes){
+    n.x += n.vx; n.y += n.vy;
+    if(n.x<0||n.x>w) n.vx*=-1;
+    if(n.y<0||n.y>h) n.vy*=-1;
+    const dx = mouse.x-n.x, dy = mouse.y-n.y;
+    const d = Math.sqrt(dx*dx+dy*dy);
+    if(d < 180){ n.x -= dx*0.0018; n.y -= dy*0.0018; }
+  }
+  for(let i=0;i<nodes.length;i++){
+    for(let j=i+1;j<nodes.length;j++){
+      const a=nodes[i], b=nodes[j];
+      const dx=a.x-b.x, dy=a.y-b.y;
+      const dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<LINK_DIST){
+        const alpha = (1-dist/LINK_DIST)*0.35;
+        ctx.strokeStyle = `rgba(62,224,160,${alpha})`;
+        ctx.lineWidth = 0.6;
+        ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+      }
+    }
+  }
+  for(const n of nodes){
+    ctx.beginPath(); ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+    ctx.fillStyle = 'rgba(205,164,94,0.55)'; ctx.fill();
+  }
+  requestAnimationFrame(tick);
+}
+tick();
+</script>
+</body>
+</html>

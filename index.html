@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arquivo dos Destinos — Galeria de Personagens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070b09;
+    --bg-elevated:#0c130f;
+    --emerald-deep:#0b3d2e;
+    --emerald:#12664a;
+    --emerald-glow:#3ee0a0;
+    --gold:#cda45e;
+    --gold-bright:#f0d38a;
+    --parchment:#e9e4d6;
+    --ink-muted:#8fa79c;
+    --line:rgba(205,164,94,0.18);
+    --scarlet:#8a2140;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--parchment);
+    font-family:'Spectral', serif;
+    min-height:100vh;
+    overflow-x:hidden;
+    position:relative;
+  }
+  body::before{
+    content:'';
+    position:fixed; inset:0;
+    background:
+      radial-gradient(ellipse at 20% 10%, rgba(18,102,74,0.16), transparent 55%),
+      radial-gradient(ellipse at 85% 80%, rgba(138,33,64,0.08), transparent 50%);
+    pointer-events:none;
+    z-index:0;
+  }
+  body::after{
+    content:'';
+    position:fixed; inset:-10%;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(62,224,160,0.16), transparent 30%),
+      radial-gradient(circle at 80% 25%, rgba(205,164,94,0.11), transparent 28%),
+      radial-gradient(circle at 50% 85%, rgba(138,33,64,0.10), transparent 34%);
+    filter:blur(60px);
+    animation:drift 16s ease-in-out infinite alternate;
+    pointer-events:none;
+    z-index:0;
+  }
+  @keyframes drift{0%{transform:translate3d(-1.5%, -1.5%, 0) scale(1);}100%{transform:translate3d(1.5%, 1.5%, 0) scale(1.08);}}
+  .magic-glow{
+    position:absolute; inset:0; pointer-events:none; z-index:0;
+    background:linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.04) 45%, transparent 100%);
+    animation:shimmer 8s linear infinite;
+    opacity:0.7;
+  }
+  @keyframes shimmer{from{transform:translateX(-100%);}to{transform:translateX(100%);}}
+  canvas#fateweb{
+    position:fixed; inset:0; width:100%; height:100%;
+    z-index:0; opacity:0.55;
+  }
+  .wrap{ position:relative; z-index:1; }
+
+  header{
+    padding:9vh 6vw 6vh;
+    text-align:center;
+    border-bottom:1px solid var(--line);
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    font-size:0.72rem;
+    color:var(--emerald-glow);
+    margin-bottom:1.6rem;
+  }
+  h1{
+    font-family:'Marcellus', serif;
+    font-size:clamp(2.4rem, 6vw, 4.6rem);
+    font-weight:400;
+    letter-spacing:0.02em;
+    color:var(--gold-bright);
+    text-shadow:0 0 40px rgba(62,224,160,0.18);
+  }
+  header p{
+    max-width:56ch;
+    margin:1.6rem auto 0;
+    color:var(--ink-muted);
+    font-size:1.05rem;
+    font-style:italic;
+    line-height:1.7;
+  }
+
+  .roster{
+    max-width:1180px;
+    margin:0 auto;
+    padding:8vh 6vw 12vh;
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+    gap:2rem;
+  }
+  .card{
+    background:linear-gradient(180deg, var(--bg-elevated), #080d0a);
+    border:1px solid var(--line);
+    border-radius:2px;
+    padding:2.2rem 1.8rem;
+    position:relative;
+    overflow:hidden;
+    transition:transform 0.4s ease, border-color 0.4s ease;
+  }
+  .card::before{
+    content:'';
+    position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity:0; transition:opacity 0.4s ease;
+  }
+  .card.active{ cursor:pointer; }
+  .card.active:hover{ transform:translateY(-6px); border-color:var(--gold); box-shadow:0 0 26px rgba(62,224,160,0.12); }
+  .card.active:hover::before{ opacity:1; }
+  .card.active::after{
+    content:'';
+    position:absolute; inset:auto -30% 0 auto; width:140%; height:110%;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+    transform:translateX(-100%);
+    transition:transform 0.7s ease;
+    pointer-events:none;
+  }
+  .card.active:hover::after{ transform:translateX(100%); }
+  .tome-num{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.7rem;
+    color:var(--emerald-glow);
+    letter-spacing:0.2em;
+    display:block;
+    margin-bottom:1rem;
+  }
+  .card h2{
+    font-family:'Marcellus', serif;
+    font-size:1.5rem;
+    color:var(--parchment);
+    font-weight:400;
+    margin-bottom:0.4rem;
+  }
+  .card .role{
+    font-size:0.85rem;
+    color:var(--gold);
+    font-style:italic;
+    margin-bottom:1rem;
+  }
+  .card p.desc{
+    font-size:0.92rem;
+    color:var(--ink-muted);
+    line-height:1.6;
+    margin-bottom:1.4rem;
+    min-height:4.6em;
+  }
+  .status{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    padding:0.4rem 0.8rem;
+    display:inline-block;
+    border:1px solid;
+  }
+  .status.open{ color:var(--emerald-glow); border-color:var(--emerald-glow); }
+  .status.locked{ color:var(--ink-muted); border-color:var(--line); }
+
+  .card.locked{ opacity:0.55; }
+  .card.locked h2{ color:var(--ink-muted); }
+
+  footer{
+    text-align:center;
+    padding:4vh 6vw 6vh;
+    color:var(--ink-muted);
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.1em;
+    border-top:1px solid var(--line);
+  }
+</style>
+</head>
+<body>
+<canvas id="fateweb"></canvas>
+<div class="magic-glow"></div>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Arquivo dos Destinos · Galeria de Personagens</span>
+    <h1>Todos os caminhos<br>se curvam diante do olhar.</h1>
+    <p>Um compêndio vivo de personagens de RPG, suas histórias, poderes e destinos entrelaçados. Escolha um tomo para abrir.</p>
+  </header>
+
+  <main class="roster">
+    <div class="card active" onclick="window.location.href='jack-connor.html'">
+      <span class="tome-num">TOMO 01</span>
+      <h2>Dr. Jack Connor</h2>
+      <div class="role">Neurocirurgião · Feiticeiro Supremo do Destino</div>
+      <p class="desc">Portador dos Olhos do Destino e mestre do Trono dos Destinos, Jack une a precisão de um cirurgião ao poder de um feiticeiro supremo — acompanhado pela Feiticeira Escarlate.</p>
+      <span class="status open">Grimório aberto →</span>
+    </div>
+
+    <div class="card locked">
+      <span class="tome-num">TOMO 02</span>
+      <h2>Noada</h2>
+      <div class="role">Elfo da Terra-média · Filho de Thundril</div>
+      <p class="desc">Irmão de Legolas, guardião dos reinos élficos. Sua história ainda está sendo escrita nos arquivos.</p>
+      <span class="status locked">Em breve</span>
+    </div>
+
+    <div class="card locked">
+      <span class="tome-num">TOMO 03</span>
+      <h2>Kurosaki Alucard</h2>
+      <div class="role">Ordem Paranormal</div>
+      <p class="desc">Um caçador entre o mundo dos vivos e o oculto. Aguardando revelação.</p>
+      <span class="status locked">Em breve</span>
+    </div>
+
+    <div class="card locked">
+      <span class="tome-num">TOMO 04</span>
+      <h2>Kurosaki Nero</h2>
+      <div class="role">Universo Naruto</div>
+      <p class="desc">Um shinobi forjado em sua própria lenda. Aguardando revelação.</p>
+      <span class="status locked">Em breve</span>
+    </div>
+  </main>
+
+  <footer>ARQUIVO PESSOAL · PERSONAGENS ORIGINAIS DE RPG</footer>
+</div>
+
+<script>
+// Fios do Destino — ambient node network, echoing Jack's "Trono dos Destinos"
+const canvas = document.getElementById('fateweb');
+const ctx = canvas.getContext('2d');
+let w, h, nodes = [];
+const NODE_COUNT = 46;
+const LINK_DIST = 150;
+let mouse = { x: -9999, y: -9999 };
+
+function resize(){
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+function initNodes(){
+  nodes = [];
+  for(let i=0;i<NODE_COUNT;i++){
+    nodes.push({
+      x: Math.random()*w,
+      y: Math.random()*h,
+      vx: (Math.random()-0.5)*0.18,
+      vy: (Math.random()-0.5)*0.18,
+      r: Math.random()*1.4+0.6
+    });
+  }
+}
+initNodes();
+
+window.addEventListener('mousemove', e=>{ mouse.x = e.clientX; mouse.y = e.clientY; });
+window.addEventListener('mouseleave', ()=>{ mouse.x=-9999; mouse.y=-9999; });
+
+function tick(){
+  ctx.clearRect(0,0,w,h);
+  for(const n of nodes){
+    n.x += n.vx; n.y += n.vy;
+    if(n.x<0||n.x>w) n.vx*=-1;
+    if(n.y<0||n.y>h) n.vy*=-1;
+
+    const dx = mouse.x-n.x, dy = mouse.y-n.y;
+    const d = Math.sqrt(dx*dx+dy*dy);
+    if(d < 180){
+      n.x -= dx*0.0018;
+      n.y -= dy*0.0018;
+    }
+  }
+  for(let i=0;i<nodes.length;i++){
+    for(let j=i+1;j<nodes.length;j++){
+      const a=nodes[i], b=nodes[j];
+      const dx=a.x-b.x, dy=a.y-b.y;
+      const dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<LINK_DIST){
+        const alpha = (1-dist/LINK_DIST)*0.35;
+        ctx.strokeStyle = `rgba(62,224,160,${alpha})`;
+        ctx.lineWidth = 0.6;
+        ctx.beginPath();
+        ctx.moveTo(a.x,a.y);
+        ctx.lineTo(b.x,b.y);
+        ctx.stroke();
+      }
+    }
+  }
+  for(const n of nodes){
+    ctx.beginPath();
+    ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+    ctx.fillStyle = 'rgba(205,164,94,0.55)';
+    ctx.fill();
+  }
+  requestAnimationFrame(tick);
+}
+tick();
+</script>
+</body>
+</html>
