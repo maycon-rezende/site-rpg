@@ -67,10 +67,48 @@
   .wrap{ position:relative; z-index:1; }
 
   header{
-    padding:9vh 6vw 6vh;
+    min-height:min(820px,88vh);
+    padding:10vh 6vw 8vh;
     text-align:center;
     border-bottom:1px solid var(--line);
+    position:relative;
+    overflow:hidden;
+    isolation:isolate;
+    display:grid;
+    place-items:center;
   }
+  header::before{
+    content:''; position:absolute; inset:0; z-index:-2;
+    background:
+      linear-gradient(90deg, rgba(5,24,17,.9), rgba(7,11,9,.48) 47%, rgba(16,4,8,.5) 53%, rgba(38,5,15,.86)),
+      radial-gradient(circle at 24% 44%, rgba(62,224,160,.22), transparent 30%),
+      radial-gradient(circle at 78% 44%, rgba(220,28,75,.22), transparent 31%);
+  }
+  header::after{
+    content:''; position:absolute; left:50%; top:8%; bottom:8%; width:1px; z-index:-1;
+    background:linear-gradient(transparent,#3ee0a0 30%,#fff 49%,#d72b56 70%,transparent);
+    box-shadow:-8px 0 24px rgba(62,224,160,.42),8px 0 28px rgba(215,43,86,.48);
+    animation:destinyPulse 3.8s ease-in-out infinite;
+  }
+  .hero-content{ position:relative; z-index:3; width:min(720px,92vw); }
+  .hero-portrait{
+    position:absolute; z-index:0; bottom:-4%; width:min(38vw,470px); height:92%;
+    object-fit:contain; object-position:bottom; opacity:.42; filter:saturate(1.05) contrast(1.08);
+    pointer-events:none; transition:opacity .8s ease,filter .8s ease,transform .8s ease;
+  }
+  .hero-portrait.jack{ left:-2%; filter:saturate(1.05) contrast(1.08) drop-shadow(0 0 32px rgba(62,224,160,.28)); }
+  .hero-portrait.alice{ right:-2%; filter:saturate(1.14) contrast(1.08) drop-shadow(0 0 34px rgba(215,43,86,.3)); }
+  header:hover .hero-portrait{ opacity:.58; }
+  header:hover .hero-portrait.jack{ transform:translateX(1.5%); }
+  header:hover .hero-portrait.alice{ transform:translateX(-1.5%); }
+  .duality-mark{ display:flex; align-items:center; justify-content:center; gap:1rem; margin:1.3rem 0; font-family:'JetBrains Mono',monospace; font-size:.64rem; letter-spacing:.22em; text-transform:uppercase; }
+  .duality-mark .order{ color:var(--emerald-glow); }
+  .duality-mark .chaos{ color:#ff6687; }
+  .duality-mark i{ width:42px; height:42px; display:grid; place-items:center; border:1px solid rgba(240,211,138,.55); border-radius:50%; color:var(--gold-bright); font-style:normal; box-shadow:0 0 22px rgba(240,211,138,.16); animation:sigilSpin 9s linear infinite; }
+  .hero-cta{ display:inline-flex; align-items:center; gap:.75rem; margin-top:2rem; padding:1rem 1.35rem; border:1px solid rgba(240,211,138,.7); color:var(--gold-bright); background:rgba(7,11,9,.76); text-decoration:none; font:500 .72rem 'JetBrains Mono',monospace; letter-spacing:.16em; text-transform:uppercase; box-shadow:0 0 30px rgba(62,224,160,.1),0 0 30px rgba(138,33,64,.1); transition:transform .3s ease,box-shadow .3s ease,background .3s ease; }
+  .hero-cta:hover,.hero-cta:focus-visible{ transform:translateY(-3px); background:rgba(20,16,12,.92); box-shadow:-10px 0 28px rgba(62,224,160,.18),10px 0 28px rgba(215,43,86,.18); outline:none; }
+  @keyframes destinyPulse{50%{opacity:.45;transform:scaleY(.92)}}
+  @keyframes sigilSpin{to{transform:rotate(360deg)}}
   .eyebrow{
     font-family:'JetBrains Mono', monospace;
     letter-spacing:0.35em;
@@ -104,6 +142,9 @@
     grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
     gap:2rem;
   }
+  .roster-intro{ grid-column:1/-1; text-align:center; margin-bottom:.5rem; }
+  .roster-intro span{ color:var(--emerald-glow); font:500 .66rem 'JetBrains Mono',monospace; letter-spacing:.28em; text-transform:uppercase; }
+  .roster-intro h2{ margin-top:.75rem; font:400 clamp(1.7rem,3vw,2.4rem) 'Marcellus',serif; color:var(--gold-bright); }
   .card{
     background:linear-gradient(180deg, var(--bg-elevated), #080d0a);
     border:1px solid var(--line);
@@ -113,6 +154,11 @@
     overflow:hidden;
     transition:transform 0.4s ease, border-color 0.4s ease;
   }
+  a.card{ display:block; color:inherit; text-decoration:none; }
+  .card.featured{ grid-column:span 2; min-height:350px; padding-right:min(45%,390px); display:flex; flex-direction:column; justify-content:center; }
+  .card-portrait{ position:absolute; right:0; top:0; width:44%; height:100%; object-fit:cover; object-position:center top; opacity:.52; filter:saturate(.9) contrast(1.08); -webkit-mask-image:linear-gradient(90deg,transparent,#000 35%); mask-image:linear-gradient(90deg,transparent,#000 35%); transition:opacity .4s ease,transform .6s ease; }
+  .card.featured:hover .card-portrait{ opacity:.72; transform:scale(1.035); }
+  .card-content{ position:relative; z-index:2; }
   .card::before{
     content:'';
     position:absolute; top:0; left:0; right:0; height:2px;
@@ -173,6 +219,24 @@
 
   .card.locked{ opacity:0.55; }
   .card.locked h2{ color:var(--ink-muted); }
+  .sealed-sigil{ position:absolute; right:1.3rem; top:1.1rem; width:44px; height:44px; display:grid; place-items:center; border:1px solid var(--line); border-radius:50%; color:var(--ink-muted); font-family:'Marcellus',serif; opacity:.58; }
+
+  @media(max-width:780px){
+    header{ min-height:720px; padding:8vh 5vw 7vh; }
+    .hero-portrait{ width:64vw; height:62%; bottom:-5%; opacity:.23; }
+    .hero-portrait.jack{ left:-25%; }
+    .hero-portrait.alice{ right:-25%; }
+    .duality-mark{ gap:.55rem; font-size:.55rem; letter-spacing:.12em; }
+    .duality-mark i{ width:34px; height:34px; }
+    .roster{ grid-template-columns:1fr; padding-top:6vh; }
+    .card.featured{ grid-column:span 1; min-height:430px; padding:2rem 1.5rem 12rem; justify-content:flex-start; }
+    .card-portrait{ top:auto; bottom:0; width:100%; height:58%; -webkit-mask-image:linear-gradient(180deg,transparent,#000 38%); mask-image:linear-gradient(180deg,transparent,#000 38%); object-position:center 18%; }
+  }
+  @media(prefers-reduced-motion:reduce){
+    html{ scroll-behavior:auto; }
+    *,*::before,*::after{ animation-duration:.001ms!important; animation-iteration-count:1!important; scroll-behavior:auto!important; }
+    canvas#fateweb{ display:none; }
+  }
 
   footer{
     text-align:center;
@@ -190,21 +254,37 @@
 <div class="magic-glow"></div>
 <div class="wrap">
   <header>
-    <span class="eyebrow">Arquivo dos Destinos · Galeria de Personagens</span>
-    <h1>Todos os caminhos<br>se curvam diante do olhar.</h1>
-    <p>Um compêndio vivo de personagens de RPG, suas histórias, poderes e destinos entrelaçados. Escolha um tomo para abrir.</p>
+    <img class="hero-portrait jack" src="img/connor-supremo.png" alt="" aria-hidden="true">
+    <img class="hero-portrait alice" src="img-scarlart/alicemaximoff.png" alt="" aria-hidden="true">
+    <div class="hero-content">
+      <div class="eyebrow">Arquivo dos Destinos · Galeria de Personagens</div>
+      <h1>Todos os caminhos<br>se curvam diante do olhar.</h1>
+      <div class="duality-mark" aria-label="Ordem e caos unidos pelo destino">
+        <span class="order">Ordem</span><i aria-hidden="true">✦</i><span class="chaos">Caos</span>
+      </div>
+      <p>Um compêndio vivo de personagens de RPG, suas histórias, poderes e destinos entrelaçados. Jack calcula o impossível; Alice o transforma em realidade.</p>
+      <a class="hero-cta" href="jack-connor.html"><span aria-hidden="true">◇</span> Abrir o Tomo de Jack Connor <span aria-hidden="true">→</span></a>
+    </div>
   </header>
 
   <main class="roster">
-    <div class="card active" onclick="window.location.href='jack-connor.html'">
-      <span class="tome-num">TOMO 01</span>
-      <h2>Dr. Jack Connor</h2>
-      <div class="role">Neurocirurgião · Feiticeiro Supremo do Destino</div>
-      <p class="desc">Portador dos Olhos do Destino e mestre do Trono dos Destinos, Jack une a precisão de um cirurgião ao poder de um feiticeiro supremo — acompanhado pela Feiticeira Escarlate.</p>
-      <span class="status open">Grimório aberto →</span>
+    <div class="roster-intro">
+      <span>Acervo Arcano</span>
+      <h2>Escolha um tomo para atravessar</h2>
     </div>
+    <a class="card active featured" href="jack-connor.html">
+      <img class="card-portrait" src="img/connor.png" alt="Retrato de Dr. Jack Connor">
+      <div class="card-content">
+        <span class="tome-num">TOMO 01 · ARQUIVO ABERTO</span>
+        <h2>Dr. Jack Connor</h2>
+        <div class="role">Neurocirurgião · Feiticeiro Supremo do Destino</div>
+        <p class="desc">Portador dos Olhos do Destino e mestre do Trono dos Destinos, Jack une a precisão de um cirurgião ao poder de um feiticeiro supremo — ao lado da Feiticeira Escarlate.</p>
+        <span class="status open">Entrar no grimório →</span>
+      </div>
+    </a>
 
     <div class="card locked">
+      <span class="sealed-sigil" aria-hidden="true">ᚾ</span>
       <span class="tome-num">TOMO 02</span>
       <h2>Noada</h2>
       <div class="role">Elfo da Terra-média · Filho de Thundril</div>
@@ -213,6 +293,7 @@
     </div>
 
     <div class="card locked">
+      <span class="sealed-sigil" aria-hidden="true">ᚲ</span>
       <span class="tome-num">TOMO 03</span>
       <h2>Kurosaki Alucard</h2>
       <div class="role">Ordem Paranormal</div>
@@ -221,6 +302,7 @@
     </div>
 
     <div class="card locked">
+      <span class="sealed-sigil" aria-hidden="true">ᚱ</span>
       <span class="tome-num">TOMO 04</span>
       <h2>Kurosaki Nero</h2>
       <div class="role">Universo Naruto</div>
