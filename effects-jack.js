@@ -197,10 +197,7 @@
     let height = 0;
     let dpr = Math.min(window.devicePixelRatio || 1, 2);
     const particles = [];
-    const ripples = [];
-    const vortexes = [];
-    const trails = [];
-    const pointer = { x: 0, y: 0, active: false, moved: false };
+    const pointer = { x: 0, y: 0, active: false };
 
     function resizeLayer() {
       width = window.innerWidth;
@@ -216,59 +213,10 @@
         : { primary: '#3ee0a0', secondary: '#f0d38a', glow: 'rgba(62,224,160,0.24)' };
     }
 
-    function spawnRipple(x, y, intensity = 1) {
-      ripples.push({
-        x,
-        y,
-        radius: 2 + intensity * 2,
-        maxRadius: 70 + intensity * 35,
-        alpha: 0.4 + intensity * 0.08,
-        lineWidth: 0.8 + intensity * 0.2
-      });
-    }
-
-    function spawnVortex(x, y, intensity = 1) {
-      vortexes.push({
-        x,
-        y,
-        radius: 8 + intensity * 6,
-        life: 44 + intensity * 12,
-        maxLife: 44 + intensity * 12,
-        spin: (Math.random() * 0.08 + 0.04) * (Math.random() > 0.5 ? 1 : -1),
-        color: document.body.classList.contains('theme-scarlet') ? '#ffd1dc' : '#f0d38a'
-      });
-    }
-
-    function spawnLightning(x, y, color) {
-      const segments = 5 + Math.floor(Math.random() * 4);
-      for (let i = 0; i < segments; i += 1) {
-        const startX = x + (Math.random() - 0.5) * 22;
-        const startY = y + (Math.random() - 0.5) * 22;
-        const endX = x + (Math.random() - 0.5) * 42;
-        const endY = y + (Math.random() - 0.5) * 42;
-        particles.push({
-          x: startX,
-          y: startY,
-          vx: (endX - startX) * 0.02,
-          vy: (endY - startY) * 0.02,
-          life: 18 + Math.random() * 8,
-          maxLife: 18 + Math.random() * 8,
-          size: 1.1,
-          color,
-          glow: 'rgba(255,255,255,0.18)',
-          rune: false,
-          lightning: true
-        });
-      }
-    }
-
-    function spawnBurst(x, y, amount = 16, speed = 1, options = {}) {
+    function spawnBurst(x, y, amount = 16, speed = 1) {
       const colors = getThemeColors();
-      const primary = options.primary || colors.primary;
-      const secondary = options.secondary || colors.secondary;
-      const glow = options.glow || colors.glow;
       for (let i = 0; i < amount; i += 1) {
-        const angle = (Math.PI * 2 * i) / amount + Math.random() * 0.7 + (options.twist || 0);
+        const angle = (Math.PI * 2 * i) / amount + Math.random() * 0.7;
         const velocity = (Math.random() * 2 + 1.2) * speed;
         particles.push({
           x,
@@ -278,93 +226,18 @@
           life: 70 + Math.random() * 30,
           maxLife: 70 + Math.random() * 30,
           size: Math.random() * 2.2 + 0.9,
-          color: i % 2 === 0 ? primary : secondary,
-          glow,
-          rune: Math.random() > 0.6,
-          lightning: false
+          color: i % 2 === 0 ? colors.primary : colors.secondary,
+          glow: colors.glow,
+          rune: Math.random() > 0.6
         });
       }
-      if (options.ripple) spawnRipple(x, y, options.intensity || 1);
-      if (options.vortex) spawnVortex(x, y, options.intensity || 1);
-      if (options.lightning !== false && Math.random() < 0.72) spawnLightning(x, y, options.primary || colors.primary);
-    }
-
-    function showSpellText(text, x, y) {
-      const label = document.createElement('div');
-      label.className = 'spell-text';
-      label.textContent = text;
-      label.style.left = `${x}px`;
-      label.style.top = `${y}px`;
-      document.body.appendChild(label);
-      setTimeout(() => label.remove(), 1200);
     }
 
     function animateLayer(time) {
       ctx.clearRect(0, 0, width, height);
       const colors = getThemeColors();
       if (pointer.active) {
-        spawnBurst(pointer.x, pointer.y, 2, 0.5, { lightning: false });
-      }
-
-      for (let i = trails.length - 1; i >= 0; i -= 1) {
-        const trail = trails[i];
-        trail.life -= 1;
-        if (trail.life <= 0) {
-          trails.splice(i, 1);
-          continue;
-        }
-        ctx.save();
-        ctx.globalAlpha = trail.life / trail.maxLife;
-        ctx.strokeStyle = trail.color;
-        ctx.lineWidth = 0.8;
-        ctx.beginPath();
-        ctx.moveTo(trail.x1, trail.y1);
-        ctx.lineTo(trail.x2, trail.y2);
-        ctx.stroke();
-        ctx.restore();
-      }
-
-      for (let i = ripples.length - 1; i >= 0; i -= 1) {
-        const ripple = ripples[i];
-        ripple.radius += 1.6;
-        ripple.alpha -= 0.015;
-        if (ripple.alpha <= 0) {
-          ripples.splice(i, 1);
-          continue;
-        }
-        ctx.save();
-        ctx.globalAlpha = ripple.alpha;
-        ctx.strokeStyle = colors.primary;
-        ctx.lineWidth = ripple.lineWidth;
-        ctx.beginPath();
-        ctx.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.restore();
-      }
-
-      for (let i = vortexes.length - 1; i >= 0; i -= 1) {
-        const vortex = vortexes[i];
-        vortex.life -= 1;
-        vortex.radius += 0.55;
-        if (vortex.life <= 0) {
-          vortexes.splice(i, 1);
-          continue;
-        }
-        ctx.save();
-        ctx.globalAlpha = vortex.life / vortex.maxLife;
-        ctx.strokeStyle = vortex.color;
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        for (let step = 0; step < 16; step += 1) {
-          const angle = (step / 16) * Math.PI * 2 + vortex.life * 0.02 * vortex.spin;
-          const x = vortex.x + Math.cos(angle) * (vortex.radius + step * 0.8);
-          const y = vortex.y + Math.sin(angle) * (vortex.radius + step * 0.8);
-          if (step === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-        }
-        ctx.closePath();
-        ctx.stroke();
-        ctx.restore();
+        spawnBurst(pointer.x, pointer.y, 2, 0.5);
       }
 
       for (let i = particles.length - 1; i >= 0; i -= 1) {
@@ -377,17 +250,7 @@
         p.vy *= 0.985;
 
         const alpha = p.life / p.maxLife;
-        if (p.lightning) {
-          ctx.save();
-          ctx.globalAlpha = alpha;
-          ctx.strokeStyle = p.color;
-          ctx.lineWidth = 1.1;
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(p.x + p.vx * 10, p.y + p.vy * 10);
-          ctx.stroke();
-          ctx.restore();
-        } else if (p.rune) {
+        if (p.rune) {
           ctx.save();
           ctx.globalAlpha = alpha;
           ctx.strokeStyle = p.color;
@@ -438,65 +301,18 @@
       pointer.active = true;
       pointer.x = event.clientX;
       pointer.y = event.clientY;
-      if (pointer.moved) {
-        trails.push({
-          x1: pointer.x - 3,
-          y1: pointer.y - 3,
-          x2: event.clientX - 3,
-          y2: event.clientY - 3,
-          life: 18,
-          maxLife: 18,
-          color: document.body.classList.contains('theme-scarlet') ? '#ffd1dc' : '#f0d38a'
-        });
-      }
-      pointer.moved = true;
-      const shiftX = (event.clientX / window.innerWidth - 0.5) * 10;
-      const shiftY = (event.clientY / window.innerHeight - 0.5) * 8;
-      document.documentElement.style.setProperty('--hero-shift-x', `${shiftX}px`);
-      document.documentElement.style.setProperty('--hero-shift-y', `${shiftY}px`);
     });
     window.addEventListener('mouseleave', () => {
       pointer.active = false;
-      pointer.moved = false;
     });
     window.addEventListener('mousedown', (event) => {
-      spawnBurst(event.clientX, event.clientY, 24, 1.4, { ripple: true, intensity: 1.3, vortex: true, lightning: true });
-    });
-    window.addEventListener('mouseup', () => {
-      pointer.active = false;
+      spawnBurst(event.clientX, event.clientY, 24, 1.4);
     });
 
-    document.addEventListener('keydown', (event) => {
-      const spellMap = {
-        a: { label: 'Escudo Arcano', primary: '#3ee0a0', secondary: '#f0d38a', amount: 26, speed: 1.3, ripple: true, vortex: false, intensity: 0.9 },
-        s: { label: 'Vórtice do Caos', primary: '#ff5d78', secondary: '#ffd1dc', amount: 32, speed: 1.6, ripple: true, vortex: true, intensity: 1.4 },
-        d: { label: 'Lâmina do Destino', primary: '#f0d38a', secondary: '#3ee0a0', amount: 24, speed: 1.4, ripple: true, vortex: false, intensity: 1 },
-        f: { label: 'Portal Arcano', primary: '#8ff7d0', secondary: '#ffffff', amount: 28, speed: 1.2, ripple: true, vortex: true, intensity: 1.2 }
-      };
-      const spell = spellMap[event.key.toLowerCase()];
-      if (!spell || event.repeat) return;
-      const x = window.innerWidth * 0.5 + (Math.random() - 0.5) * 220;
-      const y = window.innerHeight * 0.45 + (Math.random() - 0.5) * 180;
-      spawnBurst(x, y, spell.amount, spell.speed, { primary: spell.primary, secondary: spell.secondary, ripple: spell.ripple, vortex: spell.vortex, intensity: spell.intensity, lightning: true });
-      showSpellText(spell.label, x, y);
-    });
-
-    document.querySelectorAll('.magic-card, .artifact-trigger, .cauldron-trigger, .companion-portrait, .portrait-frame, .section-head h2, .hero-text h1, .hero-quote, .stat-box').forEach((element) => {
+    document.querySelectorAll('.magic-card, .artifact-trigger, .cauldron-trigger, .companion-portrait, .portrait-frame').forEach((element) => {
       element.addEventListener('mouseenter', () => {
         const rect = element.getBoundingClientRect();
-        const x = rect.left + rect.width / 2;
-        const y = rect.top + rect.height / 2;
-        spawnBurst(x, y, 10, 0.8, { ripple: true, intensity: 0.8, lightning: false });
-        element.classList.add('hover-arcane');
-        if (element.tagName === 'H2' || element.tagName === 'H1') {
-          element.classList.add('arcane-title');
-        }
-      });
-      element.addEventListener('mouseleave', () => {
-        element.classList.remove('hover-arcane');
-        if (element.tagName === 'H2' || element.tagName === 'H1') {
-          element.classList.remove('arcane-title');
-        }
+        spawnBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 12, 0.9);
       });
     });
 

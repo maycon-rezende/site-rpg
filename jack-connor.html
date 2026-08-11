@@ -892,9 +892,16 @@
     display:grid;
     grid-template-columns:0.85fr 1.15fr;
     gap:4vw;
-    align-items:center;
+    align-items:start;
+    position:relative;
+    z-index:2;
   }
-  .companion-portrait{ position:relative; overflow:hidden; border:1px solid rgba(138,33,64,0.5); }
+  .companion-portrait{
+    position:sticky;
+    top:calc(72px + 2rem);
+    overflow:hidden;
+    border:1px solid rgba(138,33,64,0.5);
+  }
   .companion-portrait img{
     width:100%;
     display:block;
@@ -953,51 +960,62 @@
     color:var(--ink-muted);
     line-height:1.7;
   }
-  .scarlet-showcase{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
-    gap:1rem;
-    margin-top:2rem;
+  #escarlate, #alice-dossier{
+    background:
+      radial-gradient(circle at 82% 12%, rgba(194,58,94,.13), transparent 34%),
+      linear-gradient(145deg, rgba(35,7,15,.55), rgba(7,5,7,.2) 55%);
   }
-  .scarlet-showcase .showcase-card{
-    border:1px solid rgba(194,58,94,0.24);
-    background:linear-gradient(180deg, rgba(20,10,12,0.95), rgba(8,7,8,0.95));
-    padding:0.8rem;
-    position:relative;
-    overflow:hidden;
+  #escarlate{ isolation:isolate; }
+  #escarlate > .section-head{ position:relative; z-index:2; }
+  .alice-backdrop{
+    position:absolute;
+    z-index:0;
+    inset:0;
+    pointer-events:none;
+    background:
+      linear-gradient(90deg, rgba(7,4,6,.98) 0%, rgba(12,5,8,.82) 40%, rgba(12,4,8,.54) 68%, rgba(7,3,5,.88) 100%),
+      linear-gradient(180deg, rgba(7,4,6,.5), transparent 24%, rgba(7,4,6,.9) 92%),
+      url('img-scarlart/maximogg.jpg') 78% 12% / cover no-repeat;
+    opacity:.42;
+    filter:saturate(1.2) contrast(1.1);
+    transform:scale(1.035);
   }
-  .scarlet-showcase .showcase-card img{
-    width:100%; display:block; aspect-ratio:4 / 5; object-fit:cover; object-position:center;
-    border:1px solid rgba(255,255,255,0.06);
+  .alice-backdrop::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at 74% 18%, rgba(255,56,99,.2), transparent 34%);
+    mix-blend-mode:screen;
   }
-  .scarlet-showcase .showcase-card .label{
-    margin-top:0.7rem; font-family:'JetBrains Mono', monospace; font-size:0.68rem; letter-spacing:0.14em;
-    text-transform:uppercase; color:var(--scarlet-bright);
+  .reality-rift{
+    position:relative; height:clamp(150px,22vw,270px); overflow:hidden;
+    margin-top:-1px; isolation:isolate; display:grid; place-items:center;
+    background:linear-gradient(180deg, transparent, rgba(62,224,160,.05) 25%, rgba(107,9,35,.3) 72%, rgba(22,3,9,.75));
   }
-  .scarlet-showcase .showcase-card .desc{
-    margin-top:0.35rem; font-size:0.88rem; color:var(--ink-muted);
+  .reality-rift::before,.reality-rift::after{
+    content:''; position:absolute; inset:20% -10%; pointer-events:none;
+    background:repeating-radial-gradient(ellipse at center, transparent 0 17px, rgba(255,70,108,.14) 19px 20px, transparent 23px 34px);
+    filter:blur(1px); transform:perspective(500px) rotateX(66deg) scale(1.4);
+    animation:realityWave 5s ease-in-out infinite;
   }
-  .scarlet-gallery{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
-    gap:1rem;
-    margin-top:2rem;
-  }
-  .scarlet-gallery .magic-card{
-    padding:0.55rem;
-    opacity:0;
-    transform:translateY(22px) scale(0.96);
-  }
-  .scarlet-gallery .magic-card.visible{
-    opacity:1;
-    transform:translateY(0) scale(1);
-  }
-  .scarlet-gallery img{
-    aspect-ratio:4 / 5;
-    object-fit:contain;
-    object-position:center;
-    background:rgba(255,255,255,0.03);
-  }
+  .reality-rift::after{ filter:blur(7px); opacity:.65; transform:translateX(8px) perspective(500px) rotateX(66deg) scale(1.45); animation-direction:reverse; }
+  .rift-crack{ width:min(620px,86vw); height:2px; position:relative; z-index:2; background:linear-gradient(90deg,transparent,#3ee0a0 18%,#fff 48%,#ff315e 55%,transparent); box-shadow:-7px 0 18px #3ee0a0,9px 0 28px #e31348; transform:rotate(-2deg); }
+  .rift-crack::before,.rift-crack::after{ content:''; position:absolute; width:32%; height:1px; background:#ff7995; right:22%; transform-origin:right; transform:rotate(24deg); box-shadow:0 0 12px #e31348; }
+  .rift-crack::after{ right:auto; left:28%; transform-origin:left; transform:rotate(-28deg); }
+  .rift-label{ position:absolute; z-index:3; bottom:20%; color:#ffd1dc; font:600 .66rem 'JetBrains Mono',monospace; letter-spacing:.35em; text-transform:uppercase; text-shadow:0 0 18px #c23a5e; }
+  @keyframes realityWave{ 0%,100%{ transform:perspective(500px) rotateX(66deg) scale(1.3) translateY(-4px); opacity:.45 } 50%{ transform:perspective(500px) rotateX(62deg) scale(1.55) translateY(7px); opacity:1 } }
+
+  .chaos-grimoire{ margin-top:1.7rem; display:grid; justify-items:center; position:relative; }
+  .conjuration-stage{ width:min(100%,620px); min-height:clamp(430px,62vw,650px); position:relative; display:grid; place-items:center; isolation:isolate; }
+  .conjuration-stage::before,.conjuration-stage::after{ content:''; position:absolute; width:min(86vw,510px); aspect-ratio:1; border-radius:50%; border:1px solid rgba(255,93,120,.48); box-shadow:inset 0 0 35px rgba(194,58,94,.15),0 0 35px rgba(194,58,94,.16); opacity:.32; animation:sigilTurn 18s linear infinite; }
+  .conjuration-stage::after{ width:min(67vw,400px); border-style:dashed; border-color:rgba(255,209,220,.38); animation-direction:reverse; animation-duration:13s; }
+  .conjuration-runes{ position:absolute; z-index:0; color:rgba(255,209,220,.72); font:1rem 'Marcellus',serif; letter-spacing:1.3rem; white-space:nowrap; text-shadow:0 0 12px #ff315e; animation:runeBreathe 3.8s ease-in-out infinite; }
+  .conjured-vision{ position:absolute; z-index:2; width:min(76%,390px); margin:0; opacity:0; visibility:hidden; transform:scale(.78) translateY(28px); filter:blur(16px) saturate(1.5); transition:opacity 1.1s ease,transform 1.1s cubic-bezier(.2,.75,.2,1),filter 1.1s ease; }
+  .conjured-vision.is-active{ opacity:1; visibility:visible; transform:scale(1) translateY(-18px); filter:blur(0) saturate(1.08); }
+  .conjured-vision.is-leaving{ opacity:0; visibility:visible; transform:scale(1.08) translateY(-35px); filter:blur(14px); }
+  .conjured-vision img{ width:100%; max-height:470px; aspect-ratio:4/5; object-fit:contain; display:block; background:radial-gradient(circle,rgba(194,58,94,.14),rgba(6,4,6,.86)); border:1px solid rgba(255,93,120,.5); box-shadow:0 0 28px rgba(194,58,94,.32),0 0 80px rgba(138,33,64,.22); }
+  .conjured-vision figcaption{ padding:.8rem 1rem; text-align:center; color:#ffd1dc; background:rgba(10,3,6,.86); border:1px solid rgba(255,93,120,.28); font:600 .68rem 'JetBrains Mono',monospace; letter-spacing:.18em; text-transform:uppercase; }
+  .chaos-mist{ position:absolute; z-index:1; width:80%; height:38%; bottom:12%; border-radius:50%; background:radial-gradient(ellipse,rgba(255,30,78,.28),transparent 68%); filter:blur(20px); opacity:.7; animation:mistDrift 5s ease-in-out infinite; }
   .cauldron-trigger{
     display:inline-flex; align-items:center; justify-content:center; gap:0.7rem;
     margin-top:1.2rem; padding:0.9rem 1.1rem; border:1px solid var(--theme-accent-strong);
@@ -1005,11 +1023,19 @@
     color:var(--theme-title); font-family:'JetBrains Mono', monospace;
     font-size:0.74rem; letter-spacing:0.16em; text-transform:uppercase;
     cursor:pointer; transition:transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    min-width:min(88vw,340px); position:relative; z-index:4; margin-top:-3.2rem;
     animation:floatPulse 2.6s ease-in-out infinite;
   }
   .cauldron-trigger:hover{ transform:translateY(-2px); box-shadow:0 0 18px var(--theme-accent-soft); border-color:var(--theme-accent); }
   @keyframes floatPulse{0%,100%{transform:translateY(0); box-shadow:0 0 0 rgba(194,58,94,0);}50%{transform:translateY(-3px); box-shadow:0 0 20px rgba(194,58,94,0.16);}}
   .cauldron-trigger .sigil{ font-size:1rem; color:var(--scarlet-bright); }
+  .grimoire-icon{ width:42px; height:32px; position:relative; display:inline-block; border:1px solid #d04b6d; border-radius:3px 7px 7px 3px; background:linear-gradient(135deg,#350914,#10070a); box-shadow:inset 5px 0 rgba(255,255,255,.035),0 0 13px rgba(255,49,94,.35); }
+  .grimoire-icon::before{ content:'✦'; position:absolute; inset:0; display:grid; place-items:center; color:#ffd1dc; text-shadow:0 0 8px #ff315e; }
+  .grimoire-icon::after{ content:''; position:absolute; left:5px; top:0; bottom:0; border-left:1px solid rgba(255,209,220,.25); }
+  .conjuration-status{ min-height:1.5em; margin-top:.85rem; color:var(--ink-muted); font:600 .63rem 'JetBrains Mono',monospace; letter-spacing:.13em; text-transform:uppercase; }
+  @keyframes sigilTurn{to{transform:rotate(360deg)}}
+  @keyframes runeBreathe{50%{opacity:.35;letter-spacing:1.55rem;filter:blur(.5px)}}
+  @keyframes mistDrift{50%{transform:translateX(7%) scale(1.12);opacity:.95}}
 
   footer{
     text-align:center;
@@ -1030,12 +1056,22 @@
     .origem-grid{ grid-template-columns:1fr; }
     .eyes-grid{ grid-template-columns:1fr; }
     .companion{ grid-template-columns:1fr; }
-    .companion-portrait{ max-width:320px; margin:0 auto; }
+    .companion-portrait{ position:relative; top:auto; max-width:320px; margin:0 auto; }
+    .alice-backdrop{
+      background:
+        linear-gradient(180deg, rgba(7,4,6,.72), rgba(7,4,6,.94) 42%, rgba(7,4,6,.98)),
+        url('img-scarlart/maximogg.jpg') 68% top / auto 620px no-repeat;
+      opacity:.36;
+    }
     .role-row{ grid-template-columns:1fr; }
+    .conjuration-stage{ min-height:500px; }
+    .conjured-vision{ width:min(78vw,360px); }
   }
   @media (prefers-reduced-motion: reduce){
     html{ scroll-behavior:auto; }
     canvas#fateweb{ display:none; }
+    *,*::before,*::after{ animation-duration:.001ms!important; animation-iteration-count:1!important; scroll-behavior:auto!important; }
+    .conjured-vision{ transition:none; }
   }
 </style>
 </head>
@@ -1635,7 +1671,12 @@
 </section>
 
 <!-- FEITICEIRA ESCARLATE -->
+<div class="reality-rift" aria-hidden="true">
+  <div class="rift-crack"></div>
+  <span class="rift-label">A ordem cede ao caos</span>
+</div>
 <section id="escarlate">
+  <div class="alice-backdrop" aria-hidden="true"></div>
   <div class="section-head">
     <span class="eyebrow">VIII · Companheira</span>
     <h2>A Feiticeira Escarlate</h2>
@@ -1643,7 +1684,7 @@
   </div>
   <div class="companion">
     <div class="companion-portrait alice-stage">
-      <img src="img/scarlet-witch.png" alt="A Feiticeira Escarlate, companheira de Jack Connor">
+      <img src="img-scarlart/alice.png" alt="A Feiticeira Escarlate, companheira de Jack Connor">
     </div>
     <div class="companion-text">
       <span class="eyebrow">Registro Visual · Arquivo do Caos</span>
@@ -1655,50 +1696,89 @@
       <div class="companion-note">
         REGISTRO ARCANO: Alice Maximoff foi treinada ao lado de Jack, desenvolveu sua própria linhagem de magia do caos e tornou-se uma das figuras mais poderosas da história mística. Sua essência é o equilíbrio entre destruição e criação — um ser capaz de transformar o caos em realidade.
       </div>
-      <button class="cauldron-trigger" type="button" aria-label="Revelar as imagens da Feiticeira Escarlate">
-        <span class="sigil">⚗</span>
-        Acender o caldeirão
-        <span class="sigil">⚗</span>
-      </button>
-      <div class="scarlet-gallery">
-        <div class="magic-card">
-          <img src="img/scarlet-witch.png" alt="Feiticeira Escarlate em visão clássica">
-          <div class="gallery-caption">Visão Clássica</div>
+      <div class="chaos-grimoire">
+        <div class="conjuration-stage" aria-live="off">
+          <div class="conjuration-runes" aria-hidden="true">✦ ᚱ ◇ ᛟ ✧ ᚨ ◇ ᛞ ✦</div>
+          <div class="chaos-mist" aria-hidden="true"></div>
+          <figure class="conjured-vision">
+          <img src="img-scarlart/alice.png" alt="Feiticeira Escarlate em visão clássica">
+            <figcaption>Visão Clássica</figcaption>
+          </figure>
+          <figure class="conjured-vision">
+          <img src="img-scarlart/wanda.jpg" alt="Feiticeira Escarlate em nova ilustração">
+            <figcaption>Presença Arcana</figcaption>
+          </figure>
+          <figure class="conjured-vision">
+          <img src="img-scarlart/scarlat.jpg" alt="Feiticeira Escarlate em pose mística">
+            <figcaption>Caos Escarlate</figcaption>
+          </figure>
+          <figure class="conjured-vision">
+          <img src="img-scarlart/max.jpg" alt="Feiticeira Escarlate em versão alternativa">
+            <figcaption>Variação Etérea</figcaption>
+          </figure>
+          <figure class="conjured-vision">
+            <img src="img-scarlart/alicemaximoff.png" alt="Alice Maximoff envolvida pela Magia do Caos">
+            <figcaption>Herdeira do Caos</figcaption>
+          </figure>
+          <figure class="conjured-vision">
+            <img src="img-scarlart/alicescarlat.png" alt="Alice em sua manifestação escarlate">
+            <figcaption>Manifestação Escarlate</figcaption>
+          </figure>
+          <figure class="conjured-vision">
+            <img src="img-scarlart/caos.png" alt="Alice conjurando energia caótica">
+            <figcaption>Energia do Caos</figcaption>
+          </figure>
+          <figure class="conjured-vision">
+            <img src="img-scarlart/casa.png" alt="Alice em uma visão além da batalha">
+            <figcaption>Realidade Desejada</figcaption>
+          </figure>
+          <figure class="conjured-vision">
+            <img src="img-scarlart/casa1.png" alt="Alice atravessando uma realidade alternativa">
+            <figcaption>Lar entre Realidades</figcaption>
+          </figure>
+          <figure class="conjured-vision">
+            <img src="img-scarlart/magic.png" alt="Alice dominando uma corrente de magia escarlate">
+            <figcaption>Corrente Escarlate</figcaption>
+          </figure>
+          <figure class="conjured-vision">
+            <img src="img-scarlart/magic1.png" alt="Magia de Alice expandindo-se ao seu redor">
+            <figcaption>Expansão do Hex</figcaption>
+          </figure>
+          <figure class="conjured-vision">
+            <img src="img-scarlart/magicalice.png" alt="Alice moldando a realidade com as mãos">
+            <figcaption>Feitiço de Alice</figcaption>
+          </figure>
+          <figure class="conjured-vision">
+            <img src="img-scarlart/maximoff.png" alt="Retrato arcano de Alice Maximoff">
+            <figcaption>Sangue Maximoff</figcaption>
+          </figure>
+          <figure class="conjured-vision">
+            <img src="img-scarlart/maximoffalice.png" alt="Alice Maximoff em ascensão mística">
+            <figcaption>Ascensão Maximoff</figcaption>
+          </figure>
+          <figure class="conjured-vision">
+            <img src="img-scarlart/maximoffalice2.png" alt="Alice Maximoff cercada por poder escarlate">
+            <figcaption>Vontade Absoluta</figcaption>
+          </figure>
+          <figure class="conjured-vision">
+            <img src="img-scarlart/scarlatlice.png" alt="Alice como a Feiticeira Escarlate">
+            <figcaption>A Feiticeira</figcaption>
+          </figure>
+          <figure class="conjured-vision">
+            <img src="img-scarlart/tiara.png" alt="Alice usando a tiara da Feiticeira Escarlate">
+            <figcaption>Coroa do Caos</figcaption>
+          </figure>
+          <figure class="conjured-vision">
+            <img src="img-scarlart/tiara1.png" alt="A tiara escarlate como símbolo do poder de Alice">
+            <figcaption>Ícone Escarlate</figcaption>
+          </figure>
         </div>
-        <div class="magic-card">
-          <img src="img/wanda.jpg" alt="Feiticeira Escarlate em nova ilustração">
-          <div class="gallery-caption">Presença Arcana</div>
-        </div>
-        <div class="magic-card">
-          <img src="img/scarlat.jpg" alt="Feiticeira Escarlate em pose mística">
-          <div class="gallery-caption">Caos Escarlate</div>
-        </div>
-        <div class="magic-card">
-          <img src="img/max.jpg" alt="Feiticeira Escarlate em versão alternativa">
-          <div class="gallery-caption">Variação Éterea</div>
-        </div>
-      </div>
-      <div class="scarlet-showcase">
-        <div class="showcase-card">
-          <img src="img/alice.png" alt="Alice Maximoff em pose de magia">
-          <div class="label">Aquela que rompeu o véu</div>
-          <div class="desc">A primeira manifestação do poder do caos em sua forma mais viva.</div>
-        </div>
-        <div class="showcase-card">
-          <img src="img/maximogg.jpg" alt="Feiticeira Escarlate em forma de energia">
-          <div class="label">Vórtice Arcano</div>
-          <div class="desc">O poder do caos se torna uma tempestade viva ao seu redor.</div>
-        </div>
-        <div class="showcase-card">
-          <img src="img/escarlate.jpg" alt="Feiticeira Escarlate em postura de combate">
-          <div class="label">Luz e Ruína</div>
-          <div class="desc">A dualidade entre criação e destruição que define sua magia.</div>
-        </div>
-        <div class="showcase-card">
-          <img src="img/wandamaximoff.jpg" alt="Varinha da Feiticeira Escarlate">
-          <div class="label">Símbolo da Força</div>
-          <div class="desc">Seu foco ritualístico, capaz de intensificar o caos em feitiços devastadores.</div>
-        </div>
+        <button class="cauldron-trigger" type="button" aria-label="Abrir o grimório e conjurar a primeira visão" aria-controls="chaos-vision-status">
+          <span class="grimoire-icon" aria-hidden="true"></span>
+          <span class="trigger-copy">Abrir o grimório</span>
+          <span class="sigil" aria-hidden="true">✦</span>
+        </button>
+        <p class="conjuration-status" id="chaos-vision-status">Toque no grimório para iniciar a conjuração</p>
       </div>
     </div>
   </div>
@@ -1853,11 +1933,11 @@ const sectionObserver = new IntersectionObserver((entries) => {
     entry.target.classList.add('is-visible');
     applySectionTheme(entry.target);
   });
-}, { threshold: 0.2 });
+}, { threshold: 0, rootMargin: '-46% 0px -46% 0px' });
 
 document.querySelectorAll('section').forEach((section) => {
   section.classList.add('reveal-section');
-  section.dataset.theme = section.id === 'escarlate' ? 'scarlet' : 'jack';
+  section.dataset.theme = ['escarlate', 'alice-dossier'].includes(section.id) ? 'scarlet' : 'jack';
   sectionObserver.observe(section);
 });
 
@@ -1867,29 +1947,37 @@ const escarlateSection = document.getElementById('escarlate');
 if (escarlateSection) {
   const transitionOverlay = document.createElement('div');
   transitionOverlay.className = 'magic-transition';
-  transitionOverlay.innerHTML = '<span>Caos Desperta</span>';
+  transitionOverlay.innerHTML = '<i></i><span>A realidade está sendo reescrita</span>';
   document.body.appendChild(transitionOverlay);
 
   const style = document.createElement('style');
   style.textContent = `
     .magic-transition{
       position:fixed; inset:0; pointer-events:none; z-index:90; display:grid; place-items:center;
-      background:radial-gradient(circle at center, rgba(255,93,120,0.25) 0%, rgba(138,33,64,0.55) 28%, rgba(7,11,9,0.95) 70%);
-      opacity:0; transform:scale(1.05); transition:opacity 0.8s ease, transform 0.8s ease;
+      background:radial-gradient(circle at center, rgba(255,93,120,.18) 0%, rgba(138,33,64,.56) 30%, rgba(7,2,5,.94) 72%);
+      opacity:0; transform:scale(1.08) skewX(2deg); filter:hue-rotate(-12deg); transition:opacity .55s ease, transform 1.15s cubic-bezier(.2,.8,.2,1),filter 1s ease;
     }
-    .magic-transition.active{ opacity:1; transform:scale(1); }
+    .magic-transition.active{ opacity:1; transform:scale(1) skewX(0); filter:hue-rotate(0); }
+    .magic-transition i{ position:absolute; width:140vmax; height:140vmax; border-radius:48%; border:2px solid rgba(255,100,135,.25); box-shadow:inset 20px 0 80px rgba(255,0,64,.2),-14px 0 rgba(30,255,170,.1); animation:transitionWarp 1.5s ease-in-out infinite; }
     .magic-transition span{
       font-family:'Marcellus', serif; font-size:clamp(1.4rem, 2.4vw, 2.1rem); letter-spacing:0.24em; text-transform:uppercase;
       color:#ffd1dc; text-shadow:0 0 24px rgba(255,209,220,0.35);
       animation:pulseText 1.2s ease-in-out infinite;
     }
+    body.reality-warp section,body.reality-warp nav{filter:blur(2px) hue-rotate(-18deg);transform:skewX(-.5deg) scale(1.006)}
+    @keyframes transitionWarp{50%{transform:rotate(8deg) scale(.72);border-radius:38% 62% 54% 46%}}
     @keyframes pulseText{0%,100%{transform:scale(0.98); opacity:0.8;}50%{transform:scale(1.03); opacity:1;}}
+    @media(prefers-reduced-motion:reduce){.magic-transition i{animation:none}body.reality-warp section,body.reality-warp nav{filter:none;transform:none}}
   `;
   document.head.appendChild(style);
 
   const revealTransition = () => {
+    document.body.classList.add('reality-warp');
     transitionOverlay.classList.add('active');
-    setTimeout(() => transitionOverlay.classList.remove('active'), 900);
+    setTimeout(() => {
+      transitionOverlay.classList.remove('active');
+      document.body.classList.remove('reality-warp');
+    }, 1250);
   };
 
   const observer = new IntersectionObserver((entries) => {
@@ -1899,8 +1987,8 @@ if (escarlateSection) {
         observer.disconnect();
       }
     });
-  }, { threshold: 0.35 });
-  observer.observe(escarlateSection);
+  }, { threshold: 0.25 });
+  observer.observe(document.querySelector('.reality-rift') || escarlateSection);
 }
 
 window.addEventListener('mousemove', (event) => {
@@ -1930,13 +2018,63 @@ if (artifactButton) {
   });
 }
 if (cauldronButton) {
+  const visions = [...document.querySelectorAll('.conjured-vision')];
+  const triggerCopy = cauldronButton.querySelector('.trigger-copy');
+  const status = document.querySelector('.conjuration-status');
+  const grimoire = cauldronButton.closest('.chaos-grimoire');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let activeVision = -1;
+  let visionTimer = null;
+
+  const showVision = (nextIndex) => {
+    if (!visions.length) return;
+    const previous = activeVision;
+    activeVision = nextIndex % visions.length;
+    if (previous >= 0) {
+      visions[previous].classList.remove('is-active');
+      if (!reduceMotion) {
+        visions[previous].classList.add('is-leaving');
+        setTimeout(() => visions[previous].classList.remove('is-leaving'), 1050);
+      }
+    }
+    visions[activeVision].classList.remove('is-leaving');
+    requestAnimationFrame(() => visions[activeVision].classList.add('is-active'));
+    triggerCopy.textContent = activeVision === visions.length - 1 ? 'Recomeçar o ciclo' : 'Conjurar próxima visão';
+    cauldronButton.setAttribute('aria-label', `${triggerCopy.textContent}. Visão ${activeVision + 1} de ${visions.length}`);
+    status.textContent = `Visão ${activeVision + 1} de ${visions.length} · ${visions[activeVision].querySelector('figcaption').textContent}`;
+  };
+
+  const stopVisionLoop = () => {
+    window.clearInterval(visionTimer);
+    visionTimer = null;
+  };
+
+  const startVisionLoop = () => {
+    if (reduceMotion || visionTimer || !visions.length) return;
+    if (activeVision < 0) showVision(0);
+    visionTimer = window.setInterval(() => showVision(activeVision + 1), 5200);
+  };
+
   cauldronButton.addEventListener('click', () => {
-    cauldronButton.style.opacity = '0.9';
-    const scarletCards = document.querySelectorAll('.scarlet-gallery .magic-card');
-    scarletCards.forEach((card, index) => {
-      setTimeout(() => card.classList.add('visible'), index * 180);
-    });
+    showVision(activeVision + 1);
+    stopVisionLoop();
+    startVisionLoop();
   });
+
+  grimoire.addEventListener('mouseenter', stopVisionLoop);
+  grimoire.addEventListener('mouseleave', startVisionLoop);
+  grimoire.addEventListener('focusin', stopVisionLoop);
+  grimoire.addEventListener('focusout', startVisionLoop);
+
+  const grimoireObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) startVisionLoop();
+      else stopVisionLoop();
+    });
+  }, { threshold: 0.25 });
+  grimoireObserver.observe(grimoire);
+
+  if (reduceMotion) showVision(0);
 }
 
 // Fios do Destino — same node network as the hub, reused in the hero
