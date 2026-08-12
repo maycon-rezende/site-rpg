@@ -91,6 +91,15 @@
     animation:destinyPulse 3.8s ease-in-out infinite;
   }
   .hero-content{ position:relative; z-index:3; width:min(720px,92vw); }
+  .hero-scene{ position:absolute; inset:0; display:grid; place-items:center; opacity:0; visibility:hidden; transform:scale(1.025); transition:opacity 1.15s ease,transform 1.4s ease,visibility 1.15s; overflow:hidden; }
+  .hero-scene.active{ opacity:1; visibility:visible; transform:scale(1); }
+  .hero-scene::before{ content:''; position:absolute; inset:0; z-index:-2; pointer-events:none; }
+  .hero-scene.destiny::before{ background:linear-gradient(90deg,rgba(5,24,17,.76),rgba(7,11,9,.18) 47%,rgba(16,4,8,.2) 53%,rgba(38,5,15,.72)); }
+  .hero-scene.valinor::before{ background:linear-gradient(90deg,rgba(9,31,20,.78),rgba(7,13,12,.18) 47%,rgba(8,14,19,.2) 53%,rgba(15,34,45,.76)),radial-gradient(circle at 50% 18%,rgba(215,183,101,.11),transparent 35%); }
+  .hero-scene.valinor .eyebrow{ color:#d7b765; }
+  .hero-scene.valinor .duality-mark .order{ color:#75c68f; }
+  .hero-scene.valinor .duality-mark .chaos{ color:#78a9c4; }
+  .hero-scene.valinor .hero-cta{ border-color:rgba(117,198,143,.6); box-shadow:-8px 0 24px rgba(117,198,143,.1),8px 0 24px rgba(120,169,196,.1); }
   .hero-portrait{
     position:absolute; z-index:0; bottom:-4%; width:min(38vw,470px); height:92%;
     object-fit:contain; object-position:bottom; opacity:.42; filter:saturate(1.05) contrast(1.08);
@@ -98,9 +107,18 @@
   }
   .hero-portrait.jack{ left:-2%; filter:saturate(1.05) contrast(1.08) drop-shadow(0 0 32px rgba(62,224,160,.28)); }
   .hero-portrait.alice{ right:-2%; filter:saturate(1.14) contrast(1.08) drop-shadow(0 0 34px rgba(215,43,86,.3)); }
+  .hero-portrait.noada{ left:-2%; filter:saturate(1.02) contrast(1.08) drop-shadow(0 0 34px rgba(117,198,143,.3)); }
+  .hero-portrait.eira{ right:-2%; filter:saturate(1.03) contrast(1.08) drop-shadow(0 0 34px rgba(120,169,196,.3)); }
   header:hover .hero-portrait{ opacity:.58; }
   header:hover .hero-portrait.jack{ transform:translateX(1.5%); }
   header:hover .hero-portrait.alice{ transform:translateX(-1.5%); }
+  header:hover .hero-portrait.noada{ transform:translateX(1.5%); }
+  header:hover .hero-portrait.eira{ transform:translateX(-1.5%); }
+  .hero-switcher{ position:absolute; z-index:12; left:50%; bottom:1.5rem; transform:translateX(-50%); display:flex; align-items:center; gap:.7rem; padding:.5rem .7rem; background:rgba(5,11,9,.7); border:1px solid rgba(215,183,101,.18); backdrop-filter:blur(10px); }
+  .hero-switcher button{ width:38px; height:5px; padding:0; border:0; background:rgba(233,228,214,.2); cursor:pointer; transition:width .3s ease,background .3s ease,box-shadow .3s ease; }
+  .hero-switcher button.active{ width:62px; background:var(--gold-bright); box-shadow:0 0 12px rgba(240,211,138,.35); }
+  .hero-switcher button:focus-visible{ outline:2px solid var(--emerald-glow); outline-offset:4px; }
+  header.noada-active::after{ background:linear-gradient(transparent,#75c68f 30%,#f0d38a 49%,#78a9c4 70%,transparent); box-shadow:-8px 0 24px rgba(117,198,143,.38),8px 0 28px rgba(120,169,196,.42); }
   .duality-mark{ display:flex; align-items:center; justify-content:center; gap:1rem; margin:1.3rem 0; font-family:'JetBrains Mono',monospace; font-size:.64rem; letter-spacing:.22em; text-transform:uppercase; }
   .duality-mark .order{ color:var(--emerald-glow); }
   .duality-mark .chaos{ color:#ff6687; }
@@ -159,6 +177,18 @@
   .card-portrait{ position:absolute; right:0; top:0; width:44%; height:100%; object-fit:cover; object-position:center top; opacity:.52; filter:saturate(.9) contrast(1.08); -webkit-mask-image:linear-gradient(90deg,transparent,#000 35%); mask-image:linear-gradient(90deg,transparent,#000 35%); transition:opacity .4s ease,transform .6s ease; }
   .card.featured:hover .card-portrait{ opacity:.72; transform:scale(1.035); }
   .card-content{ position:relative; z-index:2; }
+  .card.noada-card{ grid-column:span 2; min-height:350px; padding-left:min(45%,390px); display:flex; flex-direction:column; justify-content:center; border-color:rgba(117,198,143,.25); background:linear-gradient(105deg,rgba(5,13,15,.96),rgba(9,31,22,.9) 52%,rgba(14,24,28,.96)); }
+  .noada-card::before{ opacity:.5; background:linear-gradient(90deg,transparent,#75c68f,#d7b765,#78a9c4,transparent); }
+  .noada-card .card-portrait{ left:0; right:auto; -webkit-mask-image:linear-gradient(270deg,transparent,#000 35%); mask-image:linear-gradient(270deg,transparent,#000 35%); object-position:center 22%; }
+  .noada-card:hover{ border-color:#75c68f; box-shadow:-12px 0 32px rgba(117,198,143,.12),12px 0 32px rgba(120,169,196,.1); }
+  .noada-card:hover .card-portrait{ opacity:.74; transform:scale(1.035); }
+  .noada-card .tome-num{ color:#75c68f; }
+  .noada-card .role{ color:#d7b765; }
+  .noada-card .status.open{ color:#a8d8ba; border-color:#75c68f; background:rgba(117,198,143,.04); }
+  .elven-emblem{ position:absolute; right:1.4rem; top:1.2rem; width:52px; height:52px; display:grid; place-items:center; border:1px solid rgba(215,183,101,.35); border-radius:50%; color:#d7b765; font:1.15rem 'Marcellus',serif; box-shadow:0 0 18px rgba(117,198,143,.1); animation:sigilSpin 12s linear infinite; }
+  .noada-card .leaf-mark{ position:absolute; z-index:3; color:rgba(117,198,143,.5); font-size:1rem; opacity:0; animation:homeLeaf 5s ease-in-out infinite; pointer-events:none; }
+  .noada-card .leaf-mark.one{ left:34%; top:18%; animation-delay:-1s }.noada-card .leaf-mark.two{ left:43%; top:68%; animation-delay:-3.2s }.noada-card .leaf-mark.three{ right:12%; top:42%; animation-delay:-4.1s }
+  @keyframes homeLeaf{0%,100%{opacity:0;transform:translateY(-8px) rotate(0)}35%{opacity:.65}75%{opacity:.18;transform:translateY(42px) rotate(170deg)}}
   .card::before{
     content:'';
     position:absolute; top:0; left:0; right:0; height:2px;
@@ -226,16 +256,23 @@
     .hero-portrait{ width:64vw; height:62%; bottom:-5%; opacity:.23; }
     .hero-portrait.jack{ left:-25%; }
     .hero-portrait.alice{ right:-25%; }
+    .hero-portrait.noada{ left:-25%; }
+    .hero-portrait.eira{ right:-25%; }
     .duality-mark{ gap:.55rem; font-size:.55rem; letter-spacing:.12em; }
     .duality-mark i{ width:34px; height:34px; }
     .roster{ grid-template-columns:1fr; padding-top:6vh; }
     .card.featured{ grid-column:span 1; min-height:430px; padding:2rem 1.5rem 12rem; justify-content:flex-start; }
     .card-portrait{ top:auto; bottom:0; width:100%; height:58%; -webkit-mask-image:linear-gradient(180deg,transparent,#000 38%); mask-image:linear-gradient(180deg,transparent,#000 38%); object-position:center 18%; }
+    .card.noada-card{ grid-column:span 1; min-height:470px; padding:2rem 1.5rem 13rem; justify-content:flex-start; }
+    .noada-card .card-portrait{ top:auto; bottom:0; width:100%; height:60%; -webkit-mask-image:linear-gradient(180deg,transparent,#000 38%); mask-image:linear-gradient(180deg,transparent,#000 38%); object-position:center 20%; }
+    .elven-emblem{ width:42px;height:42px;right:1rem;top:1rem }
+    .hero-switcher{ bottom:.8rem; }
   }
   @media(prefers-reduced-motion:reduce){
     html{ scroll-behavior:auto; }
     *,*::before,*::after{ animation-duration:.001ms!important; animation-iteration-count:1!important; scroll-behavior:auto!important; }
     canvas#fateweb{ display:none; }
+    .hero-scene{ transition:none; }
   }
 
   footer{
@@ -254,16 +291,31 @@
 <div class="magic-glow"></div>
 <div class="wrap">
   <header>
-    <img class="hero-portrait jack" src="img/connor-supremo.png" alt="" aria-hidden="true">
-    <img class="hero-portrait alice" src="img-scarlart/alicemaximoff.png" alt="" aria-hidden="true">
-    <div class="hero-content">
-      <div class="eyebrow">Arquivo dos Destinos · Galeria de Personagens</div>
-      <h1>Todos os caminhos<br>se curvam diante do olhar.</h1>
-      <div class="duality-mark" aria-label="Ordem e caos unidos pelo destino">
-        <span class="order">Ordem</span><i aria-hidden="true">✦</i><span class="chaos">Caos</span>
+    <div class="hero-scene destiny active" data-scene="destiny">
+      <img class="hero-portrait jack" src="img/connor-supremo.png" alt="" aria-hidden="true">
+      <img class="hero-portrait alice" src="img-scarlart/maximoffalice.png" alt="" aria-hidden="true">
+      <div class="hero-content">
+        <div class="eyebrow">Arquivo dos Destinos · Tomo I</div>
+        <h1>Todos os caminhos<br>se curvam diante do olhar.</h1>
+        <div class="duality-mark" aria-label="Ordem e caos unidos pelo destino"><span class="order">Ordem</span><i aria-hidden="true">✦</i><span class="chaos">Caos</span></div>
+        <p>Jack calcula o impossível; Alice o transforma em realidade. Duas magias opostas unidas por um destino que nenhum dos dois aceitou deixar nas mãos do acaso.</p>
+        <a class="hero-cta" href="jack-connor.html"><span aria-hidden="true">◇</span> Abrir o Tomo de Jack Connor <span aria-hidden="true">→</span></a>
       </div>
-      <p>Um compêndio vivo de personagens de RPG, suas histórias, poderes e destinos entrelaçados. Jack calcula o impossível; Alice o transforma em realidade.</p>
-      <a class="hero-cta" href="jack-connor.html"><span aria-hidden="true">◇</span> Abrir o Tomo de Jack Connor <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="hero-scene valinor" data-scene="valinor">
+      <img class="hero-portrait noada" src="img-noada/noada.png" alt="" aria-hidden="true">
+      <img class="hero-portrait eira" src="img-noada/eira-elenwe.png" alt="" aria-hidden="true">
+      <div class="hero-content">
+        <div class="eyebrow">Arquivo dos Destinos · Tomo II</div>
+        <h1>Alguns destinos<br>atravessam eras.</h1>
+        <div class="duality-mark" aria-label="Valinor e Terra-média unidos por um juramento"><span class="order">Valinor</span><i aria-hidden="true">ᚾ</i><span class="chaos">Terra-média</span></div>
+        <p>Noada deixou a luz do Oeste quando a sombra despertou. Eira permaneceu como a estrela que guiaria seu caminho de volta para casa.</p>
+        <a class="hero-cta" href="noada.html"><span aria-hidden="true">◇</span> Abrir o Tomo de Noada &amp; Eira <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <div class="hero-switcher" role="tablist" aria-label="Escolher universo em destaque">
+      <button class="active" type="button" role="tab" aria-selected="true" aria-label="Mostrar Jack e Alice" data-target="0"></button>
+      <button type="button" role="tab" aria-selected="false" aria-label="Mostrar Noada e Eira" data-target="1"></button>
     </div>
   </header>
 
@@ -283,14 +335,18 @@
       </div>
     </a>
 
-    <div class="card locked">
-      <span class="sealed-sigil" aria-hidden="true">ᚾ</span>
-      <span class="tome-num">TOMO 02</span>
-      <h2>Noada</h2>
-      <div class="role">Elfo da Terra-média · Filho de Thundril</div>
-      <p class="desc">Irmão de Legolas, guardião dos reinos élficos. Sua história ainda está sendo escrita nos arquivos.</p>
-      <span class="status locked">Em breve</span>
-    </div>
+    <a class="card active noada-card" href="noada.html">
+      <img class="card-portrait" src="img-noada/noada-e-eira-batalha.png" alt="Noada e Eira Elenwë preparados para defender a Terra-média">
+      <span class="elven-emblem" aria-hidden="true">ᚾ</span>
+      <i class="leaf-mark one" aria-hidden="true">◆</i><i class="leaf-mark two" aria-hidden="true">◆</i><i class="leaf-mark three" aria-hidden="true">◆</i>
+      <div class="card-content">
+        <span class="tome-num">TOMO 02 · ARQUIVO ÉLFICO ABERTO</span>
+        <h2>Noada &amp; Eira Elenwë</h2>
+        <div class="role">Valinor · Floresta Negra · Um amor através das eras</div>
+        <p class="desc">Filho de Thundril e irmão de Legolas, Noada retorna do Oeste com antigas lâminas élficas. Ao lado de Eira, aprendiz de Galadriel, enfrenta a sombra que desperta novamente na Terra-média.</p>
+        <span class="status open">Atravessar para a Terra-média →</span>
+      </div>
+    </a>
 
     <div class="card locked">
       <span class="sealed-sigil" aria-hidden="true">ᚲ</span>
@@ -315,6 +371,26 @@
 </div>
 
 <script>
+const hero=document.querySelector('header');
+const heroScenes=[...document.querySelectorAll('.hero-scene')];
+const heroTabs=[...document.querySelectorAll('.hero-switcher button')];
+const reducedHeroMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let activeHero=0;
+let heroTimer=null;
+
+function showHero(index){
+  activeHero=(index+heroScenes.length)%heroScenes.length;
+  heroScenes.forEach((scene,i)=>scene.classList.toggle('active',i===activeHero));
+  heroTabs.forEach((tab,i)=>{tab.classList.toggle('active',i===activeHero);tab.setAttribute('aria-selected',String(i===activeHero))});
+  hero.classList.toggle('noada-active',heroScenes[activeHero]?.dataset.scene==='valinor');
+}
+function stopHero(){clearInterval(heroTimer);heroTimer=null}
+function startHero(){if(reducedHeroMotion||heroTimer||heroScenes.length<2)return;heroTimer=setInterval(()=>showHero(activeHero+1),8500)}
+heroTabs.forEach(tab=>tab.addEventListener('click',()=>{showHero(Number(tab.dataset.target));stopHero();startHero()}));
+hero.addEventListener('mouseenter',stopHero);hero.addEventListener('mouseleave',startHero);hero.addEventListener('focusin',stopHero);hero.addEventListener('focusout',startHero);
+document.addEventListener('visibilitychange',()=>document.hidden?stopHero():startHero());
+showHero(0);startHero();
+
 // Fios do Destino — ambient node network, echoing Jack's "Trono dos Destinos"
 const canvas = document.getElementById('fateweb');
 const ctx = canvas.getContext('2d');
