@@ -268,6 +268,26 @@
     .elven-emblem{ width:42px;height:42px;right:1rem;top:1rem }
     .hero-switcher{ bottom:.8rem; }
   }
+  @media(max-width:480px){
+    header{ min-height:680px; padding:5rem 1rem 4.5rem; }
+    h1{ font-size:clamp(2rem,12vw,3rem); line-height:1.12; }
+    header p{ font-size:.93rem; line-height:1.55; margin-top:1rem; }
+    .hero-content{ width:94vw; }
+    .eyebrow{ font-size:.57rem; letter-spacing:.2em; margin-bottom:1rem; }
+    .hero-portrait{ width:76vw; height:54%; bottom:0; }
+    .hero-portrait.jack,.hero-portrait.noada{ left:-34%; }
+    .hero-portrait.alice,.hero-portrait.eira{ right:-34%; }
+    .duality-mark{ margin:.8rem 0; flex-wrap:wrap; }
+    .hero-cta{ width:min(100%,340px); justify-content:center; padding:.85rem .75rem; font-size:.61rem; letter-spacing:.1em; line-height:1.45; }
+    .roster{ padding:3.5rem 1rem 5rem; gap:1.2rem; }
+    .roster-intro h2{ font-size:1.55rem; }
+    .card,.card.featured,.card.noada-card{ padding-left:1.2rem; padding-right:1.2rem; }
+    .card h2{ font-size:1.32rem; padding-right:2rem; }
+    .card p.desc{ min-height:0; }
+    .status{ line-height:1.45; }
+    .hero-switcher button{ width:30px; }
+    .hero-switcher button.active{ width:48px; }
+  }
   @media(prefers-reduced-motion:reduce){
     html{ scroll-behavior:auto; }
     *,*::before,*::after{ animation-duration:.001ms!important; animation-iteration-count:1!important; scroll-behavior:auto!important; }
@@ -293,7 +313,7 @@
   <header>
     <div class="hero-scene destiny active" data-scene="destiny">
       <img class="hero-portrait jack" src="img/connor-supremo.png" alt="" aria-hidden="true">
-      <img class="hero-portrait alice" src="img-scarlart/maximoffalice.png" alt="" aria-hidden="true">
+      <img class="hero-portrait alice" src="img-scarlart/wandamaximoff.jpg" alt="" aria-hidden="true">
       <div class="hero-content">
         <div class="eyebrow">Arquivo dos Destinos · Tomo I</div>
         <h1>Todos os caminhos<br>se curvam diante do olhar.</h1>

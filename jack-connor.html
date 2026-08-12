@@ -1095,6 +1095,33 @@
     .conjuration-stage{ min-height:500px; }
     .conjured-vision{ width:min(78vw,360px); }
   }
+  @media (max-width: 640px){
+    section{ padding:4.5rem 1rem 3.5rem; }
+    .hero{ min-height:auto; }
+    .hero-inner{ min-height:auto; padding:5.5rem 0 3rem; }
+    .hero-text h1{ font-size:clamp(2.1rem,12vw,3.25rem); line-height:1.05; }
+    .hero-text .eyebrow,.section-head .eyebrow,.companion-text .eyebrow{ letter-spacing:.18em; }
+    .hero-title-wrap{ white-space:normal; }
+    .origem-grid,.eyes-grid,.spell-grid,.combo-grid{ grid-template-columns:1fr; }
+    .role-row{ grid-template-columns:1fr; }
+    .path-tier dl{ grid-template-columns:1fr; gap:.15rem; }
+    .path-tier dd{ margin-bottom:.65rem; }
+    #galeria .magic-gallery-grid,.conjuration-stage{ min-height:520px; }
+    #galeria .magic-gallery-grid .magic-card,.conjured-vision{ width:min(84vw,350px); }
+    .artifact-trigger,.cauldron-trigger{ width:min(100%,360px); min-width:0; padding:.85rem .75rem; font-size:.64rem; letter-spacing:.1em; line-height:1.4; }
+    .conjuration-runes{ max-width:90vw; overflow:hidden; font-size:.75rem; letter-spacing:.65rem; }
+    .rift-label{ width:90%; text-align:center; letter-spacing:.2em; }
+    footer{ padding-left:1rem; padding-right:1rem; line-height:1.6; }
+  }
+  @media (max-width: 380px){
+    nav{ padding-left:.8rem; padding-right:.8rem; }
+    nav .brand{ font-size:.65rem; letter-spacing:.08em; }
+    nav .brand span{ display:none; }
+    .portrait-frame,.companion-portrait{ max-width:88vw; }
+    #galeria .magic-gallery-grid,.conjuration-stage{ min-height:470px; }
+    .section-head h2,.companion-text h2{ font-size:1.65rem; }
+    .gallery-caption,.conjured-vision figcaption{ letter-spacing:.1em; }
+  }
   @media (prefers-reduced-motion: reduce){
     html{ scroll-behavior:auto; }
     canvas#fateweb{ display:none; }
