@@ -70,7 +70,7 @@ Outras referências de Knull, Yuri e paisagens estão armazenadas em `img-knull/
 - Dr. Jack Connor é o próprio **Mago Supremo**; não são dois personagens diferentes.
 - A companheira de Dr. Connor é a **Feiticeira Escarlate**. Na abertura, ambos possuem apresentações próprias.
 - O encerramento preserva a composição coletiva de `img-intro/panteao-dos-destinos.png`. Dr. Connor aparece integrado ao centro do painel e na fileira circular com `img-connor/classic.png`; a Feiticeira Escarlate e todos os demais personagens permanecem na fileira.
-- Os quadros de Knull e de Knull & Nimsay na abertura usam, respectivamente, `img-knull/knull-blue.png` e `img-knull/knull-e-nimsay.png`, substituindo caminhos antigos removidos.
+- O núcleo de Knull preserva seus quadros próprios, mas a passagem final foi simplificada: após a apresentação individual de Nimsay, a abertura segue diretamente para o encerramento coletivo/cósmico. Foram removidos os quadros “Nimsay desperta”, “Knull & Nimsay” e “Deuses em marcha”.
 
 - A pasta original `img` foi renomeada para `img-connor`; todas as referências do site foram atualizadas. Novas imagens do Dr. Connor/Mago Supremo foram incorporadas à pasta e ele ganhou uma aparição própria na abertura.
 - A esposa de **Kurosaki Alucard** é **Kurosaki Mei**, enfermeira e estudante de Medicina. Ela foi morta entre a sexta e a sétima semana de gestação da filha do casal; atualmente, mãe e filha estão vivas sob o controle de um culto, mas a aproximação de Alucard pode fazê-las morrer novamente.
@@ -85,9 +85,9 @@ Outras referências de Knull, Yuri e paisagens estão armazenadas em `img-knull/
 - A música `music/themeinicial.mp3` foi integrada à abertura, com controle acessível para iniciar ou pausar; a animação não depende da confirmação de reprodução do navegador.
 - A duração das apresentações é sincronizada automaticamente à duração real da música, mantendo variedade visual mesmo no trecho inicial mais lento.
 - O efeito visual de ruído/estática foi removido completamente da abertura.
-- Knull e Nimsay aparecem juntos por meio de `img-knull/knullsay.png`: Nimsay está humana, sem orelhas élficas e com armadura negra combinando com a de Knull.
-- O quadro individual de Nimsay usa `img-knull/nimsay-humana-armadura.png`, com armadura negra, cajado e orelhas humanas arredondadas.
-- Os quadros de Eira e do casal Noada/Eira usam `img-noada/eira-arqueira.png` e `img-noada/noada-e-eira-montanhas.png`.
+- Nimsay é humana e não possui orelhas élficas. Textos e legendas da página de Knull devem preservar essa característica.
+- O quadro individual de Nimsay usa `img-nimsay/armdragao.png`, com a Armadura do Dragão negra, energia azul, domínio da água e orelhas humanas arredondadas.
+- Os quadros de Eira e do casal Noada/Eira usam o conjunto realista mais recente documentado na seção de navegação entre realidades.
 - Os quadros da abertura passaram a usar a arte principal com `object-fit: contain` sobre uma camada desfocada da mesma imagem, evitando ampliações e cortes excessivos em qualquer proporção de tela.
 - A abertura possui composição adaptada para celular e respeita `prefers-reduced-motion`, exibindo diretamente o título quando o usuário reduz animações.
 - Corrigido o nome do poder final de Nero para **Shinkungan**.
@@ -97,6 +97,27 @@ Outras referências de Knull, Yuri e paisagens estão armazenadas em `img-knull/
 - Os cartões da página inicial foram atualizados com as novas artes e descrições.
 - `new-tomes.css` recebeu uma galeria responsiva reutilizável.
 - Todas as imagens geradas para uso no projeto foram copiadas para as pastas do site; nenhuma referência depende de arquivo temporário.
+
+## Nova navegação entre realidades
+
+- A abertura cinematográfica passou a ser a própria página inicial (`index.html`). A tela anterior foi preservada em `arquivo.html`.
+- No encerramento da música, uma ruptura cósmica revela cinco blocos: **Mundo Kaizen**, **Terra-média**, **Mundo Shinobi**, **Ordem Paranormal** e **Todas as Realidades**.
+- Cada bloco abre primeiro uma página-ambiente própria (`mundo-jujutsu.html`, `mundo-terra-media.html`, `mundo-shinobi.html`, `mundo-ordem.html` e `mundo-multiverso.html`). Nela, o visitante conhece o clima daquela realidade e clica na dupla para chegar à ficha completa.
+- As páginas intermediárias compartilham uma base responsiva, mas possuem cenários, cores, símbolos, textos e efeitos próprios. O mundo de Connor utiliza um portal arcano; Terra-média possui linguagem élfica; a Ordem tem contaminação sobrenatural; o mundo shinobi remete aos dōjutsus; e Knull ocupa um multiverso sem fronteiras.
+- O núcleo de Noada e Eira passou a usar o novo conjunto realista: `eira1.png` no retrato individual, `lovers.png` no quadro romântico, `montanha.png` na jornada e no portal da Terra-média, e `caça.png` nas cenas de ação do casal.
+- O encerramento pós-trailer deixou de ser uma grade estática e tornou-se um **seletor vivo de realidades**. Um portal cresce enquanto os outros permanecem como faixas laterais; ao trocar a seleção, mudam cenário, cor, partículas, protagonistas e texto narrativo.
+- Os cinco portais podem ser selecionados por mouse, toque, foco de teclado ou setas direcionais. No celular, formam uma faixa horizontal com encaixe automático e gesto de deslizar.
+- Cada universo possui atmosfera própria em CSS: círculos arcanos no Mundo Kaizen, partículas orgânicas na Terra-média, anéis oculares no Mundo Shinobi, fissuras paranormais na Ordem e poeira cósmica no multiverso de Knull.
+- No portal intermediário do **Mundo Kaizen**, `img-connor/conoor.png` é exibida integralmente sobre uma segunda camada da mesma arte que preenche o fundo. Isso evita o corte de Connor em telas largas e mantém a composição adaptada no celular.
+- O Mundo Kaizen possui uma camada de energia amaldiçoada verde e negra com pulsos, filamentos ascendentes e reação luminosa no cartão. Em dispositivos com mouse, o cursor assume a forma de um selo mágico animado e deixa um rastro breve de partículas; toque e movimento reduzido recebem versões simplificadas.
+- Ao atravessar um portal, uma transição colorida cobre a tela antes da navegação. As imagens dos cinco destinos são pré-carregadas para reduzir atrasos durante a troca.
+
+## Acervo de Nimsay
+
+- A pasta `img-nimsay/` reúne as novas referências oficiais de Nimsay em formas régias, elementais, divinas, jovens e diferentes armaduras.
+- `img-nimsay/armdragao.png` é a referência principal da **Armadura do Dragão** e foi escolhida para o retrato da personagem na página de Knull e para sua apresentação na abertura.
+- A galeria de `knull.html` foi ampliada com as variações de água, fogo, manifestação divina e armadura, mantendo também as imagens de Knull, Blue e do casal. A arte `img-nimsay/nim4.png` representa a forma régia da Armadura do Dragão, equipada com o cajado de cristal azul.
+- Foram removidas da página as descrições antigas de Nimsay como elfa. O cânone atual é: **rainha humana, guerreira elemental e companheira de Knull**.
 
 ## Continuidade
 

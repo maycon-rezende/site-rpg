@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>if(!sessionStorage.getItem('arquivoIntroVista'))location.replace('intro.html');</script>
+<title>Arquivo dos Destinos — Galeria de Personagens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070b09;
+    --bg-elevated:#0c130f;
+    --emerald-deep:#0b3d2e;
+    --emerald:#12664a;
+    --emerald-glow:#3ee0a0;
+    --gold:#cda45e;
+    --gold-bright:#f0d38a;
+    --parchment:#e9e4d6;
+    --ink-muted:#8fa79c;
+    --line:rgba(205,164,94,0.18);
+    --scarlet:#8a2140;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--parchment);
+    font-family:'Spectral', serif;
+    min-height:100vh;
+    overflow-x:hidden;
+    position:relative;
+  }
+  body::before{
+    content:'';
+    position:fixed; inset:0;
+    background:
+      radial-gradient(ellipse at 20% 10%, rgba(18,102,74,0.16), transparent 55%),
+      radial-gradient(ellipse at 85% 80%, rgba(138,33,64,0.08), transparent 50%);
+    pointer-events:none;
+    z-index:0;
+  }
+  body::after{
+    content:'';
+    position:fixed; inset:-10%;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(62,224,160,0.16), transparent 30%),
+      radial-gradient(circle at 80% 25%, rgba(205,164,94,0.11), transparent 28%),
+      radial-gradient(circle at 50% 85%, rgba(138,33,64,0.10), transparent 34%);
+    filter:blur(60px);
+    animation:drift 16s ease-in-out infinite alternate;
+    pointer-events:none;
+    z-index:0;
+  }
+  @keyframes drift{0%{transform:translate3d(-1.5%, -1.5%, 0) scale(1);}100%{transform:translate3d(1.5%, 1.5%, 0) scale(1.08);}}
+  .magic-glow{
+    position:absolute; inset:0; pointer-events:none; z-index:0;
+    background:linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.04) 45%, transparent 100%);
+    animation:shimmer 8s linear infinite;
+    opacity:0.7;
+  }
+  @keyframes shimmer{from{transform:translateX(-100%);}to{transform:translateX(100%);}}
+  canvas#fateweb{
+    position:fixed; inset:0; width:100%; height:100%;
+    z-index:0; opacity:0.55;
+  }
+  .wrap{ position:relative; z-index:1; }
+
+  header{
+    min-height:min(820px,88vh);
+    padding:10vh 6vw 8vh;
+    text-align:center;
+    border-bottom:1px solid var(--line);
+    position:relative;
+    overflow:hidden;
+    isolation:isolate;
+    display:grid;
+    place-items:center;
+  }
+  .site-brand{position:absolute;z-index:18;top:1.25rem;left:50%;transform:translateX(-50%);display:flex;align-items:center;justify-content:center;gap:.55em;width:min(92vw,760px);white-space:nowrap;font:400 clamp(.82rem,1.65vw,1.2rem) 'Marcellus',serif;letter-spacing:.2em;text-transform:uppercase;color:#e8f4ff;pointer-events:none;filter:drop-shadow(0 0 12px rgba(102,181,255,.28))}
+  .site-brand::before{content:'';position:absolute;z-index:-1;left:50%;top:50%;width:115%;height:320%;transform:translate(-50%,-50%) scaleX(0);opacity:0;background:radial-gradient(ellipse,rgba(107,80,255,.18),rgba(51,163,255,.08) 38%,transparent 70%);animation:brandNebula 2.8s .25s ease-out both}
+  .site-brand span{display:inline-block;opacity:0;transform:translateY(-12px) scale(.72);filter:blur(13px) brightness(2.8);text-shadow:0 0 18px #fff,0 0 42px #618dff;animation:brandWord 1.25s cubic-bezier(.16,.82,.2,1) forwards}
+  .site-brand span:nth-child(1){animation-delay:.25s}.site-brand span:nth-child(2){animation-delay:.68s;color:var(--gold-bright)}.site-brand span:nth-child(3){animation-delay:1.08s}
+  .site-brand i{width:3px;height:3px;border-radius:50%;background:#c8e8ff;opacity:0;box-shadow:0 0 8px #fff,18px -7px 0 #806eff,-21px 6px 0 #58baff;animation:brandStar .8s 1.45s ease-out forwards}
+  header::before{
+    content:''; position:absolute; inset:0; z-index:-2;
+    background:
+      linear-gradient(90deg, rgba(5,24,17,.9), rgba(7,11,9,.48) 47%, rgba(16,4,8,.5) 53%, rgba(38,5,15,.86)),
+      radial-gradient(circle at 24% 44%, rgba(62,224,160,.22), transparent 30%),
+      radial-gradient(circle at 78% 44%, rgba(220,28,75,.22), transparent 31%);
+  }
+  header::after{
+    content:''; position:absolute; left:50%; top:8%; bottom:8%; width:1px; z-index:-1;
+    background:linear-gradient(transparent,#3ee0a0 30%,#fff 49%,#d72b56 70%,transparent);
+    box-shadow:-8px 0 24px rgba(62,224,160,.42),8px 0 28px rgba(215,43,86,.48);
+    animation:destinyPulse 3.8s ease-in-out infinite;
+  }
+  .hero-content{ position:relative; z-index:3; width:min(720px,92vw); }
+  .hero-scene{ position:absolute; inset:0; display:grid; place-items:center; opacity:0; visibility:hidden; transform:scale(1.025); transition:opacity .68s ease,transform .9s ease,visibility .68s; overflow:hidden; }
+  .hero-scene.active{ opacity:1; visibility:visible; transform:scale(1); }
+  .hero-scene::before{ content:''; position:absolute; inset:0; z-index:-2; pointer-events:none; }
+  .hero-scene.destiny::before{ background:linear-gradient(90deg,rgba(5,24,17,.76),rgba(7,11,9,.18) 47%,rgba(16,4,8,.2) 53%,rgba(38,5,15,.72)); }
+  .hero-scene.valinor::before{ background:linear-gradient(90deg,rgba(9,31,20,.78),rgba(7,13,12,.18) 47%,rgba(8,14,19,.2) 53%,rgba(15,34,45,.76)),radial-gradient(circle at 50% 18%,rgba(215,183,101,.11),transparent 35%); }
+  .hero-scene.valinor .eyebrow{ color:#d7b765; }
+  .hero-scene.valinor .duality-mark .order{ color:#75c68f; }
+  .hero-scene.valinor .duality-mark .chaos{ color:#78a9c4; }
+  .hero-scene.valinor .hero-cta{ border-color:rgba(117,198,143,.6); box-shadow:-8px 0 24px rgba(117,198,143,.1),8px 0 24px rgba(120,169,196,.1); }
+  .hero-scene.fera::before{ background:linear-gradient(90deg,rgba(14,5,22,.82),rgba(7,8,12,.2) 47%,rgba(18,8,15,.22) 53%,rgba(35,9,24,.78)),radial-gradient(circle at 50% 28%,rgba(161,108,255,.12),transparent 38%); }
+  .hero-scene.dojutsu::before{ background:linear-gradient(90deg,rgba(34,8,5,.8),rgba(8,9,13,.2) 47%,rgba(8,15,22,.2) 53%,rgba(4,27,38,.78)),radial-gradient(circle at 50% 25%,rgba(119,134,255,.12),transparent 36%); }
+  .hero-scene.elementos::before{ background:linear-gradient(90deg,rgba(30,9,3,.8),rgba(7,10,14,.2) 47%,rgba(6,14,25,.22) 53%,rgba(5,20,36,.8)),radial-gradient(circle at 50% 20%,rgba(88,173,255,.12),transparent 38%); }
+  .hero-scene.fera .eyebrow,.hero-scene.fera .duality-mark .order{color:#c197ff}.hero-scene.fera .duality-mark .chaos{color:#f3bdcf}.hero-scene.fera .hero-cta{border-color:rgba(193,151,255,.62)}
+  .hero-scene.dojutsu .eyebrow,.hero-scene.dojutsu .duality-mark .order{color:#ff8d68}.hero-scene.dojutsu .duality-mark .chaos{color:#79dfff}.hero-scene.dojutsu .hero-cta{border-color:rgba(121,223,255,.58)}
+  .hero-scene.elementos .eyebrow,.hero-scene.elementos .duality-mark .order{color:#ff9b62}.hero-scene.elementos .duality-mark .chaos{color:#72b9ff}.hero-scene.elementos .hero-cta{border-color:rgba(114,185,255,.62)}
+  .hero-portrait{
+    position:absolute; z-index:0; bottom:-4%; width:min(38vw,470px); height:92%;
+    object-fit:contain; object-position:bottom; opacity:.42; filter:saturate(1.05) contrast(1.08);
+    pointer-events:none; transition:opacity .8s ease,filter .8s ease,transform .8s ease;
+  }
+  .hero-portrait.jack{ left:-2%; filter:saturate(1.05) contrast(1.08) drop-shadow(0 0 32px rgba(62,224,160,.28)); }
+  .hero-portrait.alice{ right:-2%; filter:saturate(1.14) contrast(1.08) drop-shadow(0 0 34px rgba(215,43,86,.3)); }
+  .hero-portrait.noada{ left:-2%; filter:saturate(1.02) contrast(1.08) drop-shadow(0 0 34px rgba(117,198,143,.3)); }
+  .hero-portrait.eira{ right:-2%; filter:saturate(1.03) contrast(1.08) drop-shadow(0 0 34px rgba(120,169,196,.3)); }
+  .hero-portrait.left{left:-2%}.hero-portrait.right{right:-2%}
+  .hero-portrait.alucard{filter:saturate(.9) contrast(1.1) drop-shadow(0 0 34px rgba(161,108,255,.3))}.hero-portrait.mei{filter:saturate(.95) contrast(1.06) drop-shadow(0 0 30px rgba(243,189,207,.25))}
+  .hero-portrait.nero{filter:saturate(1.1) contrast(1.08) drop-shadow(0 0 34px rgba(255,106,70,.28))}.hero-portrait.hinara{filter:saturate(1.02) contrast(1.08) drop-shadow(0 0 34px rgba(126,218,255,.28))}
+  .hero-portrait.knull{filter:saturate(1.06) contrast(1.1) drop-shadow(0 0 36px rgba(255,119,74,.28))}.hero-portrait.nimsay{filter:saturate(1.02) contrast(1.08) drop-shadow(0 0 34px rgba(101,191,255,.3))}
+  header:hover .hero-portrait{ opacity:.58; }
+  header:hover .hero-portrait.jack{ transform:translateX(1.5%); }
+  header:hover .hero-portrait.alice{ transform:translateX(-1.5%); }
+  header:hover .hero-portrait.noada{ transform:translateX(1.5%); }
+  header:hover .hero-portrait.eira{ transform:translateX(-1.5%); }
+  header:hover .hero-portrait.left{transform:translateX(1.5%)}header:hover .hero-portrait.right{transform:translateX(-1.5%)}
+  .hero-switcher{ position:absolute; z-index:12; left:50%; bottom:1.5rem; transform:translateX(-50%); display:flex; align-items:center; gap:.7rem; padding:.5rem .7rem; background:rgba(5,11,9,.7); border:1px solid rgba(215,183,101,.18); backdrop-filter:blur(10px); }
+  .hero-switcher button{ width:38px; height:5px; padding:0; border:0; background:rgba(233,228,214,.2); cursor:pointer; transition:width .3s ease,background .3s ease,box-shadow .3s ease; }
+  .hero-switcher button.active{ width:62px; background:var(--gold-bright); box-shadow:0 0 12px rgba(240,211,138,.35); }
+  .hero-switcher button:focus-visible{ outline:2px solid var(--emerald-glow); outline-offset:4px; }
+  header.noada-active::after{ background:linear-gradient(transparent,#75c68f 30%,#f0d38a 49%,#78a9c4 70%,transparent); box-shadow:-8px 0 24px rgba(117,198,143,.38),8px 0 28px rgba(120,169,196,.42); }
+  .duality-mark{ display:flex; align-items:center; justify-content:center; gap:1rem; margin:1.3rem 0; font-family:'JetBrains Mono',monospace; font-size:.64rem; letter-spacing:.22em; text-transform:uppercase; }
+  .duality-mark .order{ color:var(--emerald-glow); }
+  .duality-mark .chaos{ color:#ff6687; }
+  .duality-mark i{ width:42px; height:42px; display:grid; place-items:center; border:1px solid rgba(240,211,138,.55); border-radius:50%; color:var(--gold-bright); font-style:normal; box-shadow:0 0 22px rgba(240,211,138,.16); animation:sigilSpin 9s linear infinite; }
+  .hero-cta{ display:inline-flex; align-items:center; gap:.75rem; margin-top:2rem; padding:1rem 1.35rem; border:1px solid rgba(240,211,138,.7); color:var(--gold-bright); background:rgba(7,11,9,.76); text-decoration:none; font:500 .72rem 'JetBrains Mono',monospace; letter-spacing:.16em; text-transform:uppercase; box-shadow:0 0 30px rgba(62,224,160,.1),0 0 30px rgba(138,33,64,.1); transition:transform .3s ease,box-shadow .3s ease,background .3s ease; }
+  .hero-cta:hover,.hero-cta:focus-visible{ transform:translateY(-3px); background:rgba(20,16,12,.92); box-shadow:-10px 0 28px rgba(62,224,160,.18),10px 0 28px rgba(215,43,86,.18); outline:none; }
+  @keyframes destinyPulse{50%{opacity:.45;transform:scaleY(.92)}}
+  @keyframes sigilSpin{to{transform:rotate(360deg)}}
+  @keyframes brandWord{0%{opacity:0;transform:translateY(-12px) scale(.72);filter:blur(13px) brightness(2.8);letter-spacing:.42em}55%{opacity:1;filter:blur(1px) brightness(1.7);text-shadow:0 0 22px #fff,0 0 50px #618dff}100%{opacity:1;transform:none;filter:none;letter-spacing:.2em;text-shadow:0 0 12px rgba(176,220,255,.42)}}
+  @keyframes brandNebula{0%{opacity:0;transform:translate(-50%,-50%) scaleX(0)}45%{opacity:1}100%{opacity:.7;transform:translate(-50%,-50%) scaleX(1)}}
+  @keyframes brandStar{0%{opacity:0;transform:scale(4) rotate(0)}100%{opacity:.9;transform:scale(1) rotate(90deg)}}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    font-size:0.72rem;
+    color:var(--emerald-glow);
+    margin-bottom:1.6rem;
+  }
+  h1{
+    font-family:'Marcellus', serif;
+    font-size:clamp(2.4rem, 6vw, 4.6rem);
+    font-weight:400;
+    letter-spacing:0.02em;
+    color:var(--gold-bright);
+    text-shadow:0 0 40px rgba(62,224,160,0.18);
+  }
+  header p{
+    max-width:56ch;
+    margin:1.6rem auto 0;
+    color:var(--ink-muted);
+    font-size:1.05rem;
+    font-style:italic;
+    line-height:1.7;
+  }
+
+  .roster{
+    max-width:1180px;
+    margin:0 auto;
+    padding:8vh 6vw 12vh;
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+    gap:2rem;
+  }
+  .roster-intro{ grid-column:1/-1; text-align:center; margin-bottom:.5rem; }
+  .roster-intro span{ color:var(--emerald-glow); font:500 .66rem 'JetBrains Mono',monospace; letter-spacing:.28em; text-transform:uppercase; }
+  .roster-intro h2{ margin-top:.75rem; font:400 clamp(1.7rem,3vw,2.4rem) 'Marcellus',serif; color:var(--gold-bright); }
+  .card{
+    background:linear-gradient(180deg, var(--bg-elevated), #080d0a);
+    border:1px solid var(--line);
+    border-radius:2px;
+    padding:2.2rem 1.8rem;
+    position:relative;
+    overflow:hidden;
+    transition:transform 0.4s ease, border-color 0.4s ease;
+  }
+  a.card{ display:block; color:inherit; text-decoration:none; }
+  .card.featured{ grid-column:span 2; min-height:350px; padding-right:min(45%,390px); display:flex; flex-direction:column; justify-content:center; }
+  .card-portrait{ position:absolute; right:0; top:0; width:44%; height:100%; object-fit:cover; object-position:center top; opacity:.52; filter:saturate(.9) contrast(1.08); -webkit-mask-image:linear-gradient(90deg,transparent,#000 35%); mask-image:linear-gradient(90deg,transparent,#000 35%); transition:opacity .4s ease,transform .6s ease; }
+  .card.featured:hover .card-portrait{ opacity:.72; transform:scale(1.035); }
+  .card-content{ position:relative; z-index:2; }
+  .card.noada-card{ grid-column:span 2; min-height:350px; padding-left:min(45%,390px); display:flex; flex-direction:column; justify-content:center; border-color:rgba(117,198,143,.25); background:linear-gradient(105deg,rgba(5,13,15,.96),rgba(9,31,22,.9) 52%,rgba(14,24,28,.96)); }
+  .noada-card::before{ opacity:.5; background:linear-gradient(90deg,transparent,#75c68f,#d7b765,#78a9c4,transparent); }
+  .noada-card .card-portrait{ left:0; right:auto; -webkit-mask-image:linear-gradient(270deg,transparent,#000 35%); mask-image:linear-gradient(270deg,transparent,#000 35%); object-position:center 22%; }
+  .noada-card:hover{ border-color:#75c68f; box-shadow:-12px 0 32px rgba(117,198,143,.12),12px 0 32px rgba(120,169,196,.1); }
+  .noada-card:hover .card-portrait{ opacity:.74; transform:scale(1.035); }
+  .noada-card .tome-num{ color:#75c68f; }
+  .noada-card .role{ color:#d7b765; }
+  .noada-card .status.open{ color:#a8d8ba; border-color:#75c68f; background:rgba(117,198,143,.04); }
+  .elven-emblem{ position:absolute; right:1.4rem; top:1.2rem; width:52px; height:52px; display:grid; place-items:center; border:1px solid rgba(215,183,101,.35); border-radius:50%; color:#d7b765; font:1.15rem 'Marcellus',serif; box-shadow:0 0 18px rgba(117,198,143,.1); animation:sigilSpin 12s linear infinite; }
+  .noada-card .leaf-mark{ position:absolute; z-index:3; color:rgba(117,198,143,.5); font-size:1rem; opacity:0; animation:homeLeaf 5s ease-in-out infinite; pointer-events:none; }
+  .noada-card .leaf-mark.one{ left:34%; top:18%; animation-delay:-1s }.noada-card .leaf-mark.two{ left:43%; top:68%; animation-delay:-3.2s }.noada-card .leaf-mark.three{ right:12%; top:42%; animation-delay:-4.1s }
+  .card.character-card{ min-height:360px; padding-top:13rem; display:flex; align-items:flex-end; }
+  .character-card .card-portrait{ width:100%; height:68%; top:0; opacity:.48; -webkit-mask-image:linear-gradient(180deg,#000 48%,transparent); mask-image:linear-gradient(180deg,#000 48%,transparent); object-position:center 18%; }
+  .character-card:hover .card-portrait{ opacity:.7; transform:scale(1.035); }
+  .alucard-card{ border-color:rgba(161,108,255,.25); background:linear-gradient(180deg,#090711,#080d0a); }.alucard-card .tome-num,.alucard-card .role{color:#b98cff}.alucard-card:hover{border-color:#9d65ef;box-shadow:0 0 28px rgba(141,76,255,.14)}
+  .nero-card{ border-color:rgba(255,156,69,.25); background:linear-gradient(180deg,#130b08,#080d0a); }.nero-card .tome-num,.nero-card .role{color:#ffad64}.nero-card:hover{border-color:#e68a3b;box-shadow:0 0 28px rgba(255,156,69,.13)}
+  .knull-card{ grid-column:1/-1; min-height:390px; padding:3rem min(48%,520px) 3rem 2rem; display:flex; align-items:center; border-color:rgba(88,173,255,.3); background:linear-gradient(100deg,#03070d 35%,rgba(4,17,31,.86)); }
+  .knull-card .card-portrait{ width:50%; height:100%; opacity:.56; object-position:center 18%; -webkit-mask-image:linear-gradient(270deg,#000 58%,transparent); mask-image:linear-gradient(270deg,#000 58%,transparent); }
+  .knull-card .tome-num,.knull-card .role{color:#72b9ff}.knull-card h2{font-size:1.9rem}.knull-card:hover{border-color:#58adff;box-shadow:0 0 38px rgba(88,173,255,.16)}
+  @keyframes homeLeaf{0%,100%{opacity:0;transform:translateY(-8px) rotate(0)}35%{opacity:.65}75%{opacity:.18;transform:translateY(42px) rotate(170deg)}}
+  .card::before{
+    content:'';
+    position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity:0; transition:opacity 0.4s ease;
+  }
+  .card.active{ cursor:pointer; }
+  .card.active:hover{ transform:translateY(-6px); border-color:var(--gold); box-shadow:0 0 26px rgba(62,224,160,0.12); }
+  .card.active:hover::before{ opacity:1; }
+  .card.active::after{
+    content:'';
+    position:absolute; inset:auto -30% 0 auto; width:140%; height:110%;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+    transform:translateX(-100%);
+    transition:transform 0.7s ease;
+    pointer-events:none;
+  }
+  .card.active:hover::after{ transform:translateX(100%); }
+  .tome-num{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.7rem;
+    color:var(--emerald-glow);
+    letter-spacing:0.2em;
+    display:block;
+    margin-bottom:1rem;
+  }
+  .card h2{
+    font-family:'Marcellus', serif;
+    font-size:1.5rem;
+    color:var(--parchment);
+    font-weight:400;
+    margin-bottom:0.4rem;
+  }
+  .card .role{
+    font-size:0.85rem;
+    color:var(--gold);
+    font-style:italic;
+    margin-bottom:1rem;
+  }
+  .card p.desc{
+    font-size:0.92rem;
+    color:var(--ink-muted);
+    line-height:1.6;
+    margin-bottom:1.4rem;
+    min-height:4.6em;
+  }
+  .status{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    padding:0.4rem 0.8rem;
+    display:inline-block;
+    border:1px solid;
+  }
+  .status.open{ color:var(--emerald-glow); border-color:var(--emerald-glow); }
+  .status.locked{ color:var(--ink-muted); border-color:var(--line); }
+
+  .card.locked{ opacity:0.55; }
+  .card.locked h2{ color:var(--ink-muted); }
+  .sealed-sigil{ position:absolute; right:1.3rem; top:1.1rem; width:44px; height:44px; display:grid; place-items:center; border:1px solid var(--line); border-radius:50%; color:var(--ink-muted); font-family:'Marcellus',serif; opacity:.58; }
+
+  @media(max-width:780px){
+    header{ min-height:720px; padding:8vh 5vw 7vh; }
+    .hero-portrait{ width:64vw; height:62%; bottom:-5%; opacity:.23; }
+    .hero-portrait.jack{ left:-25%; }
+    .hero-portrait.alice{ right:-25%; }
+    .hero-portrait.noada{ left:-25%; }
+    .hero-portrait.eira{ right:-25%; }
+    .hero-portrait.left{left:-25%}.hero-portrait.right{right:-25%}
+    .duality-mark{ gap:.55rem; font-size:.55rem; letter-spacing:.12em; }
+    .duality-mark i{ width:34px; height:34px; }
+    .roster{ grid-template-columns:1fr; padding-top:6vh; }
+    .card.featured{ grid-column:span 1; min-height:430px; padding:2rem 1.5rem 12rem; justify-content:flex-start; }
+    .card-portrait{ top:auto; bottom:0; width:100%; height:58%; -webkit-mask-image:linear-gradient(180deg,transparent,#000 38%); mask-image:linear-gradient(180deg,transparent,#000 38%); object-position:center 18%; }
+    .card.noada-card{ grid-column:span 1; min-height:470px; padding:2rem 1.5rem 13rem; justify-content:flex-start; }
+    .noada-card .card-portrait{ top:auto; bottom:0; width:100%; height:60%; -webkit-mask-image:linear-gradient(180deg,transparent,#000 38%); mask-image:linear-gradient(180deg,transparent,#000 38%); object-position:center 20%; }
+    .elven-emblem{ width:42px;height:42px;right:1rem;top:1rem }
+    .hero-switcher{ bottom:.8rem; }
+    .knull-card{grid-column:span 1;min-height:480px;padding:2rem 1.5rem 14rem;align-items:flex-start}.knull-card .card-portrait{top:auto;bottom:0;width:100%;height:62%;-webkit-mask-image:linear-gradient(180deg,transparent,#000 42%);mask-image:linear-gradient(180deg,transparent,#000 42%)}
+  }
+  @media(max-width:480px){
+    header{ min-height:680px; padding:5rem 1rem 4.5rem; }
+    h1{ font-size:clamp(2rem,12vw,3rem); line-height:1.12; }
+    header p{ font-size:.93rem; line-height:1.55; margin-top:1rem; }
+    .hero-content{ width:94vw; }
+    .eyebrow{ font-size:.57rem; letter-spacing:.2em; margin-bottom:1rem; }
+    .hero-portrait{ width:76vw; height:54%; bottom:0; }
+    .hero-portrait.jack,.hero-portrait.noada{ left:-34%; }
+    .hero-portrait.alice,.hero-portrait.eira{ right:-34%; }
+    .hero-portrait.left{left:-34%}.hero-portrait.right{right:-34%}
+    .duality-mark{ margin:.8rem 0; flex-wrap:wrap; }
+    .hero-cta{ width:min(100%,340px); justify-content:center; padding:.85rem .75rem; font-size:.61rem; letter-spacing:.1em; line-height:1.45; }
+    .roster{ padding:3.5rem 1rem 5rem; gap:1.2rem; }
+    .roster-intro h2{ font-size:1.55rem; }
+    .card,.card.featured,.card.noada-card{ padding-left:1.2rem; padding-right:1.2rem; }
+    .card h2{ font-size:1.32rem; padding-right:2rem; }
+    .card p.desc{ min-height:0; }
+    .status{ line-height:1.45; }
+    .hero-switcher button{ width:30px; }
+    .hero-switcher button.active{ width:48px; }
+    .site-brand{top:.75rem;gap:.32em;font-size:.66rem;letter-spacing:.1em}.site-brand span{animation-name:brandWordMobile}.site-brand i{display:none}
+  }
+  @media(prefers-reduced-motion:reduce){
+    html{ scroll-behavior:auto; }
+    *,*::before,*::after{ animation-duration:.001ms!important; animation-iteration-count:1!important; scroll-behavior:auto!important; }
+    canvas#fateweb{ display:none; }
+    .hero-scene{ transition:none; }
+    .site-brand span,.site-brand i,.site-brand::before{animation:none;opacity:1;transform:none;filter:none}
+  }
+  @keyframes brandWordMobile{0%{opacity:0;filter:blur(8px);transform:translateY(-7px)}100%{opacity:1;filter:none;transform:none;letter-spacing:.1em}}
+
+  .legacy-hero[hidden]{display:none!important}
+
+  header.world-nexus{min-height:100svh;height:auto;padding:clamp(5rem,9vh,8rem) clamp(1rem,4vw,4rem) clamp(3rem,7vh,5rem);display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;isolation:isolate;background:radial-gradient(circle at 50% 24%,rgba(71,139,205,.18),transparent 27%),radial-gradient(circle at 15% 70%,rgba(62,224,160,.09),transparent 28%),radial-gradient(circle at 85% 70%,rgba(202,69,78,.09),transparent 28%),linear-gradient(180deg,#030608 0%,#07100f 55%,#020404 100%)}
+  header.world-nexus::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,transparent 49.8%,rgba(134,205,255,.1) 50%,transparent 50.2%);pointer-events:none}
+  .nexus-intro{text-align:center;position:relative;z-index:2;margin-bottom:clamp(1.6rem,4vh,3rem)}
+  .nexus-kicker{display:block;color:#76d8ff;font:600 clamp(.56rem,.8vw,.72rem)/1.2 'JetBrains Mono',monospace;letter-spacing:.38em;text-transform:uppercase;margin-bottom:.8rem}
+  .nexus-title{margin:0;color:#eff8ff;font-family:'Cormorant Garamond',serif;font-size:clamp(3.7rem,8.5vw,8.4rem);font-weight:600;line-height:.72;letter-spacing:-.055em;text-transform:uppercase;text-shadow:0 0 30px rgba(83,171,255,.2);white-space:nowrap}
+  .nexus-title span{display:inline-block;opacity:0;filter:blur(14px);transform:scale(1.12);animation:nexusWord 1.2s cubic-bezier(.2,.8,.2,1) forwards}.nexus-title span:nth-child(2){font-size:.48em;color:#8dbfe7;margin:0 .17em;animation-delay:.28s}.nexus-title span:nth-child(3){animation-delay:.56s}
+  .nexus-intro p{max-width:700px;margin:1.35rem auto 0;color:#a9b8bd;font:italic 400 clamp(.88rem,1.2vw,1.05rem)/1.7 'Cormorant Garamond',serif;letter-spacing:.04em}@keyframes nexusWord{to{opacity:1;filter:blur(0);transform:scale(1)}}
+  .world-grid{width:min(1380px,100%);display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(.5rem,1vw,1rem);position:relative;z-index:2}
+  .world-portal{--world:#7dd3fc;position:relative;min-height:clamp(290px,39vh,430px);overflow:hidden;border:1px solid color-mix(in srgb,var(--world) 42%,transparent);background:#05090a;color:#fff;text-decoration:none;clip-path:polygon(0 0,100% 0,100% 94%,94% 100%,0 100%);transition:transform .45s ease,border-color .35s ease,filter .35s ease;isolation:isolate}
+  .world-portal::before{content:"";position:absolute;inset:0;z-index:-2;background-image:linear-gradient(180deg,rgba(2,5,7,.06) 10%,rgba(2,5,7,.48) 50%,#020405 100%),var(--world-image);background-size:cover;background-position:var(--world-position,center);filter:saturate(.72) brightness(.74);transform:scale(1.03);transition:transform .8s ease,filter .6s ease}.world-portal::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(135deg,color-mix(in srgb,var(--world) 17%,transparent),transparent 42%);box-shadow:inset 0 -90px 80px #020405}
+  .world-portal:hover,.world-portal:focus-visible{transform:translateY(-9px);border-color:var(--world);outline:none;filter:drop-shadow(0 15px 25px color-mix(in srgb,var(--world) 18%,transparent))}.world-portal:hover::before,.world-portal:focus-visible::before{transform:scale(1.09);filter:saturate(1.08) brightness(.9)}
+  .world-number{position:absolute;top:1rem;left:1rem;color:var(--world);font:600 .52rem/1 'JetBrains Mono',monospace;letter-spacing:.25em;text-transform:uppercase}.world-copy{position:absolute;inset:auto 1.15rem 1.15rem}.world-copy small{color:var(--world);font:600 .56rem/1.3 'JetBrains Mono',monospace;letter-spacing:.2em;text-transform:uppercase}.world-copy h2{margin:.5rem 0 .4rem;font:600 clamp(1.35rem,2vw,2rem)/.95 'Cormorant Garamond',serif;text-transform:uppercase}.world-copy p{margin:0;color:#b6c0c3;font:italic 400 .85rem/1.35 'Cormorant Garamond',serif}.world-enter{display:block;margin-top:.8rem;color:#fff;font:600 .54rem/1.3 'JetBrains Mono',monospace;letter-spacing:.14em;text-transform:uppercase;opacity:.62;transform:translateY(5px);transition:.35s ease}.world-portal:hover .world-enter,.world-portal:focus-visible .world-enter{opacity:1;transform:none;color:var(--world)}
+  @media(max-width:1000px){header.world-nexus{justify-content:flex-start;padding-top:4.5rem}.nexus-title{font-size:clamp(3rem,10vw,6rem);white-space:normal;line-height:.82}.world-grid{grid-template-columns:repeat(2,minmax(0,1fr));max-width:820px}.world-portal{min-height:340px}.world-portal:last-child{grid-column:1/-1;min-height:300px}}
+  @media(max-width:580px){header.world-nexus{padding:4.5rem .85rem 3rem}.nexus-title{font-size:clamp(3rem,16vw,4.7rem)}.nexus-title span{display:block}.nexus-title span:nth-child(2){margin:.12em 0;font-size:.42em}.nexus-kicker{letter-spacing:.2em}.world-grid{grid-template-columns:1fr}.world-portal,.world-portal:last-child{grid-column:auto;min-height:300px}}
+
+  footer{
+    text-align:center;
+    padding:4vh 6vw 6vh;
+    color:var(--ink-muted);
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.1em;
+    border-top:1px solid var(--line);
+  }
+</style>
+</head>
+<body>
+<canvas id="fateweb"></canvas>
+<div class="magic-glow"></div>
+<div class="wrap">
+  <header class="world-nexus">
+    <div class="nexus-intro"><span class="nexus-kicker">Arquivo dos Destinos · Nexo Central</span><h1 class="nexus-title" aria-label="Guardiões do Destino"><span>Guardiões</span><span>do</span><span>Destino</span></h1><p>Cinco realidades aguardam além do véu. Escolha o mundo onde sua aventura começa.</p></div>
+    <nav class="world-grid" aria-label="Escolha uma realidade para explorar">
+      <a class="world-portal" href="jack-connor.html" style="--world:#66e2b5;--world-image:url('img-connor/connor-supremo.png');--world-position:center top"><span class="world-number">Realidade 01</span><div class="world-copy"><small>Universo Jujutsu</small><h2>Maldições &amp; Destino</h2><p>Dr. Connor e a Feiticeira Escarlate</p><span class="world-enter">Atravessar portal →</span></div></a>
+      <a class="world-portal" href="noada.html" style="--world:#e8c978;--world-image:url('img-noada/noada-e-eira-montanhas.png');--world-position:center top"><span class="world-number">Realidade 02</span><div class="world-copy"><small>Terra-média &amp; Valinor</small><h2>O Juramento Élfico</h2><p>Noada e Eira Elenwë</p><span class="world-enter">Atravessar portal →</span></div></a>
+      <a class="world-portal" href="alucard.html" style="--world:#d9535f;--world-image:url('img-alucard/mei&amp;alucard.png');--world-position:center top"><span class="world-number">Realidade 03</span><div class="world-copy"><small>Ordem Paranormal</small><h2>O Chamado da Fera</h2><p>Kurosaki Alucard e Kurosaki Mei</p><span class="world-enter">Investigar o caso →</span></div></a>
+      <a class="world-portal" href="nero.html" style="--world:#b78cff;--world-image:url('img-nero/nero-hinara-guardioes.png');--world-position:center top"><span class="world-number">Realidade 04</span><div class="world-copy"><small>Mundo Ninja</small><h2>Além dos Dōjutsus</h2><p>Nero e Hinara</p><span class="world-enter">Entrar no mundo shinobi →</span></div></a>
+      <a class="world-portal" href="knull.html" style="--world:#58bfff;--world-image:url('img-knull/knull-nimsay-guardioes.png');--world-position:center top"><span class="world-number">Realidade ∞</span><div class="world-copy"><small>Multiverso Elemental</small><h2>Todos os Mundos</h2><p>Knull e Nimsay</p><span class="world-enter">Romper as realidades →</span></div></a>
+    </nav>
+  </header>
+  <header class="legacy-hero" hidden>
+    <div class="site-brand" aria-label="Guardiões do Destino"><span>Guardiões</span><i aria-hidden="true"></i><span>do</span><i aria-hidden="true"></i><span>Destino</span></div>
+    <div class="hero-scene destiny active" data-scene="destiny">
+      <img class="hero-portrait jack" src="img-connor/connor-supremo.png" alt="" aria-hidden="true">
+      <img class="hero-portrait alice" src="img-scarlart/wandamaximoff.jpg" alt="" aria-hidden="true">
+      <div class="hero-content">
+        <div class="eyebrow">Arquivo dos Destinos · Tomo I</div>
+        <h1>Todos os caminhos<br>se curvam diante do olhar.</h1>
+        <div class="duality-mark" aria-label="Ordem e caos unidos pelo destino"><span class="order">Ordem</span><i aria-hidden="true">✦</i><span class="chaos">Caos</span></div>
+        <p>Jack calcula o impossível; Alice o transforma em realidade. Duas magias opostas unidas por um destino que nenhum dos dois aceitou deixar nas mãos do acaso.</p>
+        <a class="hero-cta" href="jack-connor.html"><span aria-hidden="true">◇</span> Abrir o Tomo de Jack Connor <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <div class="hero-scene valinor" data-scene="valinor">
+      <img class="hero-portrait noada" src="img-noada/noada.png" alt="" aria-hidden="true">
+      <img class="hero-portrait eira" src="img-noada/eira-elenwe.png" alt="" aria-hidden="true">
+      <div class="hero-content">
+        <div class="eyebrow">Arquivo dos Destinos · Tomo II</div>
+        <h1>Alguns destinos<br>atravessam eras.</h1>
+        <div class="duality-mark" aria-label="Valinor e Terra-média unidos por um juramento"><span class="order">Valinor</span><i aria-hidden="true">ᚾ</i><span class="chaos">Terra-média</span></div>
+        <p>Noada deixou a luz do Oeste quando a sombra despertou. Eira permaneceu como a estrela que guiaria seu caminho de volta para casa.</p>
+        <a class="hero-cta" href="noada.html"><span aria-hidden="true">◇</span> Abrir o Tomo de Noada &amp; Eira <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <div class="hero-scene fera" data-scene="fera">
+      <img class="hero-portrait left alucard" src="img-alucard/kurosaki-alucard.png" alt="" aria-hidden="true">
+      <img class="hero-portrait right mei" src="img-alucard/mei1.png" alt="" aria-hidden="true">
+      <div class="hero-content">
+        <div class="eyebrow">Arquivo dos Destinos · Tomo III</div>
+        <h1>Nem toda morte<br>encerra uma promessa.</h1>
+        <div class="duality-mark" aria-label="Fera e humanidade unidos pelo amor"><span class="order">Fera</span><i aria-hidden="true">◆</i><span class="chaos">Humanidade</span></div>
+        <p>A perda de Mei levou Kurosaki Alucard à Ordem. Agora, transformado pelo elemento Fera, ele procura o culto que mantém sua esposa e sua filha vivas — e inalcançáveis.</p>
+        <a class="hero-cta" href="alucard.html"><span aria-hidden="true">◇</span> Abrir o Tomo de Alucard &amp; Mei <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <div class="hero-scene dojutsu" data-scene="dojutsu">
+      <img class="hero-portrait left nero" src="img-nero/uchiha-hyuuga-nero.png" alt="" aria-hidden="true">
+      <img class="hero-portrait right hinara" src="img-nero/hinara-shikungan-final.png" alt="" aria-hidden="true">
+      <div class="hero-content">
+        <div class="eyebrow">Arquivo dos Destinos · Tomo IV</div>
+        <h1>Dois olhares enxergam<br>além da realidade.</h1>
+        <div class="duality-mark" aria-label="Shinkungan e Shikungan em equilíbrio"><span class="order">Shinkungan</span><i aria-hidden="true">◉</i><span class="chaos">Shikungan</span></div>
+        <p>Nero carrega a convergência das linhagens Uchiha e Hyūga. Hinara completa seu equilíbrio, despertando nos próprios olhos a evolução suprema do Tenseigan.</p>
+        <a class="hero-cta" href="nero.html"><span aria-hidden="true">◇</span> Abrir o Tomo de Nero &amp; Hinara <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <div class="hero-scene elementos" data-scene="elementos">
+      <img class="hero-portrait left knull" src="img-knull/knull-blue.png" alt="" aria-hidden="true">
+      <img class="hero-portrait right nimsay" src="img-knull/nimsay-humana-armadura.png" alt="" aria-hidden="true">
+      <div class="hero-content">
+        <div class="eyebrow">Arquivo dos Destinos · Tomo V</div>
+        <h1>Quando os elementos despertam,<br>os mundos recuam.</h1>
+        <div class="duality-mark" aria-label="Fogo e água unidos pela eternidade"><span class="order">Fogo</span><i aria-hidden="true">∞</i><span class="chaos">Água</span></div>
+        <p>Antes chamado Yuri, Knull tornou-se o deus dos elementos. Ao lado de Nimsay, sua companheira humana e rainha guerreira, ele atravessa realidades como uma tempestade.</p>
+        <a class="hero-cta" href="knull.html"><span aria-hidden="true">◇</span> Abrir o Tomo de Knull &amp; Nimsay <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <div class="hero-switcher" role="tablist" aria-label="Escolher universo em destaque">
+      <button class="active" type="button" role="tab" aria-selected="true" aria-label="Mostrar Jack e Alice" data-target="0"></button>
+      <button type="button" role="tab" aria-selected="false" aria-label="Mostrar Noada e Eira" data-target="1"></button>
+      <button type="button" role="tab" aria-selected="false" aria-label="Mostrar Kurosaki Alucard e Kurosaki Mei" data-target="2"></button>
+      <button type="button" role="tab" aria-selected="false" aria-label="Mostrar Nero e Hinara" data-target="3"></button>
+      <button type="button" role="tab" aria-selected="false" aria-label="Mostrar Knull e Nimsay" data-target="4"></button>
+    </div>
+  </header>
+
+  <main class="roster">
+    <div class="roster-intro">
+      <span>Acervo Arcano</span>
+      <h2>Escolha um tomo para atravessar</h2>
+    </div>
+    <a class="card active featured" href="jack-connor.html">
+      <img class="card-portrait" src="img-connor/connor.png" alt="Retrato de Dr. Jack Connor">
+      <div class="card-content">
+        <span class="tome-num">TOMO 01 · ARQUIVO ABERTO</span>
+        <h2>Dr. Jack Connor</h2>
+        <div class="role">Neurocirurgião · Feiticeiro Supremo do Destino</div>
+        <p class="desc">Portador dos Olhos do Destino e mestre do Trono dos Destinos, Jack une a precisão de um cirurgião ao poder de um feiticeiro supremo — ao lado da Feiticeira Escarlate.</p>
+        <span class="status open">Entrar no grimório →</span>
+      </div>
+    </a>
+
+    <a class="card active noada-card" href="noada.html">
+      <img class="card-portrait" src="img-noada/noada-e-eira-batalha.png" alt="Noada e Eira Elenwë preparados para defender a Terra-média">
+      <span class="elven-emblem" aria-hidden="true">ᚾ</span>
+      <i class="leaf-mark one" aria-hidden="true">◆</i><i class="leaf-mark two" aria-hidden="true">◆</i><i class="leaf-mark three" aria-hidden="true">◆</i>
+      <div class="card-content">
+        <span class="tome-num">TOMO 02 · ARQUIVO ÉLFICO ABERTO</span>
+        <h2>Noada &amp; Eira Elenwë</h2>
+        <div class="role">Valinor · Floresta Negra · Um amor através das eras</div>
+        <p class="desc">Filho de Thundril e irmão de Legolas, Noada retorna do Oeste com antigas lâminas élficas. Ao lado de Eira, aprendiz de Galadriel, enfrenta a sombra que desperta novamente na Terra-média.</p>
+        <span class="status open">Atravessar para a Terra-média →</span>
+      </div>
+    </a>
+
+    <a class="card active character-card alucard-card" href="alucard.html">
+      <img class="card-portrait" src="img-alucard/kurosaki-alucard.png" alt="Kurosaki Alucard em uma investigação paranormal">
+      <div class="card-content"><span class="tome-num">TOMO 03 · ARQUIVO PARANORMAL</span><h2>Kurosaki Alucard</h2><div class="role">Investigador forense · Recruta da Ordem</div><p class="desc">Após perder a esposa para o sobrenatural, segue os vestígios que o levam até Veríssimo e sua primeira missão.</p><span class="status open">Abrir caso →</span></div>
+    </a>
+
+    <a class="card active character-card nero-card" href="nero.html">
+      <img class="card-portrait" src="img-nero/nero-hinara-guardioes.png" alt="Nero e Hinara manifestando o Shinkungan e o Shikungan">
+      <div class="card-content"><span class="tome-num">TOMO 04 · MUNDO SHINOBI</span><h2>Uchiha Hyuuga Nero</h2><div class="role">Portador do Shinkungan · Time 10</div><p class="desc">Herdeiro de três linhagens, protege com Hinara e seu Shikungan um mundo que os shinobis desconhecem.</p><span class="status open">Despertar os olhares →</span></div>
+    </a>
+
+    <a class="card active knull-card" href="knull.html">
+      <img class="card-portrait" src="img-knull/knull-nimsay-guardioes.png" alt="Knull e Nimsay diante de Blue">
+      <div class="card-content"><span class="tome-num">TOMO SUPREMO · LINHAGEM NULL</span><h2>Knull &amp; Nimsay</h2><div class="role">Deus Dragão · Rainha élfica · Guardiões de Blue</div><p class="desc">Do antigo Yuri ao Deus Dragão: Knull atravessa os multiversos ao lado da rainha elemental Nimsay e do dragão Blue.</p><span class="status open">Atravessar o multiverso →</span></div>
+    </a>
+  </main>
+
+  <footer>ARQUIVO PESSOAL · PERSONAGENS ORIGINAIS DE RPG</footer>
+</div>
+
+<script>
+// Fios do Destino — ambient node network, echoing Jack's "Trono dos Destinos"
+const canvas = document.getElementById('fateweb');
+const ctx = canvas.getContext('2d');
+let w, h, nodes = [];
+const NODE_COUNT = 46;
+const LINK_DIST = 150;
+let mouse = { x: -9999, y: -9999 };
+
+function resize(){
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+function initNodes(){
+  nodes = [];
+  for(let i=0;i<NODE_COUNT;i++){
+    nodes.push({
+      x: Math.random()*w,
+      y: Math.random()*h,
+      vx: (Math.random()-0.5)*0.18,
+      vy: (Math.random()-0.5)*0.18,
+      r: Math.random()*1.4+0.6
+    });
+  }
+}
+initNodes();
+
+window.addEventListener('mousemove', e=>{ mouse.x = e.clientX; mouse.y = e.clientY; });
+window.addEventListener('mouseleave', ()=>{ mouse.x=-9999; mouse.y=-9999; });
+
+function tick(){
+  ctx.clearRect(0,0,w,h);
+  for(const n of nodes){
+    n.x += n.vx; n.y += n.vy;
+    if(n.x<0||n.x>w) n.vx*=-1;
+    if(n.y<0||n.y>h) n.vy*=-1;
+
+    const dx = mouse.x-n.x, dy = mouse.y-n.y;
+    const d = Math.sqrt(dx*dx+dy*dy);
+    if(d < 180){
+      n.x -= dx*0.0018;
+      n.y -= dy*0.0018;
+    }
+  }
+  for(let i=0;i<nodes.length;i++){
+    for(let j=i+1;j<nodes.length;j++){
+      const a=nodes[i], b=nodes[j];
+      const dx=a.x-b.x, dy=a.y-b.y;
+      const dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<LINK_DIST){
+        const alpha = (1-dist/LINK_DIST)*0.35;
+        ctx.strokeStyle = `rgba(62,224,160,${alpha})`;
+        ctx.lineWidth = 0.6;
+        ctx.beginPath();
+        ctx.moveTo(a.x,a.y);
+        ctx.lineTo(b.x,b.y);
+        ctx.stroke();
+      }
+    }
+  }
+  for(const n of nodes){
+    ctx.beginPath();
+    ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+    ctx.fillStyle = 'rgba(205,164,94,0.55)';
+    ctx.fill();
+  }
+  requestAnimationFrame(tick);
+}
+tick();
+</script>
+</body>
+</html>
