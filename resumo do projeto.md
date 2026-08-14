@@ -68,9 +68,17 @@ Outras referências de Knull, Yuri e paisagens estão armazenadas em `img-knull/
 ## Decisões visuais e técnicas
 
 - Dr. Jack Connor é o próprio **Mago Supremo**; não são dois personagens diferentes.
-- A companheira de Dr. Connor é a **Feiticeira Escarlate**. Na abertura, ambos possuem apresentações próprias e aparecem juntos na composição final.
+- A companheira de Dr. Connor é a **Feiticeira Escarlate**. Na abertura, ambos possuem apresentações próprias.
+- O encerramento preserva a composição coletiva de `img-intro/panteao-dos-destinos.png`. Dr. Connor aparece integrado ao centro do painel e na fileira circular com `img-connor/classic.png`; a Feiticeira Escarlate e todos os demais personagens permanecem na fileira.
+- Os quadros de Knull e de Knull & Nimsay na abertura usam, respectivamente, `img-knull/knull-blue.png` e `img-knull/knull-e-nimsay.png`, substituindo caminhos antigos removidos.
 
 - A pasta original `img` foi renomeada para `img-connor`; todas as referências do site foram atualizadas. Novas imagens do Dr. Connor/Mago Supremo foram incorporadas à pasta e ele ganhou uma aparição própria na abertura.
+- A esposa de **Kurosaki Alucard** é **Kurosaki Mei**, enfermeira e estudante de Medicina. Ela foi morta entre a sexta e a sétima semana de gestação da filha do casal; atualmente, mãe e filha estão vivas sob o controle de um culto, mas a aproximação de Alucard pode fazê-las morrer novamente.
+- A abertura apresenta Kurosaki Mei imediatamente depois de Kurosaki Alucard e, em seguida, mostra o casal com `img-alucard/mei&alucard.png`. O círculo final do núcleo também representa os dois juntos.
+- A abertura foi ampliada para um formato de **trailer narrativo com 25 quadros**. Cada núcleo alterna origem, apresentação individual, vínculo com a companheira e confronto/transformação. Os quadros possuem pesos diferentes: cenas de história permanecem mais tempo, enquanto batalhas aceleram progressivamente até o panteão final.
+- O encerramento possui uma revelação em três tempos: primeiro aparecem os personagens do panteão, depois uma ruptura cósmica atravessa a composição e, por último, o título **“Guardiões do Destino”** surge com brilho, expansão e poeira estelar. Retratos e botão entram somente depois do nome.
+- A tela principal foi transformada no **Nexo dos Mundos**: em vez de um carrossel automático, o visitante escolhe conscientemente qual realidade deseja atravessar. Os cinco portais levam ao universo Jujutsu de Dr. Connor, à Terra-média de Noada, à Ordem Paranormal de Alucard, ao mundo ninja de Nero e ao multiverso elemental de Knull.
+- O título oficial **“Guardiões do Destino”** domina o centro do Nexo e surge por condensação cósmica. Cada portal possui imagem, cor, ambientação, dupla protagonista e chamada próprias, com composição responsiva para computador, tablet e celular.
 - `intro.html` ganhou um portal interativo de entrada com a chamada **“Romper o Véu do Destino”**.
 - A abertura apresenta 12 quadros responsivos de protagonistas, companheiras e casais, com movimento contínuo e cortes distribuídos pela duração real da música.
 - O encontro de todo o elenco foi preservado para o ápice final e recebeu o título provisório **“Guardiões do Destino”**.
