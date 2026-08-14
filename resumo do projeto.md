@@ -67,6 +67,9 @@ Outras referências de Knull, Yuri e paisagens estão armazenadas em `img-knull/
 
 ## Decisões visuais e técnicas
 
+- Dr. Jack Connor é o próprio **Mago Supremo**; não são dois personagens diferentes.
+- A companheira de Dr. Connor é a **Feiticeira Escarlate**. Na abertura, ambos possuem apresentações próprias e aparecem juntos na composição final.
+
 - A pasta original `img` foi renomeada para `img-connor`; todas as referências do site foram atualizadas. Novas imagens do Dr. Connor/Mago Supremo foram incorporadas à pasta e ele ganhou uma aparição própria na abertura.
 - `intro.html` ganhou um portal interativo de entrada com a chamada **“Romper o Véu do Destino”**.
 - A abertura apresenta 12 quadros responsivos de protagonistas, companheiras e casais, com movimento contínuo e cortes distribuídos pela duração real da música.
