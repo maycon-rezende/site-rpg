@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>if(!sessionStorage.getItem('arquivoIntroVista'))location.replace('intro.html');</script>
 <title>Arquivo dos Destinos — Galeria de Personagens</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -188,6 +189,14 @@
   .elven-emblem{ position:absolute; right:1.4rem; top:1.2rem; width:52px; height:52px; display:grid; place-items:center; border:1px solid rgba(215,183,101,.35); border-radius:50%; color:#d7b765; font:1.15rem 'Marcellus',serif; box-shadow:0 0 18px rgba(117,198,143,.1); animation:sigilSpin 12s linear infinite; }
   .noada-card .leaf-mark{ position:absolute; z-index:3; color:rgba(117,198,143,.5); font-size:1rem; opacity:0; animation:homeLeaf 5s ease-in-out infinite; pointer-events:none; }
   .noada-card .leaf-mark.one{ left:34%; top:18%; animation-delay:-1s }.noada-card .leaf-mark.two{ left:43%; top:68%; animation-delay:-3.2s }.noada-card .leaf-mark.three{ right:12%; top:42%; animation-delay:-4.1s }
+  .card.character-card{ min-height:360px; padding-top:13rem; display:flex; align-items:flex-end; }
+  .character-card .card-portrait{ width:100%; height:68%; top:0; opacity:.48; -webkit-mask-image:linear-gradient(180deg,#000 48%,transparent); mask-image:linear-gradient(180deg,#000 48%,transparent); object-position:center 18%; }
+  .character-card:hover .card-portrait{ opacity:.7; transform:scale(1.035); }
+  .alucard-card{ border-color:rgba(161,108,255,.25); background:linear-gradient(180deg,#090711,#080d0a); }.alucard-card .tome-num,.alucard-card .role{color:#b98cff}.alucard-card:hover{border-color:#9d65ef;box-shadow:0 0 28px rgba(141,76,255,.14)}
+  .nero-card{ border-color:rgba(255,156,69,.25); background:linear-gradient(180deg,#130b08,#080d0a); }.nero-card .tome-num,.nero-card .role{color:#ffad64}.nero-card:hover{border-color:#e68a3b;box-shadow:0 0 28px rgba(255,156,69,.13)}
+  .knull-card{ grid-column:1/-1; min-height:390px; padding:3rem min(48%,520px) 3rem 2rem; display:flex; align-items:center; border-color:rgba(88,173,255,.3); background:linear-gradient(100deg,#03070d 35%,rgba(4,17,31,.86)); }
+  .knull-card .card-portrait{ width:50%; height:100%; opacity:.56; object-position:center 18%; -webkit-mask-image:linear-gradient(270deg,#000 58%,transparent); mask-image:linear-gradient(270deg,#000 58%,transparent); }
+  .knull-card .tome-num,.knull-card .role{color:#72b9ff}.knull-card h2{font-size:1.9rem}.knull-card:hover{border-color:#58adff;box-shadow:0 0 38px rgba(88,173,255,.16)}
   @keyframes homeLeaf{0%,100%{opacity:0;transform:translateY(-8px) rotate(0)}35%{opacity:.65}75%{opacity:.18;transform:translateY(42px) rotate(170deg)}}
   .card::before{
     content:'';
@@ -267,6 +276,7 @@
     .noada-card .card-portrait{ top:auto; bottom:0; width:100%; height:60%; -webkit-mask-image:linear-gradient(180deg,transparent,#000 38%); mask-image:linear-gradient(180deg,transparent,#000 38%); object-position:center 20%; }
     .elven-emblem{ width:42px;height:42px;right:1rem;top:1rem }
     .hero-switcher{ bottom:.8rem; }
+    .knull-card{grid-column:span 1;min-height:480px;padding:2rem 1.5rem 14rem;align-items:flex-start}.knull-card .card-portrait{top:auto;bottom:0;width:100%;height:62%;-webkit-mask-image:linear-gradient(180deg,transparent,#000 42%);mask-image:linear-gradient(180deg,transparent,#000 42%)}
   }
   @media(max-width:480px){
     header{ min-height:680px; padding:5rem 1rem 4.5rem; }
@@ -368,23 +378,20 @@
       </div>
     </a>
 
-    <div class="card locked">
-      <span class="sealed-sigil" aria-hidden="true">ᚲ</span>
-      <span class="tome-num">TOMO 03</span>
-      <h2>Kurosaki Alucard</h2>
-      <div class="role">Ordem Paranormal</div>
-      <p class="desc">Um caçador entre o mundo dos vivos e o oculto. Aguardando revelação.</p>
-      <span class="status locked">Em breve</span>
-    </div>
+    <a class="card active character-card alucard-card" href="alucard.html">
+      <img class="card-portrait" src="img-alucard/kurosaki-alucard.png" alt="Kurosaki Alucard em uma investigação paranormal">
+      <div class="card-content"><span class="tome-num">TOMO 03 · ARQUIVO PARANORMAL</span><h2>Kurosaki Alucard</h2><div class="role">Investigador forense · Recruta da Ordem</div><p class="desc">Após perder a esposa para o sobrenatural, segue os vestígios que o levam até Veríssimo e sua primeira missão.</p><span class="status open">Abrir caso →</span></div>
+    </a>
 
-    <div class="card locked">
-      <span class="sealed-sigil" aria-hidden="true">ᚱ</span>
-      <span class="tome-num">TOMO 04</span>
-      <h2>Kurosaki Nero</h2>
-      <div class="role">Universo Naruto</div>
-      <p class="desc">Um shinobi forjado em sua própria lenda. Aguardando revelação.</p>
-      <span class="status locked">Em breve</span>
-    </div>
+    <a class="card active character-card nero-card" href="nero.html">
+      <img class="card-portrait" src="img-nero/uchiha-hyuuga-nero.png" alt="Uchiha Hyuuga Nero manifestando o Shinugan">
+      <div class="card-content"><span class="tome-num">TOMO 04 · MUNDO SHINOBI</span><h2>Uchiha Hyuuga Nero</h2><div class="role">Portador do Shinugan · Time 10</div><p class="desc">Herdeiro de dois clãs e transformado pelas células Senju, protege com Hinara um mundo que os shinobis desconhecem.</p><span class="status open">Despertar o olhar →</span></div>
+    </a>
+
+    <a class="card active knull-card" href="knull.html">
+      <img class="card-portrait" src="img-knull/knull-blue.png" alt="Knull usando a Armadura de Dragão diante de Blue">
+      <div class="card-content"><span class="tome-num">TOMO SUPREMO · LINHAGEM NULL</span><h2>Knull, o Deus Dragão</h2><div class="role">Antigo Yuri · Guardião de Blue · Acima dos destinos</div><p class="desc">Ele não nasceu deus. Criou Blue desde o ovo, fundiu-se ao Rei Dragão e conquistou um poder que continua evoluindo através dos multiversos.</p><span class="status open">Atravessar o multiverso →</span></div>
+    </a>
   </main>
 
   <footer>ARQUIVO PESSOAL · PERSONAGENS ORIGINAIS DE RPG</footer>
