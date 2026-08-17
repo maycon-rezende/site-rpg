@@ -61,6 +61,7 @@ const cast=[
 {image:'img-noada/montanha.png',chapter:'Além das montanhas',name:'Noada & Eira',line:'O vínculo sobreviveu às distâncias, às guerras e ao fim de mundos.',accent:'#8ce5bb',side:'right',position:'center 20%',hold:.85},
 {image:'img-noada/caça.png',chapter:'Quando a floresta chama',name:'Lado a lado',line:'Dois arcos avançam pela mata como uma única força.',accent:'#62e2ae',position:'center center',hold:.6},
 
+
 {image:'img-alucard/kurosaki-alucard.png',chapter:'Antes da Fera',name:'Kurosaki Alucard',line:'A morte de sua esposa o levou à Ordem e ao limite de noventa por cento de NEX.',accent:'#d093ff',side:'right',position:'center 18%',hold:1.2},
 {image:'img-alucard/enfermeira.png',chapter:'A vida interrompida',name:'Kurosaki Mei',line:'Enfermeira, futura médica e mãe de uma criança que ainda não havia nascido.',accent:'#f2c7d5',position:'center 18%',hold:1.25},
 {image:'img-alucard/mei&alucard.png',chapter:'Antes daquela noite',name:'Alucard & Mei',line:'Houve um tempo em que o futuro dos três parecia intocável.',accent:'#d093ff',side:'right',position:'center 22%',mobile:'center 18%',hold:1.1},
@@ -68,7 +69,7 @@ const cast=[
 {image:'img-alucard/fera.png',chapter:'O novo elemento',name:'A Fera',line:'O Sangue foi substituído. O braço esquerdo tornou-se dracônico — e o homem começou a virar dragão.',accent:'#ff4b45',side:'right',position:'center 12%',hold:.65},
 
 {image:'img-nero/uchiha-hyuuga-nero.png',chapter:'Duas linhagens',name:'Nero',line:'O legado Uchiha e Hyūga convergiu em um guerreiro de dois caminhos.',accent:'#ff6a46',position:'center 18%',hold:1.05},
-{image:'img-nero/nero-shinkungan-final.png',chapter:'O olho além dos mundos',name:'Shinkungan',line:'A evolução suprema desperta somente nos olhos de Nero — jamais em sua testa.',accent:'#ff6a46',side:'right',position:'center 17%',hold:.75},
+{image:'img-nero/nero-shinkungan-final.png',chapter:'O olho além dos mundos',name:'Shinungan',line:'A evolução suprema desperta somente nos olhos de Nero — jamais em sua testa.',accent:'#ff6a46',side:'right',position:'center 17%',hold:.75},
 {image:'img-nero/hinara-shikungan-final.png',chapter:'A evolução do Tenseigan',name:'Hinara',line:'O Shikungan floresce apenas em seus olhos e completa o equilíbrio.',accent:'#7edaff',position:'center 17%',hold:.9},
 {image:'img-nero/nero-hinara-guardioes.png',chapter:'Um destino compartilhado',name:'Nero & Hinara',line:'Duas linhagens. Dois olhos supremos. Uma promessa contra o impossível.',accent:'#b48cff',side:'right',position:'center center',hold:.65},
 {image:'img-knull/knull-blue.png',chapter:'O deus dos elementos',name:'Knull',line:'Fogo e água obedecem às mãos de uma força que impõe silêncio aos mundos.',accent:'#65bfff',side:'right',position:'center 25%',hold:.8},
@@ -85,4 +86,6 @@ function activateRealm(index,{focus=false,scroll=false}={}){realmIndex=(index+de
 destinations.forEach((link,index)=>{link.addEventListener('mouseenter',()=>activateRealm(index));link.addEventListener('focus',()=>activateRealm(index));link.addEventListener('click',event=>{if(travelling)return;event.preventDefault();travelling=true;sessionStorage.setItem('arquivoIntroVista','1');theme.pause();activateRealm(index);portalTransition.style.setProperty('--portal-color',getComputedStyle(link).getPropertyValue('--realm').trim());portalTransition.classList.add('opening');setTimeout(()=>location.href=link.href,720)})});
 document.addEventListener('keydown',event=>{if(!finale.classList.contains('active')||travelling)return;if(event.key==='ArrowRight'||event.key==='ArrowDown'){event.preventDefault();activateRealm(realmIndex+1,{focus:true,scroll:true})}else if(event.key==='ArrowLeft'||event.key==='ArrowUp'){event.preventDefault();activateRealm(realmIndex-1,{focus:true,scroll:true})}else if(event.key==='Enter'&&document.activeElement===document.body){destinations[realmIndex].click()}});
 let touchStart=0;document.querySelector('.reality-grid').addEventListener('touchstart',event=>{touchStart=event.changedTouches[0].clientX},{passive:true});document.querySelector('.reality-grid').addEventListener('touchend',event=>{const distance=event.changedTouches[0].clientX-touchStart;if(Math.abs(distance)>55)activateRealm(realmIndex+(distance<0?1:-1),{scroll:true})},{passive:true});activateRealm(0);
-</script></body></html>
+</script>
+</body>
+</html>
